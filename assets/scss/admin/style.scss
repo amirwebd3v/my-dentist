@@ -1,0 +1,12 @@
+// @use "vuetify/styles" with (
+//   $body-font-family: "Montserrat"!default,
+//   $border-radius-root: 5px
+// );
+
+@use "vuetify/styles";
+
+@import "./variables";
+@import "./override";
+@import "./layout/container";
+@import "./layout/sidebar";
+@import "./layout/topbar";

@@ -1,0 +1,284 @@
+html{
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  &-track {
+    background-color: #f1f1f1;
+  }
+  &-thumb {
+    background-color: #888;
+    border-radius: 6px;
+    &:hover {
+      background-color: #555;
+    }
+  }
+}
+
+.theme--light.v-application,
+.theme--light.v-sheet,
+.theme--light.v-card > .v-card__text,
+.theme--light.v-card .v-card__subtitle {
+  color:var(--v-theme-muted) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   color: $heading-color;
+}
+
+.border-right {
+  border-right: 1px solid $border-color;
+}
+
+.border-left {
+  border-left: 1px solid $border-color;
+}
+
+.border-top {
+  border-top: 1px solid $border-color;
+}
+
+.border-top-0 {
+  border-top: 0;
+}
+
+.border-bottom {
+  border-bottom: 1px solid $border-color;
+}
+
+.theme--light.border-all,
+.border-all {
+  border: 1px solid $border-color !important;
+}
+
+.mw-unset {
+  min-width: unset !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.no-cursor {
+  cursor: initial;
+}
+
+.no-effect-button {
+  &:hover {
+    color: rgb(var(--v-theme-blue));
+    &::before {
+      background-color: transparent;
+    }
+  }
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
+
+.form-control {
+  border: 1px solid $border-color;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 40px;
+  height: 40px;
+  &:focus {
+    outline: none;
+  }
+}
+
+
+
+@media (max-width: 767px) {
+  .pt-sm-0 {
+    padding-top: 0 !important;
+  }
+  .py-sm-0 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .v-application .text-h2 {
+    font-size: 25px !important;
+  }
+  .px-xs-0 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .custom-label {
+    .v-input__slot {
+      align-items: flex-start;
+    }
+
+    .v-label {
+      min-height: 58px;
+      white-space: pre-line !important;
+    }
+  }
+  .inner-top-spacer {
+    padding-top: 30px;
+  }
+}
+
+.v-main {
+  padding: 0 !important;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.font-18 {
+  font-size: 18px;
+}
+
+.font-16 {
+  font-size: 16px;
+}
+
+.font-14 {
+  font-size: 14px;
+}
+
+.font-12 {
+  font-size: 12px;
+}
+
+.font-13 {
+  font-size: 13px;
+}
+
+.dark-link {
+  text-decoration: none;
+  color: $heading-color !important;
+  &:hover {
+    color: rgb(var(--v-theme-warning))!important;
+  }
+}
+.mini-spacer {
+  padding-top: 75px;
+}
+
+.bottom-mini-spacer{
+  padding-bottom: 75px;
+}
+
+@media (max-width: 767px) {
+  .mini-spacer {
+    padding: 45px 0 0 0;
+  }
+  .bottom-mini-spacer{
+    padding: 0 0 75px 0;
+  }
+}
+
+.v-pagination {
+  justify-content: flex-start;
+}
+
+.position-relative {
+  position: relative !important;
+}
+
+.bg-dark,
+.app-header.v-sheet.bg-dark {
+  background-color: #EBF6FA !important;
+}
+
+.bg-extra-light {
+  //background-color: #F4F8FF;
+  //background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='0' x2='0' y1='0' y2='100%25' gradientTransform='rotate(0,960,503)'%3E%3Cstop offset='0' stop-color='%23F4F8FF'/%3E%3Cstop offset='1' stop-color='%23FFFFFF'/%3E%3C/linearGradient%3E%3Cpattern patternUnits='userSpaceOnUse' id='b' width='719' height='599.2' x='0' y='0' viewBox='0 0 1080 900'%3E%3Cg fill-opacity='0.1'%3E%3Cpolygon fill='%23444' points='90 150 0 300 180 300'/%3E%3Cpolygon points='90 150 180 0 0 0'/%3E%3Cpolygon fill='%23AAA' points='270 150 360 0 180 0'/%3E%3Cpolygon fill='%23DDD' points='450 150 360 300 540 300'/%3E%3Cpolygon fill='%23999' points='450 150 540 0 360 0'/%3E%3Cpolygon points='630 150 540 300 720 300'/%3E%3Cpolygon fill='%23DDD' points='630 150 720 0 540 0'/%3E%3Cpolygon fill='%23444' points='810 150 720 300 900 300'/%3E%3Cpolygon fill='%23FFF' points='810 150 900 0 720 0'/%3E%3Cpolygon fill='%23DDD' points='990 150 900 300 1080 300'/%3E%3Cpolygon fill='%23444' points='990 150 1080 0 900 0'/%3E%3Cpolygon fill='%23DDD' points='90 450 0 600 180 600'/%3E%3Cpolygon points='90 450 180 300 0 300'/%3E%3Cpolygon fill='%23666' points='270 450 180 600 360 600'/%3E%3Cpolygon fill='%23AAA' points='270 450 360 300 180 300'/%3E%3Cpolygon fill='%23DDD' points='450 450 360 600 540 600'/%3E%3Cpolygon fill='%23999' points='450 450 540 300 360 300'/%3E%3Cpolygon fill='%23999' points='630 450 540 600 720 600'/%3E%3Cpolygon fill='%23FFF' points='630 450 720 300 540 300'/%3E%3Cpolygon points='810 450 720 600 900 600'/%3E%3Cpolygon fill='%23DDD' points='810 450 900 300 720 300'/%3E%3Cpolygon fill='%23AAA' points='990 450 900 600 1080 600'/%3E%3Cpolygon fill='%23444' points='990 450 1080 300 900 300'/%3E%3Cpolygon fill='%23222' points='90 750 0 900 180 900'/%3E%3Cpolygon points='270 750 180 900 360 900'/%3E%3Cpolygon fill='%23DDD' points='270 750 360 600 180 600'/%3E%3Cpolygon points='450 750 540 600 360 600'/%3E%3Cpolygon points='630 750 540 900 720 900'/%3E%3Cpolygon fill='%23444' points='630 750 720 600 540 600'/%3E%3Cpolygon fill='%23AAA' points='810 750 720 900 900 900'/%3E%3Cpolygon fill='%23666' points='810 750 900 600 720 600'/%3E%3Cpolygon fill='%23999' points='990 750 900 900 1080 900'/%3E%3Cpolygon fill='%23999' points='180 0 90 150 270 150'/%3E%3Cpolygon fill='%23444' points='360 0 270 150 450 150'/%3E%3Cpolygon fill='%23FFF' points='540 0 450 150 630 150'/%3E%3Cpolygon points='900 0 810 150 990 150'/%3E%3Cpolygon fill='%23222' points='0 300 -90 450 90 450'/%3E%3Cpolygon fill='%23FFF' points='0 300 90 150 -90 150'/%3E%3Cpolygon fill='%23FFF' points='180 300 90 450 270 450'/%3E%3Cpolygon fill='%23666' points='180 300 270 150 90 150'/%3E%3Cpolygon fill='%23222' points='360 300 270 450 450 450'/%3E%3Cpolygon fill='%23FFF' points='360 300 450 150 270 150'/%3E%3Cpolygon fill='%23444' points='540 300 450 450 630 450'/%3E%3Cpolygon fill='%23222' points='540 300 630 150 450 150'/%3E%3Cpolygon fill='%23AAA' points='720 300 630 450 810 450'/%3E%3Cpolygon fill='%23666' points='720 300 810 150 630 150'/%3E%3Cpolygon fill='%23FFF' points='900 300 810 450 990 450'/%3E%3Cpolygon fill='%23999' points='900 300 990 150 810 150'/%3E%3Cpolygon points='0 600 -90 750 90 750'/%3E%3Cpolygon fill='%23666' points='0 600 90 450 -90 450'/%3E%3Cpolygon fill='%23AAA' points='180 600 90 750 270 750'/%3E%3Cpolygon fill='%23444' points='180 600 270 450 90 450'/%3E%3Cpolygon fill='%23444' points='360 600 270 750 450 750'/%3E%3Cpolygon fill='%23999' points='360 600 450 450 270 450'/%3E%3Cpolygon fill='%23666' points='540 600 630 450 450 450'/%3E%3Cpolygon fill='%23222' points='720 600 630 750 810 750'/%3E%3Cpolygon fill='%23FFF' points='900 600 810 750 990 750'/%3E%3Cpolygon fill='%23222' points='900 600 990 450 810 450'/%3E%3Cpolygon fill='%23DDD' points='0 900 90 750 -90 750'/%3E%3Cpolygon fill='%23444' points='180 900 270 750 90 750'/%3E%3Cpolygon fill='%23FFF' points='360 900 450 750 270 750'/%3E%3Cpolygon fill='%23AAA' points='540 900 630 750 450 750'/%3E%3Cpolygon fill='%23FFF' points='720 900 810 750 630 750'/%3E%3Cpolygon fill='%23222' points='900 900 990 750 810 750'/%3E%3Cpolygon fill='%23222' points='1080 300 990 450 1170 450'/%3E%3Cpolygon fill='%23FFF' points='1080 300 1170 150 990 150'/%3E%3Cpolygon points='1080 600 990 750 1170 750'/%3E%3Cpolygon fill='%23666' points='1080 600 1170 450 990 450'/%3E%3Cpolygon fill='%23DDD' points='1080 900 1170 750 990 750'/%3E%3C/g%3E%3C/pattern%3E%3C/defs%3E%3Crect x='0' y='0' fill='url(%23a)' width='100%25' height='100%25'/%3E%3Crect x='0' y='0' fill='url(%23b)' width='100%25' height='100%25'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.bg-extra-light-2 {
+  background-color: #F4F8FF;
+  background-image: url('data:image/svg+xml,<svg id="visual" viewBox="0 0 900 600" width="900" height="600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><rect x="0" y="0" width="900" height="600" fill="%23FFF"></rect><path d="M237 0L237 0L237 300L237 300L237 600L0 600L0 300L0 300L0 0L0 0Z" fill="%23d5d5d5"></path><path d="M204 0L204 0L204 300L204 300L204 600L0 600L0 300L0 300L0 0L0 0Z" fill="%23c7c7c8"></path><path d="M170 0L170 0L170 300L170 300L170 600L0 600L0 300L0 300L0 0L0 0Z" fill="%23b9babc"></path><path d="M136 0L136 0L136 300L136 300L136 600L0 600L0 300L0 300L0 0L0 0Z" fill="%23acadaf"></path><path d="M102 0L102 0L102 300L102 300L102 600L0 600L0 300L0 300L0 0L0 0Z" fill="%239fa0a3"></path><path d="M69 0L69 0L69 300L69 300L69 600L0 600L0 300L0 300L0 0L0 0Z" fill="%23929397"></path><path d="M35 0L35 0L35 300L35 300L35 600L0 600L0 300L0 300L0 0L0 0Z" fill="%2385878b"></path></svg>');
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.bg-light-info {
+  background-color: rgba(8, 35, 45, 0.83);
+}
+
+.grey--text {
+  color: rgb(var(--v-theme-gray-500)) !important;
+}
+
+.op-5 {
+  opacity: 0.5;
+}
+
+.op-8 {
+  opacity: 0.8;
+}
+
+.text-themecolor {
+  color: rgb(var(--v-theme-primary-dark))!important;
+}
+
+.bg-info-gradiant {
+  background: rgb(var(--v-theme-warning));
+  background: -webkit-linear-gradient(
+    rgb(var(--v-theme-warning)),
+    rgb(var(--v-theme-accent))
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgb(var(--v-theme-primary))),
+    to(rgb(var(--v-theme-accent)))
+  );
+  background: -webkit-linear-gradient(left, rgb(var(--v-theme-primary)), rgb(var(--v-theme-accent)));
+  background: linear-gradient(90deg, rgb(var(--v-theme-primary))0, rgb(var(--v-theme-accent)));
+}
+
+.bg-danger-gradiant {
+  background: rgb(var(--v-theme-error));
+  background: -webkit-linear-gradient(
+    rgb(var(--v-theme-error)),
+    rgb(var(--v-theme-orange))
+  );
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgb(var(--v-theme-error))),
+    to(rgb(var(--v-theme-orange)))
+  );
+  background: -webkit-linear-gradient(left, rgb(var(--v-theme-error)), rgb(var(--v-theme-orange)));
+  background: linear-gradient(90deg, rgb(var(--v-theme-error)) 0, rgb(var(--v-theme-orange)));
+}
+.c2a-title {
+  font-size: 16px;
+}
+@media (min-width: 1600px){
+  .v-container {
+      max-width: 1170px;
+  }
+}
+@media (max-width: 1024px){
+  .v-container {
+      max-width: 100%;
+      padding: 0 30px;
+  }
+}
+@media (max-width: 576px){
+  .v-container {
+      max-width: 100%;
+      padding: 0 15px;
+  }
+  .btn-100{
+    width: 100%;
+  }
+}
+

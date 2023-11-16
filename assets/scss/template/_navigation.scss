@@ -1,0 +1,29 @@
+.v-application .navbar-nav {
+  flex-direction: row;
+  padding-right: 0;
+  margin-bottom: 0;
+  list-style: none;
+  .nav-item {
+    transition: 0.2s ease-in;
+    position: relative;
+    .nav-link {
+      text-decoration: none;
+      padding: $nav-link-padding;
+      font-size: $nav-link-font-size;
+      color: $nav-link-font-color;
+      font-family: $nav-link-font-family;
+      //font-size: 16px;
+    }
+    &:hover,
+    &.active {
+      > .nav-link {
+        opacity: 0.5;
+      }
+    }
+    > .router-link-exact-active {
+      opacity: 1;
+    }
+  }
+}
+
+

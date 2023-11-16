@@ -1,0 +1,101 @@
+//
+// Feature 1
+//
+.about-component {
+  .icon-round {
+    font-size: 20px;
+    width: 80px;
+    color: rgb(var(--v-theme-light));
+    line-height: 65px;
+    text-align: center;
+    display: inline-block;
+    margin: 20px 0 30px;
+    border-radius: 100%;
+  }
+}
+
+.about-card {
+  &:hover {
+    div {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.line {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1132%26quot%3b)' fill='none'%3e%3cpath d='M -238.86759969208586%2c227 C -142.87%2c242.2 49.13%2c300.2 241.13240030791414%2c303 C 433.13%2c305.8 529.13%2c243 721.1324003079142%2c241 C 913.13%2c239 1009.13%2c295 1201.1324003079142%2c293 C 1393.13%2c291 1633.36%2c220.4 1681.1324003079142%2c231 C 1728.91%2c241.6 1488.23%2c323 1440%2c346' stroke='rgba(51%2c 121%2c 194%2c 0.58)' stroke-width='2'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1132'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+}
+
+
+.linking {
+  &:hover {
+    i,a {
+      transition: 0.2s ease-in;
+      padding-right: 15px;
+    }
+  }
+}
+
+.section-title {
+  font-size: 30px;
+  margin: 20px 0 15px;
+  line-height: 36px;
+}
+
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 23px;
+  }
+}
+
+//
+// Feature 2
+//
+.service-action-btn {
+  height: 100% !important;
+}
+
+@media (max-width: 767px) {
+  //.service-action-btn {
+  //  height: 50px !important;
+  //}
+}
+
+
+//
+// Feature 3
+//
+
+.feature3-component {
+  position: relative;
+}
+
+.feature3-card {
+  position: absolute;
+  top: 17%;
+  left: 0;
+  margin-top: 35rem;
+
+  .feature3-title {
+    font-size: 24px;
+    line-height: 30px;
+    margin: 20px 0 15px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .feature3-card {
+    left: 0;
+    right: 0;
+    //margin: 0 100px;
+    //top: 45%;
+  }
+}
+
+@media (max-width: 767px) {
+  .feature3-card {
+    position: relative;
+    margin-top: 40rem;
+
+  }
+}
