@@ -25,19 +25,5 @@ const settings = gallerySettings[0];
 </template>
 
 
-<style lang="scss">
-.videoWrapper {
-  position: relative;
-  padding-bottom: 50%; /* 16:9 */
-  height: 0;
-  display: flex;
-}
-.videoWrapper video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-}
-</style>
+
 

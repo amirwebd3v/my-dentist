@@ -467,32 +467,17 @@ function submitCategories() {
     <v-card-text>
       <h4 class="pb-10">
         <v-icon class="mdi mdi-information-outline"></v-icon>
-        در این قسمت می توانید دسته بندی ها را اضافه، حذف یا ویرایش کنید.
+        در این قسمت می توانید دسته بندی ها و اطلاعات درون آنها را اضافه، حذف و ویرایش کنید.
       </h4>
-      <CategoryDataTable/>
+      <GalleryDataTable/>
     </v-card-text>
   </v-card>
   <v-divider/>
   <v-card rounded="b-lg">
     <v-card-text>
-      <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
-        در این قسمت می توانید تصاویر یا ویدیو های خود را به همراه اطلاعات دیگر در دسته بندی مربوط به آن ها بارگذاری
-        کنید.
-      </h4>
-      <GalleryDataTable/>
+
     </v-card-text>
-    <v-card-actions class="float-left">
-      <v-btn class="text-none"
-             color="primary"
-             variant="flat"
-             prepend-icon="mdi mdi-check-circle-outline"
-             rounded
-             text="ثبت"
-             @click="submitCategories"
-      >
-      </v-btn>
-    </v-card-actions>
+
   </v-card>
   <!--Hidden-File-Input-->
   <v-file-input

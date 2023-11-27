@@ -64,6 +64,7 @@ function handlePageChange(page) {
                  :key="gallery.id"
                  :value="gallery"
                  :color="settings.tabActiveBtnColor"
+
           >{{ gallery.title }}
           </v-tab>
         </v-tabs>
