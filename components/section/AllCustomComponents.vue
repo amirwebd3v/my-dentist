@@ -6,7 +6,7 @@ import service from './features/Service.vue';
 import Feature3 from './features/Feature3.vue';
 import Portfolio from './gallery/Gallery.vue';
 import Testimonial from './testimonial/Testimonial.vue';
-import Blog from './blogs/Blog.vue';
+import Article from '~/components/section/articles/Article.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
 // import CallActionAsk1 from './c2a/C2a2.vue';
 import ContactForm from './contact/Contact.vue';
@@ -62,8 +62,8 @@ import Video from "~/components/section/gallery/Video.vue";
   <!--      <TestimonialText/>-->
   <!----Testimonials Quotes----->
   <Testimonial id="section4"/>
-  <!----Blog ----->
-      <Blog id="section5"/>
+  <!----Article ----->
+      <Article id="section5"/>
   <!----Call To Action ----->
   <!--    <CallActionText/>-->
 

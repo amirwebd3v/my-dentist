@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {Blog as Blogs} from "@/data/CustomComponents";
+import {Articles} from "@/data/CustomComponents";
 
 const {$persianNumber} = useNuxtApp();
 // const activeSlide = ref(<any>null); // Initialize the active slide index
@@ -11,7 +11,7 @@ import 'swiper/swiper-bundle.css'
 const swiper = ref<any>()
 
 onMounted(() => {
-  swiper.value = new Swiper('.blog-slider', {
+  swiper.value = new Swiper('.article-slider', {
     spaceBetween: 30,
     effect: 'fade',
     loop: true,
@@ -19,7 +19,7 @@ onMounted(() => {
       invert: false,
     },
     pagination: {
-      el: '.blog-slider__pagination',
+      el: '.article-slider__pagination',
       clickable: true,
     }
   })
@@ -32,10 +32,10 @@ onMounted(() => {
 
 <template>
   <div class="bg-extra-light">
-    <div class="blog-component mini-spacer bottom-mini-spacer">
+    <div class="article-component mini-spacer bottom-mini-spacer">
       <v-container>
         <!-- -----------------------------------------------
-            Start Blog Text
+            Start Article Text
         ----------------------------------------------- -->
         <v-row justify="center" class="mb-10">
           <v-col cols="12" sm="10" md="9" lg="7">
@@ -50,10 +50,10 @@ onMounted(() => {
         </v-row>
 
         <!-- -----------------------------------------------
-            End Blog Text
+            End Article Text
         ----------------------------------------------- -->
         <!-- -----------------------------------------------
-            Start Blog
+            Start Article
         ----------------------------------------------- -->
 <!--                <section>-->
 <!--                  <div class="container">-->
@@ -61,7 +61,7 @@ onMounted(() => {
 <!--                      &lt;!&ndash; Render input radio buttons and slides dynamically &ndash;&gt;-->
 <!--                      <input-->
 <!--                          type="radio"-->
-<!--                          v-for="(slide, index) in Blog"-->
+<!--                          v-for="(slide, index) in Article"-->
 <!--                          :key="slide.id"-->
 <!--                          :name="'slides'"-->
 <!--                          :id="'slide-' + (index + 1)"-->
@@ -69,10 +69,10 @@ onMounted(() => {
 <!--                          @change="activeSlide = index"-->
 <!--                      />-->
 <!--                      <ul class="carousel__slides">-->
-<!--                        <li class="carousel__slide" v-for="(slide, index) in Blog" :key="slide.id">-->
+<!--                        <li class="carousel__slide" v-for="(slide, index) in Article" :key="slide.id">-->
 <!--                          <figure>-->
 <!--                            <div>-->
-<!--                              &lt;!&ndash; Use slide.img from Blog data &ndash;&gt;-->
+<!--                              &lt;!&ndash; Use slide.img from Article data &ndash;&gt;-->
 <!--                              <img :src="slide.img" alt="" />-->
 <!--                            </div>-->
 <!--                            <figcaption>-->
@@ -84,7 +84,7 @@ onMounted(() => {
 <!--                      </ul>-->
 <!--                      <v-sheet class="carousel__thumbnails"  >-->
 <!--                        <v-slide-group v-model="activeSlide" class="pa-4" center-active show-arrows>-->
-<!--                          <v-slide-group-item v-for="(slide, index) in Blog" :key="slide.id">-->
+<!--                          <v-slide-group-item v-for="(slide, index) in Article" :key="slide.id">-->
 <!--                            <v-card-->
 <!--                                :color="index === activeSlide ? 'primary' : 'grey lighten-1'"-->
 <!--                                class="ma-4"-->
@@ -110,26 +110,26 @@ onMounted(() => {
 <!--                    </div>-->
 <!--                  </div>-->
 <!--                </section>-->
-                <div class="blog-slider">
-                  <div class="blog-slider__wrp swiper-wrapper">
-                    <div v-for="blog in Blogs" :key="blog.id" class="blog-slider__item swiper-slide">
-                      <div class="blog-slider__img">
-                        <img :src="blog.img" alt="">
+                <div class="article-slider">
+                  <div class="article-slider__wrp swiper-wrapper">
+                    <div v-for="article in Articles" :key="article.id" class="article-slider__item swiper-slide">
+                      <div class="article-slider__img">
+                        <img :src="article.img" alt="">
                       </div>
-                      <div class="blog-slider__content">
+                      <div class="article-slider__content">
 
 
 
-                        <span class="blog-slider__code">{{ blog.year }} {{ blog.month }}</span>
-                        <div class="blog-slider__title">{{ blog.title }}</div>
-                        <div class="blog-slider__text">{{ blog.desc }}</div>
+                        <span class="article-slider__code">{{ article.year }} {{ article.month }}</span>
+                        <div class="article-slider__title">{{ article.title }}</div>
+                        <div class="article-slider__text">{{ article.desc }}</div>
                         <v-btn size="large" color="primary" rounded="xl">ادامه خواندن</v-btn>
                       </div>
 
                     </div>
                   </div>
-<!--                  <div class="blog-slider__pagination"></div>-->
-                  <div class="blog-slider__pagination">
+<!--                  <div class="article-slider__pagination"></div>-->
+                  <div class="article-slider__pagination">
                     <v-pagination
                         v-model="page"
                         :length="3"
@@ -139,7 +139,7 @@ onMounted(() => {
 
                 </div>
         <!-- -----------------------------------------------
-            End Blog
+            End Article
         ----------------------------------------------- -->
       </v-container>
     </div>
@@ -320,7 +320,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
 
-.blog-slider {
+.article-slider {
   width: 95%;
   position: relative;
   max-width: 800px;
@@ -359,14 +359,14 @@ onMounted(() => {
     }
 
     &.swiper-slide-active {
-      .blog-slider__img {
+      .article-slider__img {
         img {
           opacity: 1;
           transition-delay: .3s;
         }
       }
 
-      .blog-slider__content {
+      .article-slider__content {
         > * {
 
           opacity: 1;

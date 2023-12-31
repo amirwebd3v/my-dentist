@@ -515,129 +515,10 @@ const gallerySettings = [
 
 
 /*--Pricing Plan--*/
-const pricePlan = [
-    {
-        title: "Regular Plan",
-        price: "39",
-        plan: "YEARLY",
-        desc: "The Master license allows you to customize, store and even host your website using your platform",
-        buttoncolor: "primary"
-    },
-    {
-        title: "Master Plan",
-        price: "49",
-        plan: "YEARLY",
-        desc: "The Master license allows you to customize, store and even host your website using your platform",
-        buttoncolor: "error"
-    },
-    {
-        title: "Premium Plan",
-        price: "69",
-        plan: "YEARLY",
-        desc: "The Master license allows you to customize, store and even host your website using your platform",
-        buttoncolor: "primary"
-    },
-];
+
 
 /*--Team--*/
-const team = [
-    {
-        img: "t1.jpg",
-        title: "Michael Doe",
-        subtitle: "Property Specialist",
-        desc: "You can relay on our amazing features list and also our customer services will be great experience.",
-        socialicon: [
-            {
-                url: "/",
-                icon: "mdi mdi-facebook",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-twitter",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-instagram",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-youtube",
-            },
-        ],
-    },
-    {
-        img: "t2.jpg",
-        title: "Michael Doe",
-        subtitle: "Property Specialist",
-        desc: "You can relay on our amazing features list and also our customer services will be great experience.",
-        socialicon: [
-            {
-                url: "/",
-                icon: "mdi mdi-facebook",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-twitter",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-instagram",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-youtube",
-            },
-        ],
-    },
-    {
-        img: "t3.jpg",
-        title: "Michael Doe",
-        subtitle: "Property Specialist",
-        desc: "You can relay on our amazing features list and also our customer services will be great experience.",
-        socialicon: [
-            {
-                url: "/",
-                icon: "mdi mdi-facebook",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-twitter",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-instagram",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-youtube",
-            },
-        ],
-    },
-    {
-        img: "t4.jpg",
-        title: "Michael Doe",
-        subtitle: "Property Specialist",
-        desc: "You can relay on our amazing features list and also our customer services will be great experience.",
-        socialicon: [
-            {
-                url: "/",
-                icon: "mdi mdi-facebook",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-twitter",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-instagram",
-            },
-            {
-                url: "/",
-                icon: "mdi mdi-youtube",
-            },
-        ],
-    },
-];
+
 
 /*--Testimonials--*/
 const Testimonials = [
@@ -675,12 +556,13 @@ const Testimonials = [
     },
 ];
 
-/*--Blogs--*/
-const Blog = [
+/*--Articles--*/
+const Articles = [
     {
         id: 1,
         img: "https://d45jl3w9libvn.cloudfront.net/jaypee/static/journals/JSD/13/1/JSD_Cover.jpg",
         title: "از چیزهای کوچک بیاموزید تا چیزی بزرگتر خلق کنید.",
+        link: "",
         desc: "مسواک زدن یکی از موارد مهم در مساله مراقبت از دندان میباشد",
         year: "1402",
         month: "تیر",
@@ -689,6 +571,7 @@ const Blog = [
         id: 2,
         img: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
         title: "از چیزهای کوچک بیاموزید تا چیزی بزرگتر خلق کنید.",
+        link: "",
         desc: "مسواک زدن یکی از موارد مهم در مساله مراقبت از دندان میباشد",
         year: "1402",
         month: "تیر",
@@ -697,6 +580,7 @@ const Blog = [
         id: 3,
         img: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
         title: "از چیزهای کوچک بیاموزید تا چیزی بزرگتر خلق کنید.",
+        link: "",
         desc: "مسواک زدن یکی از موارد مهم در مساله مراقبت از دندان میباشد",
         year: "1402",
         month: "تیر",
@@ -830,10 +714,8 @@ export {
     services,
     gallery,
     gallerySettings,
-    pricePlan,
-    team,
     Testimonials,
-    Blog,
+    Articles,
     slideBanners,
     slideBannerSettings,
     comments

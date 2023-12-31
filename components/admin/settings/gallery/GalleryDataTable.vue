@@ -1,6 +1,9 @@
 <script setup lang="ts">
 
-import {gallery} from "~/data/CustomComponents";
+
+
+import Dialog from "~/components/shared/modal/Dialog.vue";
+import {about} from "~/data/CustomComponents";
 
 const buttonClicked = ref(false);
 
@@ -29,12 +32,42 @@ function onPageChange(newPage: number): void {
   page.value = newPage;
 }
 
+function addItem(item) {
+  editedItem.value = {...item}
+  dialogAdd.value = true
+}
 
+function editItem(item) {
+  editedItem.value = {...item}
+  dialogEdit.value = true
+}
+
+function deleteItem(item) {
+  deleteId.value = item.id
+  dialogDelete.value = true
+}
+
+const dialogAdd = ref(false)
+const dialogDelete = ref(false)
+const dialogEdit = ref(false)
+
+
+const deleteId = ref()
+
+const editedItem = ref({
+  id: 0,
+  title: '',
+  icon: '',
+  text: '',
+  iconColor: '',
+  iconBackColor: '',
+  textColor: ''
+})
 </script>
 
 
 <template>
-  <v-card variant="outlined">
+  <v-card variant="outlined" class="mb-5">
     <v-table>
       <tbody>
       <tr>
@@ -50,12 +83,39 @@ function onPageChange(newPage: number): void {
                   کامپوزیت
                 </div>
                 <div v-if="buttonClicked">
-                  <v-icon size="small" class="me-2 mdi mdi-plus" color="blue"
-                          @click="addItem(item)"/>
+
+                 <Dialog form-title="ویرایش پست" v-model="dialogEdit">
+                   <template v-slot:button="props">
+                     <v-icon size="small" class="me-2 mdi mdi-plus" color="blue" v-bind="props"
+                             @click="editItem"/>
+                   </template>
+
+                   <template #body>
+                     <v-col cols="12" sm="12">
+                       <v-text-field variant="outlined" v-model="editedItem.text" label="متن"></v-text-field>
+                     </v-col>
+                   </template>
+                   <template #actionButtons>
+                     <v-btn
+                         @click="save"
+                         color="green"
+                         variant="elevated"
+                     >
+                       ذخیره
+                     </v-btn>
+                     <v-btn
+                         color="red"
+                         variant="outlined"
+                         @click="close"
+                     >
+                       لغو
+                     </v-btn>
+                   </template>
+                 </Dialog>
                   <v-icon size="small" class="me-2 mdi mdi-pencil" color="green"
-                          @click="editItem(item)"/>
+                          @click="editItem"/>
                   <v-icon size="small" class="mdi mdi-delete" color="red"
-                          @click="deleteItem(item)"/>
+                          @click="deleteItem"/>
                 </div>
               </v-row>
             </v-expansion-panel-title>

@@ -87,7 +87,7 @@ import {services} from '@/data/CustomComponents';
                   v-bind="props"
               >
                 <div class="pt-3 text-center">
-                  <v-img class="mr-4" width="70" height="70" src="images/icons/foamy.png"></v-img>
+                  <v-icon class="mr-4" width="70" height="70" src="images/icons/foamy.png"></v-icon>
                   <p class="pt-3 font-weight-bold font-15">{{ card.title }}</p>
                 </div>
               </v-sheet>
