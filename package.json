@@ -15,6 +15,7 @@
     "nuxt": "^3.6.5"
   },
   "dependencies": {
+    "@casejs/case-client": "^1.0.4",
     "@date-io/luxon": "^2.16.1",
     "@mdi/font": "^7.2.96",
     "@nuxtjs/vuetify": "^1.12.3",

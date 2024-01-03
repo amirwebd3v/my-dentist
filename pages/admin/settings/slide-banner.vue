@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {slideBanners} from "~/data/CustomComponents";
 import {slideBannerSettings} from "~/data/CustomComponents";
+import {useSettingsStore} from '~/store/setting';
 
 
 const {$persianNumber} = useNuxtApp()
@@ -111,8 +112,16 @@ const updateBtnColor = (color) => {
 };
 
 
+// Slider-banner Settings
+const setting = useSettingsStore();
+const items = ref([]);
+await setting.fetchSettings()
+// const x = setting.getSetting('slider-banner', 'hideDelimiters').value;
+
+// console.log(x)
+
 const settings = slideBannerSettings[0];
-const delimiters = ref(settings.hideDelimiters);
+const delimiters = ref(setting.getSetting('slider-banner', 'hideDelimiters'));
 const cycle = ref(settings.cycle);
 const interval = ref(settings.intervalTime / 1000);
 const verticalDelimiters = ref(settings.verticalDelimiters);
@@ -148,6 +157,10 @@ function submitSettings() {
   // Do something with the updated slide data
   console.log('Updated hideDelimiters value in slideBannerSettings:', slideBannerSettings);
 }
+
+
+
+
 </script>
 
 
@@ -166,8 +179,8 @@ function submitSettings() {
             <template v-slot:label>
               <div><strong>دکمه پیمایش</strong></div>
             </template>
-            <v-radio color="primary" class="text-black" label="نمایان" :value="false"/>
-            <v-radio color="primary" label="پنهان" :value="true"/>
+            <v-radio color="primary" class="text-black" label="نمایان" :value="true" true-value="true" />
+            <v-radio color="primary" label="پنهان" :value="false" true-value="true"/>
           </v-radio-group>
           <v-text-field
               :disabled="delimiters"
@@ -175,7 +188,7 @@ function submitSettings() {
               class="pl-10"
               variant="outlined"
               label="رنگ دکمه"
-              clearable
+              clearable=""
               append-inner-icon="mdi-menu-down"
               v-model="delimitersColorValue"
           >
@@ -375,7 +388,7 @@ function submitSettings() {
       <v-expansion-panels variant="popout" class="my-4">
 
         <v-expansion-panel>
-         <v-expansion-panel-title>
+          <v-expansion-panel-title>
             <v-chip variant="tonal" class="bg-primary">
               Tag (برچسب)
             </v-chip>
@@ -433,7 +446,7 @@ function submitSettings() {
         </v-expansion-panel>
 
         <v-expansion-panel>
-         <v-expansion-panel-title>
+          <v-expansion-panel-title>
             <v-chip variant="tonal" class="bg-primary">
               Title (موضوع - تیتر)
             </v-chip>
@@ -472,7 +485,7 @@ function submitSettings() {
         </v-expansion-panel>
 
         <v-expansion-panel>
-         <v-expansion-panel-title>
+          <v-expansion-panel-title>
             <v-chip variant="tonal" class="bg-primary">
               Context (محتوای متنی)
             </v-chip>
