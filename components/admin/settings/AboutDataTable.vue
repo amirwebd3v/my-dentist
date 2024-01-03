@@ -1,12 +1,14 @@
 <script setup lang="ts">
 
-import {ref, computed, watch, onMounted} from 'vue'
+import Dialog from "~/components/shared/modal/Dialog.vue";
 import {about} from "~/data/CustomComponents";
+
 const {$persianNumber} = useNuxtApp()
 
-const dialog = ref(false)
-const dialogDelete = ref(false)
 
+const dialogAdd = ref(false)
+const dialogDelete = ref(false)
+const dialogEdit = ref(false)
 
 const aboutItems = ref(about)
 const deleteId = ref()
@@ -18,7 +20,7 @@ const editedItem = ref({
   text: '',
   iconColor: '',
   iconBackColor: '',
-  textColor:''
+  textColor: ''
 })
 
 const defaultItem = {
@@ -28,25 +30,27 @@ const defaultItem = {
   text: '',
   iconColor: '',
   iconBackColor: '',
-  textColor:''
+  textColor: ''
 }
 
 const formTitle = computed(() => {
-  return editedItem.value.id ? 'ویرایش' : 'متن جدید'
+  return editedItem.value.id ? 'متن جدید' : 'ویرایش'
 })
 
-watch(dialog, val => {
-  val || close()
-})
+
 
 watch(dialogDelete, val => {
   val || closeDelete()
 })
 
+function addItem(item) {
+  editedItem.value = item.id
+  dialogAdd.value = true
+}
 
 function editItem(item) {
   editedItem.value = {...item}
-  dialog.value = true
+  dialogEdit.value = true
 }
 
 function deleteItem(item) {
@@ -60,11 +64,6 @@ function deleteItemConfirm() {
   closeDelete()
 }
 
-function close() {
-  dialog.value = false
-  editedItem.value = {...defaultItem}
-}
-
 function closeDelete() {
   dialogDelete.value = false
   deleteId.value = ''
@@ -76,7 +75,7 @@ function save() {
   const index = aboutItems.value.findIndex(item => item.id === editedItem.value.id)
 
   // If item exists, update it
-  if(index !== -1) {
+  if (index !== -1) {
     aboutItems.value[index] = editedItem.value
   }
 
@@ -97,9 +96,11 @@ const iconBackInputColor = ref(editedItem.value.iconBackColor);
 function updateTextColor(color) {
   editedItem.value.textColor = color
 }
+
 function updateIconBackInputColor(color) {
   editedItem.value.iconBackColor = color
 }
+
 function updateIconInputColor(color) {
   editedItem.value.iconColor = color
 }
@@ -141,20 +142,137 @@ function updateIconInputColor(color) {
         </td>
         <td>
           <v-row justify="end" class="pl-3">
-            <v-icon size="small" class="me-2 mdi mdi-pencil" color="green" @click="editItem(item)"/>
-            <v-icon size="small" class="mdi mdi-delete" color="red" @click="deleteItem(item)"/>
-          </v-row>
-          <v-dialog v-model="dialogDelete" max-width="350px">
-            <v-card>
-              <v-card-title>هشدار</v-card-title>
-              <v-divider/>
-              <v-card-text>آیا مطمئن به حذف متن شماره {{ deleteId }} هستید؟</v-card-text>
-              <v-card-actions class="justify-space-around">
+            <Dialog :form-title="formTitle" v-model="dialogEdit">
+              <template v-slot:button="props">
+                <v-icon
+                    color="green"
+
+                    class="mdi mdi-pencil"
+                    v-bind="props"
+                    @click="editItem"
+                    >
+                </v-icon>
+              </template>
+
+              <template #body>
+                <v-col cols="12" sm="12">
+                  <v-textarea variant="outlined" v-model="editedItem.text" label="متن"></v-textarea>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                      clearable=""
+                      density="comfortable"
+                      variant="outlined"
+                      append-inner-icon="mdi-menu-down"
+                      v-model="editedItem.textColor" label="رنگ متن"
+                  >
+                    <v-menu activator="parent" transition="scale-transition" location="end"
+                            :close-on-content-click="false">
+                      <div class="d-flex flex-column">
+                        <v-color-picker theme="dark"
+                                        hide-inputs
+                                        position="relative"
+                                        show-swatches
+                                        v-model="textInputColor"
+                                        @update:modelValue="updateTextColor"
+                                        mode="hexa"/>
+                      </div>
+                    </v-menu>
+                  </v-text-field>
+
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field density="comfortable" v-model="editedItem.icon"
+                                label="نماد" variant="outlined"></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                      density="comfortable"
+                      variant="outlined"
+                      clearable=""
+                      v-model="editedItem.iconColor"
+                      label="رنگ نماد"
+                      append-inner-icon="mdi-menu-down"
+                  >
+                    <v-menu activator="parent" transition="scale-transition" location="end"
+                            :close-on-content-click="false">
+                      <div class="d-flex flex-column">
+                        <v-color-picker theme="dark"
+                                        hide-inputs
+                                        position="relative"
+                                        show-swatches
+                                        v-model="iconInputColor"
+                                        @update:modelValue="updateIconInputColor"
+                                        mode="hexa"/>
+                      </div>
+                    </v-menu>
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                      density="comfortable"
+                      variant="outlined"
+                      clearable=""
+                      v-model="editedItem.iconBackColor"
+                      label="رنگ زمینه نماد"
+                      append-inner-icon="mdi-menu-down"
+                  >
+                    <v-menu activator="parent" transition="scale-transition" location="end"
+                            :close-on-content-click="false">
+                      <div class="d-flex flex-column">
+                        <v-color-picker theme="dark"
+                                        hide-inputs
+                                        position="relative"
+                                        show-swatches
+                                        v-model="iconBackInputColor"
+                                        @update:modelValue="updateIconBackInputColor"
+                                        mode="hexa"/>
+                      </div>
+                    </v-menu>
+                  </v-text-field>
+                </v-col>
+              </template>
+
+              <template #actionButtons>
+                <v-btn
+                    @click="save"
+                    color="green"
+                    variant="elevated"
+                >
+                  ذخیره
+                </v-btn>
+                <v-btn
+                    color="red"
+                    variant="outlined"
+                    @click="close"
+                >
+                  لغو
+                </v-btn>
+              </template>
+            </Dialog>
+
+            <Dialog :form-title="'هشدار'" v-model="dialogDelete">
+              <template v-slot:button="props">
+                <v-icon
+                    color="red"
+                class="mdi mdi-delete"
+                @click="deleteItem"
+                v-bind="props"
+                ></v-icon>
+              </template>
+
+              <template #body>
+                آیا مطمئن به حذف متن شماره {{ deleteId }} هستید؟
+              </template>
+
+              <template #actionButtons>
                 <v-btn color="green" variant="elevated" @click="closeDelete">لغو</v-btn>
                 <v-btn color="red" variant="outlined" @click="deleteItemConfirm">حذف</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+              </template>
+            </Dialog>
+          </v-row>
+
+
         </td>
       </tr>
       </tbody>
@@ -162,126 +280,116 @@ function updateIconInputColor(color) {
   </v-card>
 
   <v-card-actions class="float-left px-0">
-    <v-dialog
-        v-model="dialog"
-        max-width="500px"
-    >
-      <template v-slot:activator="{ props }">
+
+    <Dialog :form-title="formTitle">
+      <template v-slot:button="props">
         <v-btn
             color="primary"
             variant="flat"
             size="small"
             class="text-none"
             v-bind="props"
+            @click="addItem"
             icon="mdi mdi-text-box-plus-outline">
         </v-btn>
       </template>
-      <v-card>
-        <v-card-title>
-          {{ formTitle }}
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-container>
-            <v-row justify="center">
-              <v-col cols="12" sm="12">
-                <v-textarea variant="outlined" v-model="editedItem.text" label="متن"></v-textarea>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                    clearable=""
-                    density="comfortable"
-                    variant="outlined"
-                    append-inner-icon="mdi-menu-down"
-                    v-model="editedItem.textColor" label="رنگ متن"
-                >
-                  <v-menu activator="parent" transition="scale-transition" location="end"
-                          :close-on-content-click="false">
-                    <div class="d-flex flex-column">
-                      <v-color-picker theme="dark"
-                                      hide-inputs
-                                      position="relative"
-                                      show-swatches
-                                      v-model="textInputColor"
-                                      @update:modelValue="updateTextColor"
-                                      mode="hexa"/>
-                    </div>
-                  </v-menu>
-                </v-text-field>
 
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field density="comfortable"  v-model="editedItem.icon"
-                              label="نماد" variant="outlined"></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                    density="comfortable"
-                    variant="outlined"
-                    clearable=""
-                    v-model="editedItem.iconColor"
-                    label="رنگ نماد"
-                    append-inner-icon="mdi-menu-down"
-                >
-                  <v-menu activator="parent" transition="scale-transition" location="end"
-                          :close-on-content-click="false">
-                    <div class="d-flex flex-column">
-                      <v-color-picker theme="dark"
-                                      hide-inputs
-                                      position="relative"
-                                      show-swatches
-                                      v-model="iconInputColor"
-                                      @update:modelValue="updateIconInputColor"
-                                      mode="hexa"/>
-                    </div>
-                  </v-menu>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                    density="comfortable"
-                    variant="outlined"
-                    clearable=""
-                    v-model="editedItem.iconBackColor"
-                    label="رنگ زمینه نماد"
-                    append-inner-icon="mdi-menu-down"
-                >
-                  <v-menu activator="parent" transition="scale-transition" location="end"
-                          :close-on-content-click="false">
-                    <div class="d-flex flex-column">
-                      <v-color-picker theme="dark"
-                                      hide-inputs
-                                      position="relative"
-                                      show-swatches
-                                      v-model="iconBackInputColor"
-                                      @update:modelValue="updateIconBackInputColor"
-                                      mode="hexa"/>
-                    </div>
-                  </v-menu>
-                </v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-
-        <v-card-actions class="justify-space-around">
-          <v-btn
-              @click="save"
-              color="green"
-              variant="elevated"
-          >
-            ذخیره
-          </v-btn>
-          <v-btn
-              color="red"
+      <template #body>
+        <v-col cols="12" sm="12">
+          <v-textarea variant="outlined" v-model="editedItem.text" label="متن"></v-textarea>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+              clearable=""
+              density="comfortable"
               variant="outlined"
-              @click="close"
+              append-inner-icon="mdi-menu-down"
+              v-model="editedItem.textColor" label="رنگ متن"
           >
-            لغو
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+            <v-menu activator="parent" transition="scale-transition" location="end"
+                    :close-on-content-click="false">
+              <div class="d-flex flex-column">
+                <v-color-picker theme="dark"
+                                hide-inputs
+                                position="relative"
+                                show-swatches
+                                v-model="textInputColor"
+                                @update:modelValue="updateTextColor"
+                                mode="hexa"/>
+              </div>
+            </v-menu>
+          </v-text-field>
+
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field density="comfortable" v-model="editedItem.icon"
+                        label="نماد" variant="outlined"></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+              density="comfortable"
+              variant="outlined"
+              clearable=""
+              v-model="editedItem.iconColor"
+              label="رنگ نماد"
+              append-inner-icon="mdi-menu-down"
+          >
+            <v-menu activator="parent" transition="scale-transition" location="end"
+                    :close-on-content-click="false">
+              <div class="d-flex flex-column">
+                <v-color-picker theme="dark"
+                                hide-inputs
+                                position="relative"
+                                show-swatches
+                                v-model="iconInputColor"
+                                @update:modelValue="updateIconInputColor"
+                                mode="hexa"/>
+              </div>
+            </v-menu>
+          </v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+              density="comfortable"
+              variant="outlined"
+              clearable=""
+              v-model="editedItem.iconBackColor"
+              label="رنگ زمینه نماد"
+              append-inner-icon="mdi-menu-down"
+          >
+            <v-menu activator="parent" transition="scale-transition" location="end"
+                    :close-on-content-click="false">
+              <div class="d-flex flex-column">
+                <v-color-picker theme="dark"
+                                hide-inputs
+                                position="relative"
+                                show-swatches
+                                v-model="iconBackInputColor"
+                                @update:modelValue="updateIconBackInputColor"
+                                mode="hexa"/>
+              </div>
+            </v-menu>
+          </v-text-field>
+        </v-col>
+      </template>
+
+      <template #actionButtons>
+        <v-btn
+            @click="save"
+            color="green"
+            variant="elevated"
+        >
+          ذخیره
+        </v-btn>
+        <v-btn
+            color="red"
+            variant="outlined"
+            @click="close"
+        >
+          لغو
+        </v-btn>
+      </template>
+    </Dialog>
   </v-card-actions>
 </template>
 

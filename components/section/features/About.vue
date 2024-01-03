@@ -6,7 +6,7 @@ import {about} from "~/data/CustomComponents";
 
 </script>
 <template>
-  <div>
+
     <v-container>
       <div class="about-component mini-spacer">
 
@@ -39,7 +39,7 @@ import {about} from "~/data/CustomComponents";
 
       </div>
     </v-container>
-  </div>
+
 
 
 </template>

@@ -5,8 +5,12 @@ definePageMeta({
   layout: 'admin-layout',
 });
 
-import {gallery} from '~/data/CustomComponents'
-import CategoryDataTable from "~/components/admin/settings/gallery/CategoryDataTable.vue";
+
+
+
+
+const dialog = ref<Boolean>(false)
+
 
 const {$persianNumber} = useNuxtApp()
 
@@ -16,80 +20,6 @@ const openFileExplorer = () => {
   fileInputRef.value?.click();
 };
 
-
-const categories = ref(gallery)
-
-const category = ref(gallery.map((gallery) => gallery.id));
-const selectedCategories = ref([]);
-
-function toggle() {
-  if (selectAllCategories.value) {
-    selectedCategories.value = [];
-  } else {
-    selectedCategories.value = category.value.slice();
-  }
-}
-
-const selectAllCategories = computed(() => selectedCategories.value.length === category.value.length);
-const selectSomeCategories = computed(() => selectedCategories.value.length > 0);
-
-function getSelectedListTitle() {
-  if (selectAllCategories.value) return 'تمام دسته بندی ها انتخاب شدند!';
-
-  if (selectSomeCategories.value) return 'تعداد دسته بندی انتخاب شده:';
-
-  return 'هیچ دسته بندی انتخاب نشده است.';
-}
-
-function getSelectedListSubtitle() {
-  if (selectAllCategories.value) return undefined;
-
-  if (selectSomeCategories.value) return selectedCategories.value.length;
-
-  return 'دسته بندی مورد نظر خود را انتخاب کنید.';
-}
-
-// Related text-field values to selectedCategories
-const imageSourceValue = ref('');
-const titleValue = ref('');
-const subTitleValue = ref('');
-const titleColorValue = ref('');
-const titleBackColorValue = ref('');
-
-
-function mapSelectedCategoriesData() {
-  const selectedCategoriesIds = selectedCategories.value;
-  selectedCategoriesIds.forEach((galleryId) => {
-    const galleryIndex = gallery.findIndex((gallery) => gallery.id === galleryId);
-    if (galleryIndex !== -1) {
-      // gallery[galleryIndex].imageSource = imageSourceValue.value;
-      gallery[galleryIndex].title = titleValue.value;
-      gallery[galleryIndex].subTitle = subTitleValue.value;
-      gallery[galleryIndex].titleColor = titleColorValue.value;
-      gallery[galleryIndex].titleBackColor = titleBackColorValue.value;
-    }
-  });
-}
-
-
-const titleInputColor = ref(titleColorValue);
-const titleBackInputColor = ref(titleBackColorValue);
-const updateTitleBackInputColor = (color) => {
-  titleBackColorValue.value = color;
-  titleBackInputColor.value = color;
-};
-const updateTitleColor = (color) => {
-  titleColorValue.value = color;
-  titleInputColor.value = color;
-};
-
-function submitCategories() {
-  // Update gallery data for selected gallery
-  mapSelectedCategoriesData();
-
-  // Do something with the updated gallery data
-  console.log('Updated data in gallery Settings:', gallery);
-}
 
 
 </script>
@@ -446,7 +376,7 @@ function submitCategories() {
                     density="comfortable"
                     variant="outlined"
                     label="نمایش ویدیو"
-                    :items="['روشن', 'خاموش', 'border-lg', 'border-xl', 'border-xxl']"
+                    :items="['روشن', 'خاموش']"
                 ></v-select>
               </v-col>
             </v-row>
@@ -467,32 +397,64 @@ function submitCategories() {
     <v-card-text>
       <h4 class="pb-10">
         <v-icon class="mdi mdi-information-outline"></v-icon>
-        در این قسمت می توانید دسته بندی ها را اضافه، حذف یا ویرایش کنید.
+        در این قسمت می توانید دسته بندی ها و اطلاعات درون آنها را اضافه، حذف و ویرایش کنید.
       </h4>
-      <CategoryDataTable/>
+      <GalleryDataTable/>
     </v-card-text>
+
+    <v-card-actions class="float-left">
+      <v-dialog
+          v-model="dialog"
+          max-width="500px"
+      >
+        <template v-slot:activator="{ props }">
+          <v-btn variant="flat"
+                 color="primary"
+                 text="اضافه کردن دسته بندی"
+                 prepend-icon="mdi mdi-plus-circle-outline"
+                 v-bind="props"
+          />
+        </template>
+        <v-card>
+          <v-card-title>
+           دسته بندی جدید
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-container>
+              <v-row justify="center">
+                <v-col cols="12" sm="12">
+                  <v-text-field variant="outlined"  label="نام دسته بندی"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions class="justify-space-around">
+            <v-btn
+                color="green"
+                variant="elevated"
+            >
+              ذخیره
+            </v-btn>
+            <v-btn
+                color="red"
+                variant="outlined"
+            >
+              لغو
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+    </v-card-actions>
   </v-card>
   <v-divider/>
   <v-card rounded="b-lg">
     <v-card-text>
-      <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
-        در این قسمت می توانید تصاویر یا ویدیو های خود را به همراه اطلاعات دیگر در دسته بندی مربوط به آن ها بارگذاری
-        کنید.
-      </h4>
-      <GalleryDataTable/>
+
     </v-card-text>
-    <v-card-actions class="float-left">
-      <v-btn class="text-none"
-             color="primary"
-             variant="flat"
-             prepend-icon="mdi mdi-check-circle-outline"
-             rounded
-             text="ثبت"
-             @click="submitCategories"
-      >
-      </v-btn>
-    </v-card-actions>
+
   </v-card>
   <!--Hidden-File-Input-->
   <v-file-input

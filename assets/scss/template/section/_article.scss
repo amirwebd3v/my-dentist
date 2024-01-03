@@ -1,4 +1,4 @@
-.blog-card {
+.article-card {
   transition: 0.2s ease-in;
   &:hover {
     transform: translateY(-10px);
@@ -18,7 +18,7 @@
       line-height: 30px;
     }
   }
-  .blog-title {
+  .article-title {
     color: rgb(var(--v-theme-dark)) !important;
     line-height: 22px;
   }
