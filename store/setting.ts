@@ -1,32 +1,46 @@
-import {defineStore} from 'pinia';
+import { defineStore } from 'pinia';
 import CaseClient from "@casejs/case-client";
-import {baseURL} from "nuxt/dist/core/runtime/nitro/paths";
-const cs = new CaseClient(baseURL('http://localhost:3001/api/dynamic'));
+const cs = new CaseClient('http://localhost:4000');
+
 interface Items {
     id: number,
     group: string,
     key: string,
     value: string
 }
+
+function groupBy(list: Array<object>, keyGetter: Function) {
+    const map = new Map();
+    list.forEach((item) => {
+        const key = keyGetter(item);
+        const collection = map.get(key);
+        if (!collection) {
+            map.set(key, [item]);
+        } else {
+            collection.push(item);
+        }
+    });
+    return map;
+}
+
 export const useSettingsStore = defineStore({
     id: 'settings',
     state: () => ({
-        items: [] as Items[],
+        settings: [] as Items[],
     }),
     actions: {
-        async fetchSettings() {
-            // const response = await fetch('http://localhost:3001/api/dynamic/settings');
-            // this.items = await response.json();
-
-            const items = await cs.from('settings').find()
-            console.log(items)
+        async fetch() {
+            let items = Object.groupBy(await cs.from('settings').find(), s => s.group);
+            for (let [k, v] of Object.entries(items)) {
+                items[k] = Object.groupBy(items[k], i => i.key)
+                for (let [key, val] of Object.entries(items[k])) {
+                    items[k][key] = val[0]
+                }
+            }
+            this.settings = items
         },
-    },
-    getters: {
-        getSetting: (state) => (group: string,key: string) => {
-            return  state.items.filter((item) => item.group=== group)
-                .find((item) => item.key === key);
-
+        async update(id, value) {
+            const updatedCat = await cs.from('settings').update(id, {value})
         }
-    }
+    },
 });
