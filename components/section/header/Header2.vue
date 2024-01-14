@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {headerMenu} from "@/data/CustomComponents";
+import Dialog from "~/components/shared/modal/Dialog.vue";
+
 // import {useScrollStore} from '@/store/scrollStore';
 
 const drawer = ref(<boolean>null)
@@ -77,6 +79,13 @@ onMounted(() => {
 // onBeforeUnmount(() => {
 //   observeSections((section) => observer.unobserve(section))
 // })
+
+
+const { $bus } = useNuxtApp()
+
+const openDialog = () => {
+  $bus.$emit('dialogOpen')
+}
 </script>
 <template>
   <!-- -----------------------------------------------
@@ -91,13 +100,108 @@ onMounted(() => {
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
-        <v-btn
-            class="px-6 py-3 bg-primary ml-2 d-md-flex d-none"
-            flat=""
-            size="large"
-            text="رزرو نوبت"
-        >
-        </v-btn>
+        <Dialog :form-title="'رزرو نوبت'" >
+          <template v-slot:button="props">
+            <v-btn
+                class="px-6 py-3 bg-primary ml-2 d-md-flex d-none"
+                flat=""
+                size="large"
+                text="رزرو نوبت"
+                v-bind="props"
+            >
+            </v-btn>
+          </template>
+          <template #body>
+            <v-col
+                cols="12"
+                sm="6"
+            >
+              <v-text-field
+                  variant="outlined"
+                  label="نام"
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+            >
+              <v-text-field
+                  variant="outlined"
+                  label="نام خانوادگی"
+              ></v-text-field>
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-text-field
+                  variant="outlined"
+                  label="شماره تلفن همراه"
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-text-field
+                  variant="outlined"
+                  label="ایمیل"
+                  required
+              ></v-text-field>
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+            >
+              <v-text-field
+                  variant="outlined"
+                  required
+                  label="سن"
+              ></v-text-field>
+
+            </v-col>
+            <v-col
+                cols="12"
+                sm="6"
+            >
+              <v-autocomplete
+                  variant="outlined"
+                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  label="درخواست مورد نظر"
+                  multiple=""
+              ></v-autocomplete>
+            </v-col>
+            <v-col
+                cols="12"
+
+            >
+              <v-textarea
+                  variant="outlined"
+                  required
+                  label="توضیحات"
+              ></v-textarea>
+
+            </v-col>
+          </template>
+
+          <template #actionButtons>
+                            <v-btn
+                                class="px-6 py-0"
+                                color="green"
+                                variant="text"
+                                text="ذخیره"
+
+                            />
+
+                            <v-btn
+                                class="px-6 py-0"
+                                color="red-dark"
+                                variant="text"
+                                text="بستن"
+
+                            />
+
+          </template>
+        </Dialog>
+
+
         <!--         Desktop view Navigation-->
         <v-navigation-drawer
             class="d-md-none"
@@ -155,7 +259,11 @@ onMounted(() => {
                 variant="plain"
                 color="primary"
                 title="رزرو نوبت"
+                link=""
+                @click="openDialog"
+
             >
+
             </v-list-item>
           </li>
           <li class="nav-item">
@@ -165,6 +273,7 @@ onMounted(() => {
                 color="primary"
                 title="ورود"
             >
+
             </v-list-item>
           </li>
 

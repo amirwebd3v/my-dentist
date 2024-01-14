@@ -195,7 +195,6 @@ const gallery = [
                 images: [
                     'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
                     'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"',
-
                 ],
             },
             {

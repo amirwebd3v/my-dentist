@@ -1,14 +1,20 @@
 <script setup lang="ts">
 
+
+
 const props  = defineProps({
-  dialog: {
-    type: Boolean,
-    default: false,
-  },
   formTitle: {
     type: String,
     required: true,
   },
+
+})
+
+const { $bus } = useNuxtApp()
+const dialog = ref(false)
+
+$bus.$on('dialogOpen', () => {
+  dialog.value = true
 })
 
 
@@ -20,24 +26,25 @@ const props  = defineProps({
 <template>
   <v-dialog
       max-width="500px"
+      v-model="dialog"
   >
    <template v-slot:activator="{ props }">
       <slot name="button" v-bind="props"/>
     </template>
     <v-card>
-      <v-card-title>
+      <v-card-title >
         {{ formTitle }}
       </v-card-title>
-      <v-divider></v-divider>
-      <v-card-text>
-        <v-container>
+
+      <v-card-text class="py-0">
+        <v-container >
           <v-row justify="center">
            <slot name="body"/>
           </v-row>
         </v-container>
       </v-card-text>
 
-      <v-card-actions class="justify-space-around">
+      <v-card-actions class="justify-space-around mt-0 pt-0">
         <slot name="actionButtons"/>
       </v-card-actions>
     </v-card>
