@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-
 import { DateTime } from 'luxon'
+import Dialog from "~/components/shared/modal/Dialog.vue";
 
 interface State {
   currentDateTime: any;
@@ -108,6 +108,17 @@ function step(val: number | null = null) {
 }
 
 
+
+const { $bus } = useNuxtApp()
+
+$bus.$on("loginDialogOpen" , (value) => {
+  state.showLoginModal = value
+})
+
+
+
+
+
 </script>
 
 
@@ -135,39 +146,27 @@ function step(val: number | null = null) {
           </span>
           <v-row class="d-flex flex-row pt-1">
             <v-col cols="6">
-              <v-dialog
-                  v-model="state.showLoginModal"
-                  persistent=""
-                  width="1024"
-              >
-                <template v-slot:activator="{ props }">
+              <Dialog :form-title="'خوش آمدید'" v-model="state.showLoginModal"  >
+                <template v-slot:button="props">
                   <v-btn
                       prepend-icon="mdi mdi-login"
                       variant="tonal"
                       size="large"
                       class="px-sm-7 py-sm-3"
                       block=""
+                      text="ورود"
                       v-bind="props"
                       @click="step(0)"
-                  >
-                    ورود
-                  </v-btn>
+                  />
                 </template>
-                <v-card
-                    class="mx-auto"
-                    elevation="1"
-                    max-width="500"
-                >
-                  <v-card-title class="py-5 font-weight-black">خوش آمدید <i class="mdi mdi-emoticon-happy-outline"/>
-                  </v-card-title>
 
-                  <v-card-text class="text-justify">
+                <template #body>
+                  <span class="pt-3 pb-1 text-justify font-16">
                     برای ورود شماره تلفن همراه خود را وارد کنید. سپس، به روی دکمه تایید کلیک نموده و منتظر کد فعالسازی
                     که برای شما پیامک میشود باشید.
-                  </v-card-text>
-
-                  <v-card-text>
-                    <div class="text-subtitle-2 font-weight-black mb-1">شماره تلفن همراه</div>
+                  </span>
+                  <v-col cols="12">
+                    <div class="text-subtitle-2 font-weight-medium pa-1">شماره تلفن همراه</div>
 
                     <v-text-field
                         :readonly="!state.phoneInput"
@@ -188,7 +187,8 @@ function step(val: number | null = null) {
                         </v-btn>
                       </template>
                     </v-text-field>
-
+                  </v-col>
+                  <v-col cols="12" >
                     <v-text-field
                         v-if="state.verificationInput"
                         label="کد فعالسازی"
@@ -208,147 +208,38 @@ function step(val: number | null = null) {
                         </v-btn>
                       </template>
                     </v-text-field>
+                  </v-col>
+                </template>
 
-                    <v-btn
-                        :disabled="loading"
-                        :loading="loading"
-                        block=""
-                        class="text-none mb-4"
-                        color="success"
-                        size="x-large"
-                        variant="text"
-                        @click="verifyBtn"
-                    >
-                      {{ btnTextAny }}
-                    </v-btn>
+                <template #actionButtons>
+                  <v-col cols="12">
+                  <v-btn
+                      :disabled="loading"
+                      :loading="loading"
+                      block=""
+                      class="text-none mb-4"
+                      color="success"
+                      size="x-large"
+                      variant="text"
+                      @click="verifyBtn"
+                  >
+                    {{ btnTextAny }}
+                  </v-btn>
 
-                    <v-btn
-                        block=""
-                        class="text-none"
-                        color="red-light"
-                        size="x-large"
-                        variant="text"
-                        @click="closeBtn"
-                    >
-                      خروج
-                    </v-btn>
-                  </v-card-text>
-                </v-card>
-              </v-dialog>
+                  <v-btn
+                      block=""
+                      class="text-none"
+                      color="red-light"
+                      size="x-large"
+                      variant="text"
+                      @click="closeBtn"
+                  >
+                    خروج
+                  </v-btn>
+                  </v-col>
+                </template>
+              </Dialog>
             </v-col>
-            <!--            <v-col>-->
-            <!--              <v-dialog-->
-            <!--                  v-model="showRegModal"-->
-            <!--                  persistent-->
-            <!--                  width="1024"-->
-            <!--              >-->
-            <!--                <template v-slot:activator="{ props }">-->
-            <!--                  <v-btn-->
-            <!--                      prepend-icon="mdi mdi-account"-->
-            <!--                      variant="tonal"-->
-            <!--                      class="px-sm-7 py-sm-3"-->
-            <!--                      v-bind="props"-->
-            <!--                      block-->
-            <!--                  >-->
-            <!--                    ثبت نام-->
-            <!--                  </v-btn>-->
-            <!--                </template>-->
-            <!--                <v-card>-->
-            <!--                  <v-card-title>-->
-            <!--                    <span class="text-h5"></span>-->
-            <!--                  </v-card-title>-->
-            <!--                  <v-card-text>-->
-            <!--                    <v-container>-->
-            <!--                      <v-row>-->
-            <!--                        <v-col-->
-            <!--                            cols="12"-->
-            <!--                            sm="6"-->
-            <!--                            md="4"-->
-            <!--                        >-->
-            <!--                          <v-text-field-->
-            <!--                              label="Legal first name*"-->
-            <!--                              required-->
-            <!--                          ></v-text-field>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col-->
-            <!--                            cols="12"-->
-            <!--                            sm="6"-->
-            <!--                            md="4"-->
-            <!--                        >-->
-            <!--                          <v-text-field-->
-            <!--                              label="Legal middle name"-->
-            <!--                              hint="example of helper text only on focus"-->
-            <!--                          ></v-text-field>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col-->
-            <!--                            cols="12"-->
-            <!--                            sm="6"-->
-            <!--                            md="4"-->
-            <!--                        >-->
-            <!--                          <v-text-field-->
-            <!--                              label="Legal last name*"-->
-            <!--                              hint="example of persistent helper text"-->
-            <!--                              persistent-hint-->
-            <!--                              required-->
-            <!--                          ></v-text-field>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col cols="12">-->
-            <!--                          <v-text-field-->
-            <!--                              label="Email*"-->
-            <!--                              required-->
-            <!--                          ></v-text-field>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col cols="12">-->
-            <!--                          <v-text-field-->
-            <!--                              label="Password*"-->
-            <!--                              type="password"-->
-            <!--                              required-->
-            <!--                          ></v-text-field>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col-->
-            <!--                            cols="12"-->
-            <!--                            sm="6"-->
-            <!--                        >-->
-            <!--                          <v-select-->
-            <!--                              :items="['0-17', '18-29', '30-54', '54+']"-->
-            <!--                              label="Age*"-->
-            <!--                              required-->
-            <!--                          ></v-select>-->
-            <!--                        </v-col>-->
-            <!--                        <v-col-->
-            <!--                            cols="12"-->
-            <!--                            sm="6"-->
-            <!--                        >-->
-            <!--                          <v-autocomplete-->
-            <!--                              :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"-->
-            <!--                              label="Interests"-->
-            <!--                              multiple-->
-            <!--                          ></v-autocomplete>-->
-            <!--                        </v-col>-->
-            <!--                      </v-row>-->
-            <!--                    </v-container>-->
-            <!--                    <small>*indicates required field</small>-->
-            <!--                  </v-card-text>-->
-            <!--                  <v-card-actions>-->
-            <!--                    <v-spacer></v-spacer>-->
-            <!--                    <v-btn-->
-            <!--                        color="blue-darken-1"-->
-            <!--                        variant="text"-->
-            <!--                        @click="showRegModal = false"-->
-            <!--                    >-->
-            <!--                      Close-->
-            <!--                    </v-btn>-->
-            <!--                    <v-btn-->
-            <!--                        color="blue-darken-1"-->
-            <!--                        variant="text"-->
-            <!--                        @click="showRegModal = false"-->
-            <!--                    >-->
-            <!--                      Save-->
-            <!--                    </v-btn>-->
-            <!--                  </v-card-actions>-->
-            <!--                </v-card>-->
-            <!--              </v-dialog>-->
-            <!--            </v-col>-->
           </v-row>
 
         </v-col>
