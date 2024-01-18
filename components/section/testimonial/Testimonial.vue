@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref} from "vue";
+
 import {Testimonials} from '@/data/CustomComponents';
 </script>
 <template>
@@ -15,9 +15,6 @@ import {Testimonials} from '@/data/CustomComponents';
               <h2 class="section-title font-weight-medium">
                 نظرات مراجعه کنندگان
               </h2>
-              <p class="text-muted">
-                در این قسمت می توانید از میزان رضایت بیماران و زیباجویان مطب دکتر دندان پزشکیان مطلع شوید.
-              </p>
             </div>
           </v-col>
         </v-row>

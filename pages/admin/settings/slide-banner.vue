@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {slideBanners} from "~/data/CustomComponents";
-import {useSettingsStore} from '~/store/setting';
+import {slideBannerSettings} from "~/data/CustomComponents";
 
 
 const {$persianNumber} = useNuxtApp()
@@ -9,13 +9,6 @@ const {$persianNumber} = useNuxtApp()
 definePageMeta({
   layout: 'admin-layout',
 });
-
-const {settings} = storeToRefs(useSettingsStore());
-await useSettingsStore().fetch()
-
-watch(settings, (settings) => {
-  console.log(settings)
-}, {deep: true})
 
 
 // Function to open the file explorer
@@ -118,16 +111,28 @@ const updateBtnColor = (color) => {
 };
 
 
+const settings = slideBannerSettings[0];
+const delimiters = ref(settings.hideDelimiters);
+const cycle = ref(settings.cycle);
+const interval = ref(settings.intervalTime / 1000);
+const verticalDelimiters = ref(settings.verticalDelimiters);
+const delimitersColorValue = ref(settings.delimitersColor);
+
+
 const handleSettingsChange = () => {
-  console.log('setting change')
+  settings.verticalDelimiters = verticalDelimiters.value;
+  settings.hideDelimiters = delimiters.value;
+  settings.cycle = cycle.value;
+  settings.delimitersColor = delimitersColorValue.value;
+  settings.intervalTime = interval.value * 1000;
+
 };
 
-function submitSettings() {
-  console.log('submit settings')
-}
 
+const delimitersInputColor = ref(delimitersColorValue);
 const updateDelimitersColor = (color) => {
-  settings['slider-banner'].delimitersColor.value = color;
+  delimitersColorValue.value = color;
+  delimitersInputColor.value = color;
 };
 
 function submitSlides() {
@@ -138,9 +143,11 @@ function submitSlides() {
   console.log('Updated slides values in slideBanner:', slideBanners);
 }
 
-
-
-
+function submitSettings() {
+  handleSettingsChange();
+  // Do something with the updated slide data
+  console.log('Updated hideDelimiters value in slideBannerSettings:', slideBannerSettings);
+}
 </script>
 
 
@@ -155,22 +162,22 @@ function submitSlides() {
       </h4>
       <v-row justify="center">
         <v-col cols="12" sm="4">
-          <v-radio-group class="pa-0" v-model="settings['slider-banner'].hideDelimiters.value">
+          <v-radio-group class="pa-0" v-model="delimiters">
             <template v-slot:label>
               <div><strong>دکمه پیمایش</strong></div>
             </template>
-            <v-radio color="primary" class="text-black" label="نمایان" value="false" />
-            <v-radio color="primary" label="پنهان" value="true"/>
+            <v-radio color="primary" class="text-black" label="نمایان" :value="false"/>
+            <v-radio color="primary" label="پنهان" :value="true"/>
           </v-radio-group>
           <v-text-field
-              :disabled="settings['slider-banner'].hideDelimiters.value == 'true'"
+              :disabled="delimiters"
               density="comfortable"
               class="pl-10"
               variant="outlined"
               label="رنگ دکمه"
-              clearable=""
+              clearable
               append-inner-icon="mdi-menu-down"
-              v-model="settings['slider-banner'].delimitersColor.value"
+              v-model="delimitersColorValue"
           >
             <v-menu activator="parent" transition="scale-transition" location="end"
                     :close-on-content-click="false">
@@ -179,7 +186,7 @@ function submitSlides() {
                                 hide-inputs
                                 position="absolute"
                                 show-swatches
-                                v-model="settings['slider-banner'].delimitersColor.value"
+                                v-model="delimitersInputColor"
                                 @update:modelValue="updateDelimitersColor"
                                 mode="hexa"/>
               </div>
@@ -187,33 +194,33 @@ function submitSlides() {
           </v-text-field>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-radio-group v-model="settings['slider-banner'].verticalDelimiters.value" :disabled="settings['slider-banner'].hideDelimiters.value === 'true'">
+          <v-radio-group v-model="verticalDelimiters" :disabled="delimiters">
             <template v-slot:label>
               <div><strong> جهت نمایش </strong> دکمه پیمایش</div>
             </template>
-            <v-radio color="primary" label="افقی" value="false"/>
-            <v-radio color="primary" label="عمودی - چپ" value="left"/>
-            <v-radio color="primary" label="عمودی - راست" value="right"/>
+            <v-radio color="primary" label="افقی" :value="false"/>
+            <v-radio color="primary" label="عمودی - چپ" :value="'left'"/>
+            <v-radio color="primary" label="عمودی - راست" :value="'right'"/>
           </v-radio-group>
         </v-col>
         <v-col cols="12" sm="4">
-          <v-radio-group v-model="settings['slider-banner'].cycle.value">
+          <v-radio-group v-model="cycle">
             <template v-slot:label>
               <div><strong>چرخش</strong> اسلاید ها</div>
             </template>
-            <v-radio color="primary" label="روشن" value="true"/>
-            <v-radio color="primary" label="خاموش" value="false"/>
+            <v-radio color="primary" label="روشن" :value="true"/>
+            <v-radio color="primary" label="خاموش" :value="false"/>
           </v-radio-group>
           <v-text-field
-              :disabled="settings['slider-banner'].cycle.value === 'false'"
+              :disabled="!cycle"
               density="comfortable"
               variant="outlined"
               label="زمان چرخش"
               clearable
               class="pl-10"
-              suffix="میلی ثانیه"
-              hint="* به صورت پیش فرض ۶۰۰۰ میلی ثانیه می باشد."
-              v-model="settings['slider-banner'].intervalTime.value"
+              suffix="ثانیه"
+              hint="* به صورت پیش فرض ۶ ثانیه می باشد."
+              v-model="interval"
           >
 
           </v-text-field>
@@ -442,7 +449,7 @@ function submitSlides() {
                     density="comfortable"
                     variant="outlined"
                     label="رنگ"
-                    clearable
+                    clearable=""
                     append-inner-icon="mdi-menu-down"
                     v-model="titleColorValue"
                 >
@@ -480,7 +487,7 @@ function submitSlides() {
                     density="comfortable"
                     variant="outlined"
                     label="رنگ متن"
-                    clearable
+                    clearable=""
                     v-model="contextColorValue"
                     append-inner-icon="mdi-menu-down"
                 >
@@ -548,7 +555,7 @@ function submitSlides() {
               </v-col>
               <v-col cols="12" sm="3">
                 <v-text-field
-                    clearable
+                    clearable=""
                     density="comfortable"
                     variant="outlined"
                     label="لینک"

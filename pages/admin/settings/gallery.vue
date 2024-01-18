@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Dialog from "~/components/shared/modal/Dialog.vue";
+
 import GalleryDataTable from "~/components/admin/settings/gallery/GalleryDataTable.vue";
 
 definePageMeta({
@@ -6,10 +8,7 @@ definePageMeta({
 });
 
 
-
-
-
-const dialog = ref<Boolean>(false)
+const showAddCategoryDialog = ref<Boolean>(false)
 
 
 const {$persianNumber} = useNuxtApp()
@@ -19,7 +18,6 @@ const fileInputRef = ref<HTMLInputElement | null>(null);
 const openFileExplorer = () => {
   fileInputRef.value?.click();
 };
-
 
 
 </script>
@@ -88,7 +86,6 @@ const openFileExplorer = () => {
                                       hide-inputs
                                       position="relative"
                                       show-swatches
-
                                       @update:modelValue=""
                                       mode="hexa"/>
                     </div>
@@ -122,7 +119,7 @@ const openFileExplorer = () => {
             </v-row>
           </v-expansion-panel-text>
         </v-expansion-panel>
-        
+
         <v-expansion-panel>
           <v-expansion-panel-title>
             <v-chip variant="tonal" class="bg-primary">
@@ -379,6 +376,20 @@ const openFileExplorer = () => {
                     :items="['روشن', 'خاموش']"
                 ></v-select>
               </v-col>
+              <v-col cols="6" sm="6">
+                <v-text-field
+                    density="comfortable"
+                    variant="outlined"
+                    label="لینک ویدیو"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="6" sm="6">
+                <v-file-input clearable=""
+                              prepend-icon=""
+                              density="comfortable"
+                              variant="outlined"
+                              label="آپلود ویدیو"/>
+              </v-col>
             </v-row>
           </v-expansion-panel-text>
         </v-expansion-panel>
@@ -387,13 +398,23 @@ const openFileExplorer = () => {
       </v-expansion-panels>
     </v-card-text>
 
+    <v-card-actions class="float-left">
+      <v-btn class="text-none"
+             color="primary"
+             variant="flat"
+             prepend-icon="mdi mdi-check-circle-outline"
+             rounded
+             text="ثبت"
+      >
+      </v-btn>
+    </v-card-actions>
 
   </v-card>
 
 
   <v-divider/>
 
-  <v-card rounded="0">
+  <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
         <v-icon class="mdi mdi-information-outline"></v-icon>
@@ -403,58 +424,41 @@ const openFileExplorer = () => {
     </v-card-text>
 
     <v-card-actions class="float-left">
-      <v-dialog
-          v-model="dialog"
-          max-width="500px"
-      >
-        <template v-slot:activator="{ props }">
+      <Dialog v-model="showAddCategoryDialog" :form-title="'دسته بندی جدید'">
+        <template v-slot:button="props">
           <v-btn variant="flat"
                  color="primary"
-                 text="اضافه کردن دسته بندی"
+                 text="دسته بندی جدید"
                  prepend-icon="mdi mdi-plus-circle-outline"
                  v-bind="props"
+                 rounded
           />
         </template>
-        <v-card>
-          <v-card-title>
-           دسته بندی جدید
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-container>
-              <v-row justify="center">
-                <v-col cols="12" sm="12">
-                  <v-text-field variant="outlined"  label="نام دسته بندی"></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
 
-          <v-card-actions class="justify-space-around">
-            <v-btn
-                color="green"
-                variant="elevated"
-            >
-              ذخیره
-            </v-btn>
-            <v-btn
-                color="red"
-                variant="outlined"
-            >
-              لغو
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+        <template #body>
+          <v-col cols="12" sm="12">
+            <v-text-field variant="outlined" label="نام دسته بندی"></v-text-field>
+          </v-col>
+        </template>
 
+        <template #actionButtons>
+          <v-btn
+              color="green"
+              variant="elevated"
+              @click="showAddCategoryDialog = false"
+          >
+            ذخیره
+          </v-btn>
+          <v-btn
+              color="red"
+              variant="outlined"
+              @click="showAddCategoryDialog = false"
+          >
+            لغو
+          </v-btn>
+        </template>
+      </Dialog>
     </v-card-actions>
-  </v-card>
-  <v-divider/>
-  <v-card rounded="b-lg">
-    <v-card-text>
-
-    </v-card-text>
-
   </v-card>
   <!--Hidden-File-Input-->
   <v-file-input

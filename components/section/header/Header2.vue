@@ -82,13 +82,13 @@ onMounted(() => {
 
 
 
-const showReserveDialogOpen = ref(false)
+const showReserveDialog = ref(false)
 
 const { $bus } = useNuxtApp()
 
 
 const openLoginDialog = () => {
-  $bus.$emit('loginDialogOpen', true)
+  $bus.$emit('loginDialogOpen', [true,0])
 }
 
 </script>
@@ -105,7 +105,7 @@ const openLoginDialog = () => {
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
-        <Dialog :form-title="'رزرو نوبت'" v-model="showReserveDialogOpen">
+        <Dialog :form-title="'رزرو نوبت'" v-model="showReserveDialog">
           <template v-slot:button="props">
             <v-btn
                 class="px-6 py-3 bg-primary ml-2 d-md-flex d-none"
@@ -192,7 +192,7 @@ const openLoginDialog = () => {
                                 color="green"
                                 variant="text"
                                 text="ذخیره"
-                                @click="showReserveDialogOpen = false"
+                                @click="showReserveDialog = false"
                             />
 
                             <v-btn
@@ -200,7 +200,7 @@ const openLoginDialog = () => {
                                 color="red-dark"
                                 variant="text"
                                 text="بستن"
-                                @click="showReserveDialogOpen = false"
+                                @click="showReserveDialog = false"
                             />
 
           </template>
@@ -265,7 +265,7 @@ const openLoginDialog = () => {
                 color="primary"
                 title="رزرو نوبت"
                 link=""
-                @click="showReserveDialogOpen = true"
+                @click="showReserveDialog = true"
 
             >
 

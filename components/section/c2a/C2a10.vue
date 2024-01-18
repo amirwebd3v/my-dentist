@@ -112,7 +112,8 @@ function step(val: number | null = null) {
 const { $bus } = useNuxtApp()
 
 $bus.$on("loginDialogOpen" , (value) => {
-  state.showLoginModal = value
+  state.showLoginModal = value[0]
+  step(value[1])
 })
 
 

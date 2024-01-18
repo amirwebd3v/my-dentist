@@ -63,7 +63,7 @@ import Video from "~/components/section/gallery/Video.vue";
   <!----Testimonials Quotes----->
   <Testimonial id="section4"/>
   <!----Article ----->
-      <Article id="section5"/>
+<!--      <Article id="section5"/>-->
   <!----Call To Action ----->
   <!--    <CallActionText/>-->
 
