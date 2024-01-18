@@ -512,16 +512,10 @@ const gallerySettings = [
     }
 ];
 
-
-/*--Pricing Plan--*/
-
-
-/*--Team--*/
-
-
 /*--Testimonials--*/
 const Testimonials = [
     {
+        id: 1,
         img: "1.jpg",
         testimonial:
             "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras venene veliel vestibulum.",
@@ -530,6 +524,7 @@ const Testimonials = [
         date: "۱۲ تیر ۱۴۰۲"
     },
     {
+        id: 2,
         img: "2.jpg",
         testimonial:
             "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras venene veliel vestibulum.",
@@ -538,6 +533,7 @@ const Testimonials = [
         date: "۱۲ تیر ۱۴۰۲"
     },
     {
+        id: 3,
         img: "3.jpg",
         testimonial:
             "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras venene veliel vestibulum.",
@@ -546,6 +542,7 @@ const Testimonials = [
         date: "۱۲ تیر ۱۴۰۲"
     },
     {
+        id: 4,
         img: "3.jpg",
         testimonial:
             "Cum sociis natoque یسشسیشسیییییییی.",
@@ -554,6 +551,20 @@ const Testimonials = [
         date: "۱۲ تیر ۱۴۰۲"
     },
 ];
+
+const TestimonialSettings = [
+    {
+        backColor: '',
+        backRounded: '',
+        cardVariant: 'outlined',
+        cardElevation: 1,
+        cardBorderSize: 'small',
+        cardColor: '',
+        cardBorderColor: '#03192C',
+        cardContextColor: '#03192C',
+    }
+];
+
 
 /*--Articles--*/
 const Articles = [
@@ -714,6 +725,7 @@ export {
     gallery,
     gallerySettings,
     Testimonials,
+    TestimonialSettings,
     Articles,
     slideBanners,
     slideBannerSettings,

@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-  <v-card rounded="0">
+  <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
         <v-icon class="mdi mdi-information-outline"></v-icon>
@@ -19,7 +19,16 @@ definePageMeta({
         ></v-text-field>
       </v-col>
     </v-card-text>
-
+    <v-card-actions class="float-left">
+      <v-btn class="text-none"
+             color="primary"
+             variant="flat"
+             prepend-icon="mdi mdi-check-circle-outline"
+             rounded
+             text="ثبت"
+      >
+      </v-btn>
+    </v-card-actions>
 
   </v-card>
 </template>

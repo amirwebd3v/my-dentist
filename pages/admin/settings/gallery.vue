@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Dialog from "~/components/shared/modal/Dialog.vue";
 
-import GalleryDataTable from "~/components/admin/settings/gallery/GalleryDataTable.vue";
+import GalleryDataTable from "~/components/admin/settings/GalleryDataTable.vue";
 
 definePageMeta({
   layout: 'admin-layout',

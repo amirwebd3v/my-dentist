@@ -1,6 +1,9 @@
 <script setup lang="ts">
 
-import {Testimonials} from '@/data/CustomComponents';
+import {TestimonialSettings, Testimonials} from '@/data/CustomComponents';
+
+
+const settings = TestimonialSettings[0];
 </script>
 <template>
   <div>
@@ -27,11 +30,12 @@ import {Testimonials} from '@/data/CustomComponents';
         ----------------------------------------------- -->
 
         <v-sheet
-            class="mx-auto bg-transparent"
+            class="mx-auto"
             elevation="0"
             max-width="auto"
+            :color="settings.backColor"
+            :rounded="settings.backRounded"
         >
-
           <v-slide-group
               class="py-4 "
           >
@@ -39,25 +43,28 @@ import {Testimonials} from '@/data/CustomComponents';
                 v-for="card in Testimonials"
                 :key="card.name"
             >
-              <v-row class="my-13" justify="center">
-                <v-card  class="mx-8" max-width="330" variant="outlined" style="height: 250px;">
-
-                  <v-card-text class="pa-sm-10 pa-5 mx-5">
+              <v-row class="my-12" justify="center">
+                <v-card class="mx-12" max-width="330"
+                        :elevation="settings.cardElevation"
+                        :variant="settings.cardVariant"
+                        :style="`height: 250px;
+                         border-color: ${settings.cardBorderColor} !important;
+                         background-color: ${settings.cardColor};`"
+                        :border="settings.cardBorderSize"
+                >
+                  <v-card-text class="pa-sm-10 pa-5 mx-5" :style="`color: ${settings.cardContextColor}`">
                     <div class="d-flex align-center mb-5">
                       <v-avatar size="60">
                         <img :src="`/images/testimonial/${card.img}`" :alt="card.img" height="60"/>
                       </v-avatar>
                       <div class="mr-3">
                         <h6 class="text-uppercase font-weight-bold font-14">{{ card.name }}</h6>
-                        <p class="mt-1"> {{ card.serviceName.concat('/',card.date)  }}</p>
+                        <p class="mt-1"> {{ card.serviceName.concat('/', card.date) }}</p>
                       </div>
                     </div>
                     <p class="text-body-1 text-black text-justify">“{{ card.testimonial }}”</p>
                   </v-card-text>
-
-
                 </v-card>
-
               </v-row>
             </v-slide-group-item>
           </v-slide-group>
