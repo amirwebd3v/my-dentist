@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {headerMenu} from "@/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
+import { useSettingStore } from "~/store/settingStore";
 
 // import {useScrollStore} from '@/store/scrollStore';
 
@@ -8,6 +8,9 @@ const drawer = ref(<boolean>null)
 
 const activeSection = ref(<null>null);
 const sections = ['section1', 'section2', 'section3', 'section4', 'section5'];
+
+const { headerMenu } = useSettingStore()
+
 
 const intersectionCallback = (entries) => {
   let activeSectionFound = false;
@@ -225,10 +228,10 @@ const openLoginDialog = () => {
             <li
                 class="nav-item"
                 v-for="nav in headerMenu"
-                :key="nav.title"
-                :class="{ active: nav.href.endsWith(<string>activeSection) }"
+                :key="nav.val"
+                :class="{ active: nav.name.endsWith(<string>activeSection) }"
             >
-              <NuxtLink :to="{path: '/', hash: `#${nav.href}`}" class="nav-link">{{ nav.title }}</NuxtLink>
+              <NuxtLink :to="{path: '/', hash: `#${nav.name}`}" class="nav-link">{{ nav.val }}</NuxtLink>
             </li>
           </ul>
         </div>
@@ -252,10 +255,10 @@ const openLoginDialog = () => {
         <ul class="navbar-nav py-4">
           <li class="nav-item  mb-4"
               v-for="nav in headerMenu"
-              :key="nav.title"
-              :class="{ active: nav.href.endsWith(<string>activeSection) }"
+              :key="nav.val"
+              :class="{ active: nav.name.endsWith(<string>activeSection) }"
           >
-            <NuxtLink :to="{ path: '/', hash: `#${nav.href}`}" class="nav-link">{{ nav.title }}</NuxtLink>
+            <NuxtLink :to="{ path: '/', hash: `#${nav.name}`}" class="nav-link">{{ nav.val }}</NuxtLink>
           </li>
           <v-divider></v-divider>
           <li class="nav-item">

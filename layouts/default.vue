@@ -2,6 +2,7 @@
 
 
 import Header2 from "~/components/section/header/Header2.vue";
+import { useSettingStore } from "~/store/settingStore";
 
 const title = ref(" دکتر دندان پزشکیان - دندانپزشک و جراح");
 useHead({
@@ -13,6 +14,7 @@ useHead({
   },
 });
 
+await useSettingStore().init()
 
 </script>
 
