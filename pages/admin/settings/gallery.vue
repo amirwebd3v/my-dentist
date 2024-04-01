@@ -27,7 +27,7 @@ const openFileExplorer = () => {
   <v-card rounded="0">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت میتوانید بخش گالری را در صفحه اصلی شخصی سازی کنید.
       </h4>
       <v-expansion-panels variant="popout" class="my-4">
@@ -417,7 +417,7 @@ const openFileExplorer = () => {
   <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید دسته بندی ها و اطلاعات درون آنها را اضافه، حذف و ویرایش کنید.
       </h4>
       <GalleryDataTable/>

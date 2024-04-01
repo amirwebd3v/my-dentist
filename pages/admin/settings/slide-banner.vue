@@ -157,7 +157,7 @@ function submitSettings() {
   <v-card rounded="0">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید تنظیمات کلی اسلاید ها را مشخص نمایید.
       </h4>
       <v-row justify="center">
@@ -248,7 +248,7 @@ function submitSettings() {
   <v-card rounded="0">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید اسلاید دلخواه خود را جایگزین، حذف یا اضافه نمایید.
       </h4>
       <v-row justify="start">
@@ -338,7 +338,7 @@ function submitSettings() {
   <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید اسلاید ها را شخصی سازی نمایید.
       </h4>
 

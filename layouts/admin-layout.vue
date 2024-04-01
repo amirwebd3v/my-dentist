@@ -31,9 +31,8 @@ onMounted(() => {
 
 
 <template>
-
-  <div>
     <v-app>
+      <v-locale-provider rtl>
       <!-- ---------------------------------------------- -->
       <!---Header -->
       <!-- ---------------------------------------------- -->
@@ -73,9 +72,8 @@ onMounted(() => {
           </v-sheet>
         </v-container>
       </v-main>
+      </v-locale-provider>
     </v-app>
-  </div>
-
 </template>
 
 <style lang="scss">

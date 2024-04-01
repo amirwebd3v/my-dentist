@@ -73,9 +73,6 @@ export default defineNuxtPlugin((nuxtApp) => {
                 light: LightTheme,
             },
         },
-        locale: {
-            locale: 'fa',
-        },
         date: {
             adapter: luxon,
         },

@@ -18,6 +18,7 @@ useHead({
 
 <template>
   <v-app>
+    <v-locale-provider rtl>
     <Header2/>
     <v-main>
 
@@ -25,6 +26,7 @@ useHead({
 
     </v-main>
     <LcFooter/>
+    </v-locale-provider>
   </v-app>
 </template>
 

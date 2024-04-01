@@ -11,7 +11,7 @@ definePageMeta({
   <v-card rounded="0">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید بخش نظرات مراجعه کنندگان را شخصی سازی نمایید.
       </h4>
       <v-expansion-panels variant="popout" class="my-4">
@@ -168,7 +168,7 @@ definePageMeta({
   <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید نظرات مراجعه کنندگان را اضافه، حذف یا ویرایش نمایید.
       </h4>
       <TestimonialDataTable/>

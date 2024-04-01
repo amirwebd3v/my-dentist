@@ -8,7 +8,7 @@ definePageMeta({
   <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت لینک مقالات خود را وارد کنید.
       </h4>
       <v-col cols="12">

@@ -20,7 +20,7 @@ const openFileExplorer = () => {
   <v-card rounded="0">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید عنوان دلخواه خود را جایگزین نمایید.
       </h4>
       <v-row justify="start">
@@ -53,7 +53,7 @@ const openFileExplorer = () => {
   <v-card rounded="b-lg">
     <v-card-text>
       <h4 class="pb-10">
-        <v-icon class="mdi mdi-information-outline"></v-icon>
+        <v-icon class="mdi mdi-information-outline"/>
         در این قسمت می توانید لوگوی سایت را تغییر دهید.
       </h4>
 
