@@ -17,7 +17,7 @@ const sidebarSingleItems = [
     {
         title: "پیام ها",
         icon: "mdi mdi-message-text-outline",
-        to: "/admin/message-inbox",
+        to: "/admin/messages",
     },
     {
         title: "اعلان ها",
@@ -37,7 +37,7 @@ const sidebarGroupItems = [
             {to: '/admin/settings/gallery', title: 'گالری'},
             {to: '/admin/settings/about', title: 'درباره'},
             {to: '/admin/settings/comments', title: 'نظرات'},
-            {to: '/admin/settings/articles', title: 'مقالات'},
+            // {to: '/admin/settings/articles', title: 'مقالات'},
             {to: '/admin/settings/footer', title: 'پاورقی'},
         ],
         icon: 'mdi mdi-cogs'
