@@ -145,6 +145,3 @@ const load = async (done) => {
   </v-dialog>
 </template>
 
-<style scoped>
-
-</style>

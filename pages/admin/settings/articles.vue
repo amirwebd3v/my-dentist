@@ -33,6 +33,3 @@ definePageMeta({
   </v-card>
 </template>
 
-<style scoped>
-
-</style>
