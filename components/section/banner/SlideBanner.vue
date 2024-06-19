@@ -4,9 +4,11 @@ import {slideBannerSettings} from "~/data/CustomComponents";
 
 const settings = slideBannerSettings[0];
 </script>
-
+<!--:cycle="settings.cycle"-->
+<!--:interval="settings.intervalTime"-->
 <template>
     <div class="brand-banner-component">
+
       <v-carousel
           :vertical-delimiters="settings.verticalDelimiters"
           :hide-delimiter-background="true"
@@ -14,9 +16,7 @@ const settings = slideBannerSettings[0];
           :show-arrows="false"
           :color="settings.delimitersColor"
           delimiter-icon="mdi mdi-circle-medium"
-          :cycle="settings.cycle"
-          height="576px"
-          :interval="settings.intervalTime"
+          height="1280"
       >
         <v-carousel-item
             v-for="(item,i) in slideBanners"
@@ -26,11 +26,11 @@ const settings = slideBannerSettings[0];
         >
 
 
+                <v-container class="d-flex fill-height justify-start align-center">
 
-          <v-container class="d-flex fill-height justify-start align-center">
-            <v-row justify="start">
-              <v-col cols="12" sm="7" lg="6" class="d-flex align-center">
-                <div class="text-sm-right text-center">
+            <v-row justify="start" >
+              <v-col cols="12" sm="7" lg="6">
+                <div class="px-8 text-sm-right text-center ">
                   <v-chip :size="item.tagChipSize" :text="item.tag" :color="item.tagColor" :variant="item.tagVariant"/>
                   <h2
                       class="
@@ -58,7 +58,7 @@ const settings = slideBannerSettings[0];
               </v-col>
             </v-row>
 
-          </v-container>
+                        </v-container>
 
 
         </v-carousel-item>

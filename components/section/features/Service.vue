@@ -1,5 +1,20 @@
 <script setup lang="ts">
-import {services} from '@/data/CustomComponents';
+import {useServiceStore} from "~/store/service";
+import {storeToRefs} from "pinia";
+
+
+definePageMeta({
+  middleware: ['sanctum:guest'],
+});
+
+
+const {services} = storeToRefs(useServiceStore())
+
+onBeforeMount(async ()=>{
+  await useServiceStore().fetch()
+})
+
+
 
 
 </script>
@@ -31,7 +46,7 @@ import {services} from '@/data/CustomComponents';
       <v-row justify="space-around">
         <v-col
             class="v-col-sm-2 v-col-md-2 mt-5 mx-5 px-0 mb-16"
-            v-for="card in services"
+            v-for="card in services.values()"
             :key="card.id"
         >
           <!--          <v-card elevation="4" class="rounded-shaped" :style=card.contextBackColor>-->
@@ -74,10 +89,10 @@ import {services} from '@/data/CustomComponents';
 
           <!--            </v-row>-->
           <!--          </v-card>-->
-          <v-tooltip :text="card.context" location="bottom" class="text-justify" width="250" open-on-click>
+          <v-tooltip :text="card.content" location="bottom" class="text-justify" width="250" open-on-click>
             <template v-slot:activator="{ props }">
               <v-sheet
-                  :style=card.titleBackColor
+                  :style=card.config.titleColor
                   elevation="1"
                   :height="150"
                   :width="150"
@@ -87,7 +102,7 @@ import {services} from '@/data/CustomComponents';
                   v-bind="props"
               >
                 <div class="pt-3 text-center">
-                  <v-icon class="mr-4" width="70" height="70" src="images/icons/foamy.png"></v-icon>
+                  <v-img class="mr-4" width="70" height="70" src="images/icons/foamy.png"></v-img>
                   <p class="pt-3 font-weight-bold font-15">{{ card.title }}</p>
                 </div>
               </v-sheet>

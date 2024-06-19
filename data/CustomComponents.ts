@@ -17,13 +17,13 @@ const headerMenu = [
         title: "نظرات",
         href: "section4",
     },
-    {
-        title: "مقالات",
-        href: "section5",
-    },
+    // {
+    //     title: "مقالات",
+    //     href: "section5",
+    // },
     {
         title: "تماس سریع",
-        href: "section6",
+        href: "section5",
     },
 ];
 
@@ -44,7 +44,7 @@ const slideBanners = [
         btnLink: '/basic-components',
         btnColor: 'white',
         btnSize: 'default',
-        imageSource: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+        imageSource: 'https://www.inglewoodfamilydental.ca/wp-content/uploads/2023/10/choosing-the-right-dentist-for-your-dental-crown-procedure-scaled.jpg',
     },
     {
         id: '2',
@@ -61,7 +61,7 @@ const slideBanners = [
         btnLink: '/basic-components',
         btnColor: 'white',
         btnSize: 'default',
-        imageSource: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        imageSource: 'https://www.pinnacledentalgroupmi.com/wp-content/uploads/2023/11/FemaleDentist_1110x700.jpeg',
     },
     {
         id: '3',
@@ -78,7 +78,7 @@ const slideBanners = [
         btnLink: '/basic-components',
         btnColor: 'white',
         btnSize: 'default',
-        imageSource: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+        imageSource: 'https://www.pinnacledentalgroupmi.com/wp-content/uploads/2023/11/FemaleDentist_1110x700.jpeg',
     },
     {
         id: '4',
@@ -95,7 +95,7 @@ const slideBanners = [
         btnLink: '/basic-components',
         btnColor: 'white',
         btnSize: 'default',
-        imageSource: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        imageSource: 'https://www.pinnacledentalgroupmi.com/wp-content/uploads/2023/11/FemaleDentist_1110x700.jpeg',
     },
 ];
 
@@ -149,7 +149,7 @@ const services = [
         contextColor: 'black',
         title: 'پر کردن دندان',
         titleColor: 'white',
-        icon: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+        icon: '',
     },
     {
         id: 2,
