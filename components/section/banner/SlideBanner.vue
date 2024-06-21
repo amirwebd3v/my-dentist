@@ -1,70 +1,99 @@
-<script setup>
-import {slideBanners} from "~/data/CustomComponents";
-import {slideBannerSettings} from "~/data/CustomComponents";
+<script setup lang="ts">
+import {slideBanners, slideBannerSettings} from "~/data/CustomComponents";
+import type {PropType} from "@vue/runtime-core";
+import type {CarouselSettings} from "~/utils/types";
 
-const settings = slideBannerSettings[0];
+
+definePageMeta({
+  middleware: ['sanctum:guest'],
+});
+
+
+
+
+
+const props = defineProps({
+  carouselSettings: {
+    type: Object as PropType<CarouselSettings>,
+    required: true,
+    default: {
+      verticalDelimiters: slideBannerSettings[0].verticalDelimiters,
+      hideDelimiters: slideBannerSettings[0].hideDelimiters,
+      delimitersColor: slideBannerSettings[0].delimitersColor,
+      cycle: slideBannerSettings[0].cycle,
+      intervalTime: slideBannerSettings[0].intervalTime,
+    },
+  }
+})
+
+
+// console.log(props.carouselSettings)
+
+
 </script>
-<!--:cycle="settings.cycle"-->
-<!--:interval="settings.intervalTime"-->
+
 <template>
-    <div class="brand-banner-component">
+  <div class="brand-banner-component">
 
-      <v-carousel
-          :vertical-delimiters="settings.verticalDelimiters"
-          :hide-delimiter-background="true"
-          :hide-delimiters="settings.hideDelimiters"
-          :show-arrows="false"
-          :color="settings.delimitersColor"
-          delimiter-icon="mdi mdi-circle-medium"
-          height="1280"
+    <v-carousel
+        v-if="props.carouselSettings"
+        :vertical-delimiters="props.carouselSettings.verticalDelimiters"
+        :hide-delimiter-background="true"
+        :hide-delimiters="props.carouselSettings.hideDelimiters"
+        :show-arrows="false"
+        :color="props.carouselSettings.delimitersColor"
+        :cycle="props.carouselSettings.cycle"
+        :interval="props.carouselSettings.intervalTime"
+        delimiter-icon="mdi mdi-circle-medium"
+        height="1280"
+    >
+      <v-carousel-item
+          v-for="(item,i) in slideBanners"
+          :key="i"
+          :src="item.imageSource"
+          cover
       >
-        <v-carousel-item
-            v-for="(item,i) in slideBanners"
-            :key="i"
-            :src="item.imageSource"
-            cover
-        >
 
 
-                <v-container class="d-flex fill-height justify-start align-center">
+        <v-container class="d-flex fill-height justify-start align-center">
 
-            <v-row justify="start" >
-              <v-col cols="12" sm="7" lg="6">
-                <div class="px-8 text-sm-right text-center ">
-                  <v-chip :size="item.tagChipSize" :text="item.tag" :color="item.tagColor" :variant="item.tagVariant"/>
-                  <h2
-                      class="
+          <v-row justify="start">
+            <v-col cols="12" sm="7" lg="6">
+              <div class="px-8 text-sm-right text-center ">
+                <v-chip :size="item.tagChipSize" :text="item.tag" :color="item.tagColor" :variant="item.tagVariant"/>
+                <h2
+                    class="
                   brand-banner-title
                   font-weight-bold
                   text-uppercase" :style="`color: ${item.titleColor} ;`"
+                >
+                  {{ item.title }}
+                </h2>
+                <p :class="`font-${item.contextFontSize}`" :style="`color: ${item.contextColor} ;`">
+                  {{ item.context }}
+                </p>
+                <div class="mt-8">
+                  <v-btn
+                      :to="item.btnLink"
+                      class="rounded-xl px-6 py-0"
+                      :color="item.btnColor"
+                      variant="flat"
+                      :size="item.btnSize"
+                      :text="item.btnText"
                   >
-                    {{ item.title }}
-                  </h2>
-                  <p :class="`font-${item.contextFontSize}`" :style="`color: ${item.contextColor} ;`">
-                    {{ item.context }}
-                  </p>
-                  <div class="mt-8">
-                    <v-btn
-                        :to="item.btnLink"
-                        class="rounded-xl px-6 py-0"
-                        :color="item.btnColor"
-                        variant="flat"
-                        :size="item.btnSize"
-                        :text="item.btnText"
-                    >
-                    </v-btn>
-                  </div>
+                  </v-btn>
                 </div>
-              </v-col>
-            </v-row>
+              </div>
+            </v-col>
+          </v-row>
 
-                        </v-container>
+        </v-container>
 
 
-        </v-carousel-item>
-      </v-carousel>
+      </v-carousel-item>
+    </v-carousel>
 
-    </div>
+  </div>
 
 
 </template>

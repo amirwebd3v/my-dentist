@@ -13,14 +13,23 @@ import ContactForm from './contact/Contact.vue';
 import Map from "../shared/map/Map.vue";
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
+import {useSettingStore} from "~/store/setting";
+import {storeToRefs} from "pinia";
 
+const sliderBannerSettings = ref()
+
+const {getSettingsByGroup} = storeToRefs(useSettingStore())
+await useSettingStore().fetch()
+await getSettingsByGroup.value('slider-banner').then(res => sliderBannerSettings.value = res)
+
+console.log(sliderBannerSettings.value)
 </script>
 
 <template>
 
 
   <!----Slide Banner----->
-  <SlideBanner/>
+  <SlideBanner :carousel-settings="sliderBannerSettings"/>
   <!----Ask Questions ----->
   <CallActionAsk1 />
   <!----Feature 1----->
