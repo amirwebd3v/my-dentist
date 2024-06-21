@@ -136,7 +136,7 @@ function handlePageChange(page) {
 
                         <v-divider class="mx-4"/>
                         <div class="px-4 pt-4">
-                          <v-slide-group show-arrows="false">
+                          <v-slide-group :show-arrows="false">
                             <v-slide-group-item v-for="tag in post.tags" :key="tag">
                               <v-chip class="ml-2" size="small" :color="settings.tagsColor"
                                       :variant="settings.tagsVariant">

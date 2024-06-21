@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+
 import AllCustomComponents from '@/components/section/AllCustomComponents.vue';
 
+
+// definePageMeta({
+//   middleware: ['sanctum:guest'],
+// });
 
 </script>
 

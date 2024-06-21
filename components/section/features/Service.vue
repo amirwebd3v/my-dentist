@@ -3,10 +3,6 @@ import {useServiceStore} from "~/store/service";
 import {storeToRefs} from "pinia";
 
 
-definePageMeta({
-  middleware: ['sanctum:guest'],
-});
-
 
 const {services} = storeToRefs(useServiceStore())
 

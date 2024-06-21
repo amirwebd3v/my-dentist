@@ -16,13 +16,18 @@ import Video from "~/components/section/gallery/Video.vue";
 import {useSettingStore} from "~/store/setting";
 import {storeToRefs} from "pinia";
 
+
+
+
 const sliderBannerSettings = ref()
+const aboutSettings = ref()
 
 const {getSettingsByGroup} = storeToRefs(useSettingStore())
 await useSettingStore().fetch()
 await getSettingsByGroup.value('slider-banner').then(res => sliderBannerSettings.value = res)
+await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 
-console.log(sliderBannerSettings.value)
+// console.log(sliderBannerSettings.value)
 </script>
 
 <template>
@@ -33,7 +38,7 @@ console.log(sliderBannerSettings.value)
   <!----Ask Questions ----->
   <CallActionAsk1 />
   <!----Feature 1----->
-  <About id="section1"/>
+  <About id="section1" :about-settings="aboutSettings"/>
   <!----Feature 2----->
   <service id="section2"/>
   <!----Main Banner----->

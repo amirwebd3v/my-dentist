@@ -1,7 +1,28 @@
 <script setup lang="ts">
-
-
 import {about} from "~/data/CustomComponents";
+import type {PropType} from "@vue/runtime-core";
+import type {AboutSettings} from "~/utils/types";
+
+
+
+
+
+
+
+
+const props = defineProps({
+  aboutSettings: {
+    type: Object as PropType<AboutSettings>,
+    required: true,
+    default: {
+      image: 'images/team/t3.jpg',
+      items: about
+    },
+  }
+})
+
+
+// console.log(props.aboutSettings?.image)
 
 
 </script>
@@ -17,12 +38,12 @@ import {about} from "~/data/CustomComponents";
                 <v-row class="mt-16">
                   <v-col cols="12" sm="6">
                     <div class="img-boarder mx-auto" style="max-height: 360px; max-width: 360px;">
-                      <v-img  src="images/team/t3.jpg"></v-img>
+                      <v-img  :src="<string>props.aboutSettings?.image"></v-img>
                     </div>
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-row class="mx-0">
-                      <div class="d-flex align-center mt-5 about-card" v-for="card in about" :key="card.title">
+                      <div class="d-flex align-center mt-5 about-card" v-for="card in props.aboutSettings?.items" :key="card.title">
                         <div class="icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor} ;`">
                           <v-icon :style="`color: ${card.iconColor} ;`">{{card.icon}}</v-icon>
                         </div>

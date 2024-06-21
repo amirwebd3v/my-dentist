@@ -4,12 +4,6 @@ import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
 
 
-definePageMeta({
-  middleware: ['sanctum:guest'],
-});
-
-
-
 
 
 const props = defineProps({
