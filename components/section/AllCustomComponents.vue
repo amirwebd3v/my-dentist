@@ -21,13 +21,17 @@ import {storeToRefs} from "pinia";
 
 const sliderBannerSettings = ref()
 const aboutSettings = ref()
+const gallerySettings = ref()
 
 const {getSettingsByGroup} = storeToRefs(useSettingStore())
 await useSettingStore().fetch()
 await getSettingsByGroup.value('slider-banner').then(res => sliderBannerSettings.value = res)
 await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
+await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
 
-// console.log(sliderBannerSettings.value)
+
+
+// console.log(gallerySettings.value)
 </script>
 
 <template>
@@ -56,7 +60,7 @@ await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
   <!----Ask Questions ----->
   <!--  <CallActionAsk2/>-->
   <!----Portfolio----->
-  <Gallery id="section3"/>
+  <Gallery id="section3" :gallery-settings="gallerySettings"/>
 
   <!----Video----->
   <Video/>

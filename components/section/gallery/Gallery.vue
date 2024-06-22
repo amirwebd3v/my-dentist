@@ -2,15 +2,32 @@
 
 
 import CommentsModal from "~/components/section/gallery/CommentsModal.vue";
-import {gallery, gallerySettings} from "~/data/CustomComponents";
+import { gallery, gallerySettings} from "~/data/CustomComponents";
+import type {PropType} from "@vue/runtime-core";
+import type {GallerySettings} from "~/utils/types";
 
 
 const settings = gallerySettings[0];
+
+
 const tab = ref(1);
 const page = ref(1);
 const itemsPerPage = ref(3);
 const unLike = ref('mdi-heart-outline');
 const show = ref(false);
+
+
+
+const props = defineProps({
+  gallerySettings: {
+    type: Object as PropType<GallerySettings>,
+    required: true,
+    // default: {
+    //   posts: gallerySettings,
+    // },
+  }
+})
+
 
 
 const filteredGallery = computed(() => {
@@ -49,35 +66,33 @@ function handlePageChange(page) {
 <template>
   <div class="bg-extra-light">
     <div class="gallery-component mini-spacer bottom-mini-spacer">
-      <v-container>
+      <v-container v-if="!!props.gallerySettings">
         <!-- -----------------------------------------------
             Start Gallery
         ----------------------------------------------- -->
         <v-tabs
             v-model="activeTab"
             align-tabs="center"
-            :bg-color="settings.tabBackColor"
-            :class="`${settings.tabRounded} mt-8 elevation-5`"
+            :bg-color="props.gallerySettings.tabBackColor"
+            :class="`${props.gallerySettings.tabRounded} mt-8 elevation-5`"
 
         >
           <v-tab v-for="gallery in galleries"
                  :key="gallery.id"
                  :value="gallery"
-                 :color="settings.tabActiveBtnColor"
+                 :color="props.gallerySettings.tabActiveBtnColor"
 
           >{{ gallery.title }}
           </v-tab>
         </v-tabs>
         <v-card-text class="pt-0 pb-0">
-          <v-chip-group mandatory
-                        class="rounded-b mb-4"
-                        :style="`color: ${settings.tabActiveBtnColor}; background-color: ${settings.tabBackColor};`"
-          >
+          <v-chip-group mandatory class="rounded-b mb-4"
+                        :style="`color: ${props.gallerySettings.tabActiveBtnColor}; background-color: ${props.gallerySettings.tabBackColor};`">
 
             <v-select
                 class="mx-12 mt-2 pb-0 "
                 multiple=""
-                :item-color="settings.selectedSortItemColor"
+                :item-color="props.gallerySettings.selectedSortItemColor"
                 variant="plain"
                 density="compact"
                 chips=""
@@ -96,14 +111,14 @@ function handlePageChange(page) {
           <v-window-item  v-for="galleryItem in filteredGallery" :key="galleryItem.id" :value="galleryItem.id">
             <v-container>
               <v-row>
-                <v-col v-for="post in galleryItem.posts" :key="post.id" cols="12" md="4">
-                  <v-card class="mx-auto border-left border-top" max-width="325" :color="settings.cardBorderColor"
-                          :elevation="settings.cardElevation"
-                          :variant="settings.cardVariant"
+                <v-col  v-for="post in galleryItem.posts" :key="post.id" cols="12" md="4">
+                  <v-card class="mx-auto border-left border-top" max-width="325" :color="props.gallerySettings.cardBorderColor"
+                          :elevation="props.gallerySettings.cardElevation"
+                          :variant="props.gallerySettings.cardVariant"
                   >
                     <v-carousel :continuous="false" :show-arrows="false" hide-delimiter-background
                                 delimiter-icon="mdi mdi-circle-medium" height="300" class="bg-transparent"
-                                :color="settings.delimitersColor">
+                                :color="props.gallerySettings.delimitersColor">
                       <v-carousel-item v-for="post in paginatedPosts"
                                        :key="post.id"
                                        cover=""
@@ -113,12 +128,12 @@ function handlePageChange(page) {
 
 
 
-                        <v-card-title :style="`color: ${settings.cardTitleColor}`">
+                        <v-card-title :style="`color: ${props.gallerySettings.cardTitleColor}`">
                           {{ post.title }}
                           <v-btn
                               size="small"
                               variant="text"
-                              :color="settings.iconColor"
+                              :color="props.gallerySettings.iconColor"
                               class="align-self-center"
                               :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
                               @click="show = !show"
@@ -129,7 +144,7 @@ function handlePageChange(page) {
 
                     <v-expand-transition>
                       <div v-show="show">
-                        <v-card-subtitle class="pb-2" :style="`color: ${settings.cardTitleColor};`">
+                        <v-card-subtitle class="pb-2" :style="`color: ${props.gallerySettings.cardTitleColor};`">
                           {{ post.subtitle }}
 
                         </v-card-subtitle>
@@ -138,8 +153,8 @@ function handlePageChange(page) {
                         <div class="px-4 pt-4">
                           <v-slide-group :show-arrows="false">
                             <v-slide-group-item v-for="tag in post.tags" :key="tag">
-                              <v-chip class="ml-2" size="small" :color="settings.tagsColor"
-                                      :variant="settings.tagsVariant">
+                              <v-chip class="ml-2" size="small" :color="props.gallerySettings.tagsColor"
+                                      :variant="props.gallerySettings.tagsVariant">
                                 {{ tag }}
                               </v-chip>
                             </v-slide-group-item>
@@ -149,10 +164,10 @@ function handlePageChange(page) {
                         <v-card-actions class="justify-space-around mt-5">
                           <CommentsModal/>
                           <div class="justify-self-start">
-                            <v-icon class="me-1" size="small" icon="mdi-eye" :style="`color: ${settings.iconColor}`"/>
+                            <v-icon class="me-1" size="small" icon="mdi-eye" :style="`color: ${props.gallerySettings.iconColor}`"/>
                             <span class="me-2">{{ post.views }}</span>
                             <span class="me-1">·</span>
-                            <v-icon class="me-1" size="small" :color="settings.iconColor"
+                            <v-icon class="me-1" size="small" :color="props.gallerySettings.iconColor"
                                     :icon="unLike"
                                     @click="unLike = (unLike === 'mdi-heart' ? 'mdi-heart-outline' : 'mdi-heart')"
                             />
