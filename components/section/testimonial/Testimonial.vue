@@ -1,14 +1,24 @@
 <script setup lang="ts">
 
-import {TestimonialSettings, Testimonials} from '@/data/CustomComponents';
+import {testimonials,testimonialSettings} from '@/data/CustomComponents';
+import type {PropType} from "@vue/runtime-core";
+import type {TestimonialSettings} from "~/utils/types";
 
+const props = defineProps({
+  testimonialSettings: {
+    type: Object as PropType<TestimonialSettings>,
+    required: true,
+    default: {
+      items: testimonialSettings,
+    },
+  }
+})
 
-const settings = TestimonialSettings[0];
 </script>
 <template>
   <div>
     <div class="mini-spacer">
-      <v-container>
+      <v-container v-if="!!props.testimonialSettings">
         <!-- -----------------------------------------------
             Start Testimonial Text
         ----------------------------------------------- -->
@@ -33,26 +43,26 @@ const settings = TestimonialSettings[0];
             class="mx-auto"
             elevation="0"
             max-width="auto"
-            :color="settings.backColor"
-            :rounded="settings.backRounded"
+            :color="props.testimonialSettings.backColor"
+            :rounded="props.testimonialSettings.backRounded"
         >
           <v-slide-group
               class="py-4 "
           >
             <v-slide-group-item
-                v-for="card in Testimonials"
+                v-for="card in testimonials"
                 :key="card.name"
             >
               <v-row class="my-12" justify="center">
                 <v-card class="mx-12" max-width="330"
-                        :elevation="settings.cardElevation"
-                        :variant="settings.cardVariant"
+                        :elevation="props.testimonialSettings.cardElevation"
+                        :variant="props.testimonialSettings.cardVariant"
                         :style="`height: 250px;
-                         border-color: ${settings.cardBorderColor} !important;
-                         background-color: ${settings.cardColor};`"
-                        :border="settings.cardBorderSize"
+                         border-color: ${props.testimonialSettings.cardBorderColor} !important;
+                         background-color: ${props.testimonialSettings.cardColor};`"
+                        :border="props.testimonialSettings.cardBorderSize"
                 >
-                  <v-card-text class="pa-sm-10 pa-5 mx-5" :style="`color: ${settings.cardContextColor}`">
+                  <v-card-text class="pa-sm-10 pa-5 mx-5" :style="`color: ${props.testimonialSettings.cardContextColor}`">
                     <div class="d-flex align-center mb-5">
                       <v-avatar size="60">
                         <img :src="`/images/testimonial/${card.img}`" :alt="card.img" height="60"/>

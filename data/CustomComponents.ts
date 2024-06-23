@@ -513,7 +513,7 @@ const gallerySettings = [
 ];
 
 /*--Testimonials--*/
-const Testimonials = [
+const testimonials = [
     {
         id: 1,
         img: "1.jpg",
@@ -552,7 +552,7 @@ const Testimonials = [
     },
 ];
 
-const TestimonialSettings = [
+const testimonialSettings = [
     {
         backColor: '',
         backRounded: '',
@@ -724,8 +724,8 @@ export {
     services,
     gallery,
     gallerySettings,
-    Testimonials,
-    TestimonialSettings,
+    testimonials,
+    testimonialSettings,
     Articles,
     slideBanners,
     slideBannerSettings,
