@@ -1,29 +1,29 @@
 /*--Navigation Links---*/
-const headerMenu = [
+const header = [
     {
-        title: "درباره",
-        href: "section1",
+        key: "about-us",
+        label: "درباره",
     },
     {
-        title: "خدمات",
-        href: "section2",
+        key: "services",
+        label: "خدمات",
     },
     {
-        title: "گالری",
-        href: "section3",
+        key: "gallery",
+        label: "گالری",
     },
 
     {
-        title: "نظرات",
-        href: "section4",
+        key: "comments",
+        label: "نظرات",
     },
     // {
-    //     title: "مقالات",
-    //     href: "section5",
+    //     label: "مقالات",
+    // key: "section5",
     // },
     {
-        title: "تماس سریع",
-        href: "section5",
+        key: "contact-us",
+        label: "تماس سریع",
     },
 ];
 
@@ -719,7 +719,7 @@ const comments = [
 ];
 
 export {
-    headerMenu,
+    header,
     about,
     services,
     gallery,

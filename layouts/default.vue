@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 
-import Header2 from "~/components/section/header/Header2.vue";
+import Header2 from "~/components/section/header/Header.vue";
 
 const title = ref(" دکتر دندان پزشکیان - دندانپزشک و جراح");
 useHead({
@@ -19,13 +19,9 @@ useHead({
 <template>
   <v-app>
     <v-locale-provider rtl>
-    <Header2/>
     <v-main>
-
       <slot/>
-
     </v-main>
-    <LcFooter/>
     </v-locale-provider>
   </v-app>
 </template>
