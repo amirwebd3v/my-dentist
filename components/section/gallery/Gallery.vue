@@ -22,9 +22,9 @@ const props = defineProps({
   gallerySettings: {
     type: Object as PropType<GallerySettings>,
     required: true,
-    // default: {
-    //   posts: gallerySettings,
-    // },
+    default: {
+      posts: gallerySettings,
+    },
   }
 })
 
