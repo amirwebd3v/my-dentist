@@ -9,7 +9,7 @@ export const useServiceStore = defineStore('service', {
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Service>('/general/service', {
+            const response = await useApi().all<Service>('/api/service', {
                     sort: {created_at: 'desc'}
                 });
 

@@ -25,7 +25,7 @@ const testimonialSettings = ref()
 
 const {getSettingsByGroup} = storeToRefs(useSettingStore())
 await useSettingStore().fetch()
-await getSettingsByGroup.value('header').then(res => headerSettings.value = res)
+await getSettingsByGroup.value('general').then(res => headerSettings.value = res)
 await getSettingsByGroup.value('slider-banner').then(res => sliderBannerSettings.value = res)
 await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)

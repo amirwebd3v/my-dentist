@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { Setting } from "~/utils/types";
 
-type SettingGroup = 'testimonial' | 'about' | 'header' | 'slider-banner' | 'gallery';
+type SettingGroup = 'testimonial' | 'about' | 'general' | 'slider-banner' | 'gallery' | 'footer';
 interface SettingsState {
     settings: Setting[];
 }
@@ -14,12 +14,11 @@ export const useSettingStore = defineStore('setting', {
         getSettingsByGroup: (state) => async (group: SettingGroup)  => {
             const groupSettings = state.settings.filter(setting => setting.group === group);
             return groupSettings.reduce((acc, setting) => {
-                acc[setting.name] = setting.value;
+                acc[setting.name] = setting.payload;
                 return acc;
-            }, {} as { [key: string]: Setting['value']});
+            }, {} as { [key: string]: Setting['payload']});
         },
     },
-
 
     actions: {
         async fetch() {
