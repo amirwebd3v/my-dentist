@@ -1,3 +1,12 @@
+
+<script setup lang="ts">
+const isHovered = ref<boolean>(false)
+
+
+</script>
+
+
+
 <template>
   <!-- -----------------------------------------------
         Start Footer
@@ -56,10 +65,12 @@
           </div>
         </v-col>
       </v-row>
-      <v-col class="text-center mt-4" cols="12">
+      <v-col :class="['text-center mt-4', {'HiDev-Opacity-50': !isHovered}]"
+             @mouseover="isHovered = true"
+             @mouseleave="isHovered = false">
         <p class="text-warning mb-sm-0 mb-3">
-          &copy; 2023 -
-        <a href="" class="text-warning">Man.Of.Code</a>
+          &copy; 2024 -
+        <a href="" class="text-warning">HiDevs</a>
       </p>
       </v-col>
     </v-container>
@@ -68,5 +79,13 @@
         End Footer
   ----------------------------------------------- -->
 </template>
-<script setup>
-</script>
+
+
+
+<style scoped lang="scss">
+.HiDev-Opacity-50 {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+</style>
