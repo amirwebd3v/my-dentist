@@ -757,5 +757,8 @@ export {
     Articles,
     slideBanners,
     slideBannerSettings,
-    comments
+    comments,
+    ContactUsSettings,
+    FooterSettings,
+    Footer,
 };
