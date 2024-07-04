@@ -22,8 +22,8 @@ export const useSettingStore = defineStore('setting', {
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Setting>('/general/setting', {
-                sort: { created_at: 'desc' },
+            const response = await useApi().all<Setting>('/api/setting',{
+                pagination : {page : 1, perPage: -1}
             });
 
             // @ts-ignore
