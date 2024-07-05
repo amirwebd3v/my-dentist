@@ -8,6 +8,7 @@ import {useDisplay} from "vuetify";
 import Sidebar from "~/components/admin/Sidebar.vue";
 import Header from "~/components/admin/Header.vue";
 import Breadcrumb from "~/components/admin/Breadcrumb.vue";
+import { useSettingStore } from "~/store/settingStore";
 
 
 /*****************/
@@ -25,6 +26,8 @@ onMounted(() => {
     drawer.value = !drawer.value;
   }
 })
+
+await useSettingStore().init()
 
 
 </script>
