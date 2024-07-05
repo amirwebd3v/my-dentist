@@ -1,8 +1,11 @@
 <script setup lang="ts">
 
-import {testimonials,testimonialSettings} from '@/data/CustomComponents';
+import {testimonialSettings} from '@/data/CustomComponents';
 import type {PropType} from "@vue/runtime-core";
 import type {TestimonialSettings} from "~/utils/types";
+import {storeToRefs} from "pinia";
+import {useTestimonialStore} from "~/store/testimonial";
+
 
 const props = defineProps({
   testimonialSettings: {
@@ -12,6 +15,13 @@ const props = defineProps({
       items: testimonialSettings,
     },
   }
+})
+
+
+const {testimonials} = storeToRefs(useTestimonialStore())
+
+onBeforeMount(async ()=>{
+  await useTestimonialStore().fetch()
 })
 
 </script>
@@ -50,8 +60,8 @@ const props = defineProps({
               class="py-4 "
           >
             <v-slide-group-item
-                v-for="card in testimonials"
-                :key="card.name"
+                v-for="card in testimonials.values()"
+                :key="card.full_name"
             >
               <v-row class="my-12" justify="center">
                 <v-card class="mx-12" max-width="330"
@@ -65,14 +75,14 @@ const props = defineProps({
                   <v-card-text class="pa-sm-10 pa-5 mx-5" :style="`color: ${props.testimonialSettings.cardContextColor}`">
                     <div class="d-flex align-center mb-5">
                       <v-avatar size="60">
-                        <img :src="`/images/testimonial/${card.img}`" :alt="card.img" height="60"/>
+                        <img :src="card.image" :alt="card.image" height="60"/>
                       </v-avatar>
                       <div class="mr-3">
-                        <h6 class="text-uppercase font-weight-bold font-14">{{ card.name }}</h6>
-                        <p class="mt-1"> {{ card.serviceName.concat('/', card.date) }}</p>
+                        <h6 class="text-uppercase font-weight-bold font-14">{{ card.full_name }}</h6>
+                        <p class="mt-1"> {{ card.service.concat('/', card.date) }}</p>
                       </div>
                     </div>
-                    <p class="text-body-1 text-black text-justify">“{{ card.testimonial }}”</p>
+                    <p class="text-body-1 text-black text-justify">“{{ card.content }}”</p>
                   </v-card-text>
                 </v-card>
               </v-row>
