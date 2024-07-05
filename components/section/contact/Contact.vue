@@ -5,7 +5,7 @@
         <!-- -----------------------------------------------
             Start Contact Form
         ----------------------------------------------- -->
-        <v-row justify="center" class="mt-16">
+        <v-row justify="center" class="mt-16 mb-16">
           <v-col cols="12" md="8">
             <div>
               <h4 class="font-weight-medium contact-title mt-0">

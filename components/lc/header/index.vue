@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {header} from "@/data/CustomComponents";
+import {header} from "~/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
 import type {HeaderSettings} from "~/utils/types";
@@ -32,7 +32,7 @@ const {activeSection} =useActiveSection(props.headerSettings?.header_items || he
   <!-- -----------------------------------------------
         Start Header
   ----------------------------------------------- -->
-  <v-app-bar class="app-header header2 bg-white">
+  <v-app-bar class="app-header header bg-white">
     <v-container class="fill-height">
       <v-toolbar v-if="props.headerSettings">
         <v-app-bar-nav-icon

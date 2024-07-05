@@ -8,94 +8,61 @@ import About from './features/About.vue';
 import service from './features/Service.vue';
 import Testimonial from './testimonial/Testimonial.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
-import Header from "~/components/section/header/Header.vue";
 import ContactForm from './contact/Contact.vue';
 import Map from "../shared/map/Map.vue";
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
-import {useSettingStore} from "~/store/setting";
-import {storeToRefs} from "pinia";
+
+import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings} from "~/utils/types";
 
 /********************************************************/
-const headerSettings = ref()
-const sliderBannerSettings = ref()
-const aboutSettings = ref()
-const gallerySettings = ref()
-const testimonialSettings = ref()
-
-const {getSettingsByGroup} = storeToRefs(useSettingStore())
-await useSettingStore().fetch()
-await getSettingsByGroup.value('general').then(res => headerSettings.value = res)
-await getSettingsByGroup.value('slider-banner').then(res => sliderBannerSettings.value = res)
-await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
-await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
-await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.value = res)
+const carouselSettings =
+    inject('carouselSettings') as CarouselSettings
+const aboutSettings =
+    inject('aboutSettings') as AboutSettings
+const gallerySettings =
+    inject('gallerySettings') as GallerySettings
+const testimonialSettings =
+    inject('testimonialSettings') as TestimonialSettings
 
 
-// console.log(headerSettings.value)
 </script>
 
 <template>
 
-  <Header  :header-settings="headerSettings"/>
-  <!----Slide Banner----->
-  <SlideBanner id="header" :carousel-settings="sliderBannerSettings"/>
-  <!----Ask Questions ----->
-  <CallActionAsk1 />
-  <!----Feature 1----->
-  <About id="about-us" :about-settings="aboutSettings"/>
-  <!----Feature 2----->
-  <service id="services"/>
-  <!----Main Banner----->
-  <!--      <MainBanner/>-->
-  <!----Banner Text----->
-  <!--    <BannerText/>-->
-  <!----Work Banner----->
-  <!--      <WorkBanner/>-->
-  <!----Form Banner----->
-  <!--    <FormBannerText/>-->
-  <!----Form Email Banner----->
-  <!--      <FormBannerInput/>-->
-  <!----Feature Text----->
-  <!--    <FeatureText/>-->
-  <!----Ask Questions ----->
-  <!--  <CallActionAsk2/>-->
-  <!----Portfolio----->
-  <Gallery id="gallery" :gallery-settings="gallerySettings"/>
+  <div id="header">
+    <SlideBanner :carousel-settings="carouselSettings"/>
+    <CallActionAsk1/>
+  </div>
 
-  <!----Video----->
-  <Video/>
 
-  <!----Portfolio Text----->
-  <!--    <PortfolioText/>-->
+  <div id="about-us">
+    <About :about-settings="aboutSettings"/>
+  </div>
 
-  <!----Price Text----->
-  <!--    <PriceText/>-->
-  <!----Pricing Plans----->
-  <!--      <PricingPlans/>-->
-  <!----Team Text----->
-  <!--    <TeamText/>-->
-  <!----Team----->
-  <!--    <Team/>-->
-  <!----Testimonials Text----->
-  <!--      <TestimonialText/>-->
-  <!----Testimonials Quotes----->
-  <Testimonial id="testimonials" :testimonial-settings="testimonialSettings"/>
-  <!----Article ----->
-<!--      <Article id="section5"/>-->
-  <!----Call To Action ----->
-  <!--    <CallActionText/>-->
+  <div id="services">
+    <service/>
+  </div>
 
-  <!----Apps ----->
-  <!--    <AppsButton/>-->
-  <!----Contact Text ----->
-  <!--    <ContactText/>-->
-  <!----Contact Form ----->
-  <ContactForm id="contact-us"/>
-  <!----Map ----->
-  <Map/>
+  <div id="gallery">
+    <Gallery :gallery-settings="gallerySettings"/>
+  </div>
 
-  <LcFooter/>
+  <div id="video">
+    <Video/>
+  </div>
 
+  <div id="testimonials">
+    <Testimonial :testimonial-settings="testimonialSettings"/>
+  </div>
+
+  <div id="contact-us">
+    <ContactForm/>
+  </div>
+
+  <div id="map">
+    <Map/>
+  </div>
 
 </template>
+

@@ -2,17 +2,15 @@ html{
   scroll-behavior: smooth;
 }
 
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
   &-track {
-    background-color: #f1f1f1;
+    background-color: transparent;
   }
   &-thumb {
-    background-color: #888;
-    border-radius: 6px;
-    &:hover {
-      background-color: #555;
-    }
+    background-color: #03192C;
+    border-radius: 0 6px 6px 0;
   }
 }
 

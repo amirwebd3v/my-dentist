@@ -215,7 +215,7 @@ onMounted(() => {
             variant="text"
             rounded
             :length="meta.last_page"
-            :total-visible="3"
+            :total-visible="$vuetify.display.smAndUp ? 3 : 1"
             class="mt-8"
             next-icon="mdi-menu-right"
             prev-icon="mdi-menu-left"

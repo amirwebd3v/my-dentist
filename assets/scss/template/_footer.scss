@@ -1,3 +1,10 @@
+.footer {
+  margin-top: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+
 .social-icons {
   a {
     width: 34px;
@@ -10,6 +17,7 @@
     transition: 0.2s ease-in;
     color: rgb(var(--v-theme-primary));
     background: rgb(var(--v-theme-light));
+
     &:hover {
       transform: translate3d(0px, -5px, 0px);
       background: rgb(var(--v-theme-warning));

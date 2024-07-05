@@ -31,7 +31,9 @@ export function useActiveSection(headerItems: { key: string }[]) {
             if (visibleSection) {
                 updateActiveSection(visibleSection.target.id)
             }
-        }, { threshold: 0.1 })
+        }, {
+            threshold: 0.5,
+        })
     }
 
     const observeElements = (observer: IntersectionObserver) => {
