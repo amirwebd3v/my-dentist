@@ -10,8 +10,8 @@ const props = defineProps({
     type: Object as PropType<HeaderSettings>,
     required: true,
     default: {
-      logo: '/images/logos/Sami-logo-black.png',
-      items: header
+      header_image: '/images/logos/Sami-logo-black.png',
+      header_items: header
     },
   }
 })
@@ -23,7 +23,7 @@ const openLoginDialog = () => {
   $bus.$emit('loginDialogOpen', [true, 0])
 }
 /********************************************************/
-const {activeSection} =useActiveSection(props.headerSettings?.items || header)
+const {activeSection} =useActiveSection(props.headerSettings?.header_items || header)
 
 
 
@@ -156,7 +156,7 @@ const {activeSection} =useActiveSection(props.headerSettings?.items || header)
           <ul class="navbar-nav d-flex">
             <li
                 class="nav-item"
-                v-for="nav in props.headerSettings?.items"
+                v-for="nav in props.headerSettings?.header_items"
                 :key="[]"
                 :class="{ active: activeSection === nav.key }"
             >
@@ -167,7 +167,7 @@ const {activeSection} =useActiveSection(props.headerSettings?.items || header)
         <!--         Logo-->
         <div class="logo px-10">
           <NuxtLink to="/" class="d-flex logo">
-            <img :src="props.headerSettings.logo" alt="logo"/>
+            <img :src="props.headerSettings?.header_image" alt="logo"/>
           </NuxtLink>
         </div>
 
@@ -185,7 +185,7 @@ const {activeSection} =useActiveSection(props.headerSettings?.items || header)
       >
         <ul class="navbar-nav py-4">
           <li class="nav-item  mb-4"
-              v-for="nav in props.headerSettings?.items"
+              v-for="nav in props.headerSettings?.header_items"
               :key="[]"
               :class="{ active: activeSection === nav.key }"
           >
