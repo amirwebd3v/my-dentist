@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import {Articles} from "@/data/CustomComponents";
 
-const {$persianNumber} = useNuxtApp();
+
 // const activeSlide = ref(<any>null); // Initialize the active slide index
 const page = 1;
 import Swiper from 'swiper/bundle'

@@ -11,7 +11,7 @@ definePageMeta({
 const showAddCategoryDialog = ref<Boolean>(false)
 
 
-const {$persianNumber} = useNuxtApp()
+
 
 // Function to open the file explorer
 const fileInputRef = ref<HTMLInputElement | null>(null);

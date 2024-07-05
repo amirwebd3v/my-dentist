@@ -5,7 +5,7 @@ definePageMeta({
   layout: 'admin-layout',
 });
 
-const {$persianNumber} = useNuxtApp()
+
 
 // Function to open the file explorer
 const fileInputRef = ref<HTMLInputElement | null>(null);
@@ -162,7 +162,7 @@ function submitServices() {
                 </v-expand-transition>
               </v-img>
               <v-card-text class="py-1 text-center bg-primary text-white rounded-b text-truncate">
-                {{ 'سرویس ' + $persianNumber(items.id) + ': ' + items.title }}
+                {{ 'سرویس ' + items.id + ': ' + items.title }}
               </v-card-text>
             </v-card>
           </v-hover>

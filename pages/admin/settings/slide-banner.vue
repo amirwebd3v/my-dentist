@@ -3,7 +3,7 @@ import {slideBanners} from "~/data/CustomComponents";
 import {slideBannerSettings} from "~/data/CustomComponents";
 
 
-const {$persianNumber} = useNuxtApp()
+
 
 
 definePageMeta({
@@ -310,7 +310,7 @@ function submitSettings() {
               </v-img>
               <v-card-text class="py-1 text-center rounded-b bg-primary text-white"
               >
-                {{ 'اسلاید ' + $persianNumber(items.id) }}
+                {{ 'اسلاید ' + items.id }}
               </v-card-text>
             </v-card>
           </v-hover>
