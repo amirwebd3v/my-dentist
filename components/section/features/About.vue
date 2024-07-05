@@ -6,10 +6,6 @@ import type {AboutSettings} from "~/utils/types";
 
 
 
-
-
-
-
 const props = defineProps({
   aboutSettings: {
     type: Object as PropType<AboutSettings>,
@@ -20,9 +16,6 @@ const props = defineProps({
     },
   }
 })
-
-
-// console.log(props.aboutSettings?.image)
 
 
 </script>
