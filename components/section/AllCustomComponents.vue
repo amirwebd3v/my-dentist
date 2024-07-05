@@ -80,7 +80,7 @@ await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.va
   <!----Testimonials Text----->
   <!--      <TestimonialText/>-->
   <!----Testimonials Quotes----->
-  <Testimonial id="comments" :testimonial-settings="testimonialSettings"/>
+  <Testimonial id="testimonials" :testimonial-settings="testimonialSettings"/>
   <!----Article ----->
 <!--      <Article id="section5"/>-->
   <!----Call To Action ----->
