@@ -1,15 +1,41 @@
 <script setup lang="ts">
-import {comments,gallerySettings} from "~/data/CustomComponents";
+import {comments, gallerySettings} from "~/data/CustomComponents";
+import type {PropType} from "@vue/runtime-core";
+import type {GallerySettings} from "~/utils/types";
 
 
-const settings = gallerySettings[0];
+const props = defineProps({
+
+  settings: {
+      type: Object as PropType<GallerySettings>,
+      required: true,
+      default: {
+        posts: gallerySettings[0],
+      },
+    },
+
+  commentsCount: {
+    type: Number,
+    required: true,
+    default: {
+      commentsCount: 0
+    },
+  },
+
+  postId: {
+    type: Number,
+    required: true,
+  },
+
+
+})
+
+
 const showCommentsModal = ref<boolean>(false)
 
 
-
-
 // Define a computed property to track the visibility of replies for each comment
-const commentVisibility = computed(() => comments.map(() => ({ hideReplies: true })));
+const commentVisibility = computed(() => comments.map(() => ({hideReplies: true})));
 
 // Function to toggle the visibility of replies for a comment
 const toggleReplies = (commentIndex) => {
@@ -20,8 +46,8 @@ const toggleReplies = (commentIndex) => {
 const commentItems = computed(() => {
   return comments.flatMap((comment, commentIndex) => {
     return [
-      { type: 'comment', ...comment },
-      ...comment.replies.map((reply) => ({ type: 'reply', ...reply })),
+      {type: 'comment', ...comment},
+      ...comment.replies.map((reply) => ({type: 'reply', ...reply})),
     ];
   });
 });
@@ -30,7 +56,7 @@ const commentItems = computed(() => {
 const api = async () => {
   return new Promise(resolve => {
     setTimeout(() => {
-      resolve(Array.from({ length: 10 }, (k, v) => v + comments.at(-1) + 1));
+      resolve(Array.from({length: 10}, (k, v) => v + comments.at(-1) + 1));
     }, 5000);
   });
 };
@@ -55,11 +81,12 @@ const load = async (done) => {
       width="auto"
       height="750px"
   >
-    <template v-slot:activator="{ props }">
-      <v-btn class="text-none px-0 py-0" size="small" v-bind="props">
-        <v-badge content="3" :color="settings.iconColor" :text-color="settings.iconBadgeTextColor">
-          <v-icon class="mdi mdi-comment-multiple-outline ml-1"  :style="`color: ${settings.iconColor}`"></v-icon>
+    <template v-slot:activator="{ items }" v-if="!!props.settings">
+      <v-btn class="text-none px-0 py-0" size="small" v-bind="items">
+        <v-badge :content="commentsCount" :color="props.settings.iconColor" :text-color="props.settings.iconBadgeTextColor" v-if="props.commentsCount !== 0">
+          <v-icon class="mdi mdi-comment-multiple-outline ml-1" :style="`color: ${props.settings.iconColor}`"></v-icon>
         </v-badge>
+        <v-icon v-if="props.commentsCount === 0" class="mdi mdi-comment-multiple-outline ml-1" :style="`color: ${props.settings.iconColor}`"></v-icon>
       </v-btn>
     </template>
     <v-card class="mx-auto"
@@ -68,62 +95,62 @@ const load = async (done) => {
       <v-divider></v-divider>
       <v-card-text>
 
-        <v-infinite-scroll  :items="comments" :onLoad="load">
+        <v-infinite-scroll :items="comments" :onLoad="load">
           <template v-for="(comment, index) in comments" :key="comment.username">
-              <!-- Render Comment -->
-              <v-list>
-            <v-list-item-title>
-              <v-avatar image="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-avatar>
-              <span class="mr-1">{{ comment.username }}</span>
-              <v-divider vertical thickness="8"/>
-              <span class="mr-1 grey--text font-12">{{ comment.date }}</span>
-            </v-list-item-title>
-            <div class="pr-7">
-              <v-banner  class="border-none text-wrap font-15" :text="comment.text" stacked="">
-                <template v-slot:actions>
-                  <v-list-item-subtitle>
-                    <a @click="" class="text-decoration-none" style="cursor: pointer">پاسخ</a>
-                  </v-list-item-subtitle>
-                </template>
-              </v-banner>
-
-            </div>
-          </v-list>
-          <v-list class="pr-5">
-            <v-list-item  style="color: black" v-for="(reply, replyIndex) in comment.replies" :key="replyIndex">
+            <!-- Render Comment -->
+            <v-list>
               <v-list-item-title>
                 <v-avatar image="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-avatar>
-                <span class="mr-1">{{ reply.username }}</span>
+                <span class="mr-1">{{ comment.username }}</span>
                 <v-divider vertical thickness="8"/>
-                <span class="mr-1 grey--text font-12">{{ reply.date }}</span>
+                <span class="mr-1 grey--text font-12">{{ comment.date }}</span>
               </v-list-item-title>
               <div class="pr-7">
-                <v-banner  class="border-none text-wrap font-15" :text="reply.text" stacked="">
+                <v-banner class="border-none text-wrap font-15" :text="comment.text" stacked="">
                   <template v-slot:actions>
                     <v-list-item-subtitle>
                       <a @click="" class="text-decoration-none" style="cursor: pointer">پاسخ</a>
                     </v-list-item-subtitle>
                   </template>
                 </v-banner>
+
               </div>
-            </v-list-item>
-            <div class="d-flex pr-5 pt-2"  v-if="comment.replies.length > 0">
-              <v-divider thickness="1" length="30px" class="align-self-center"/>
-              <v-list-item-subtitle>
-                <a variant="outlined"
-                   @click="toggleReplies(index)"
-                   class="pr-2 text-decoration-none"
-                   style="cursor: pointer"> {{ comment.hideReplies ? 'نمایش پاسخها' : 'مخفی کردن' }}
-                </a>
-              </v-list-item-subtitle>
-            </div>
-          </v-list>
+            </v-list>
+            <v-list class="pr-5">
+              <v-list-item style="color: black" v-for="(reply, replyIndex) in comment.replies" :key="replyIndex">
+                <v-list-item-title>
+                  <v-avatar image="https://cdn.vuetifyjs.com/images/lists/2.jpg"></v-avatar>
+                  <span class="mr-1">{{ reply.username }}</span>
+                  <v-divider vertical thickness="8"/>
+                  <span class="mr-1 grey--text font-12">{{ reply.date }}</span>
+                </v-list-item-title>
+                <div class="pr-7">
+                  <v-banner class="border-none text-wrap font-15" :text="reply.text" stacked="">
+                    <template v-slot:actions>
+                      <v-list-item-subtitle>
+                        <a @click="" class="text-decoration-none" style="cursor: pointer">پاسخ</a>
+                      </v-list-item-subtitle>
+                    </template>
+                  </v-banner>
+                </div>
+              </v-list-item>
+              <div class="d-flex pr-5 pt-2" v-if="comment.replies.length > 0">
+                <v-divider thickness="1" length="30px" class="align-self-center"/>
+                <v-list-item-subtitle>
+                  <a variant="outlined"
+                     @click="toggleReplies(index)"
+                     class="pr-2 text-decoration-none"
+                     style="cursor: pointer"> {{ comment.hideReplies ? 'نمایش پاسخها' : 'مخفی کردن' }}
+                  </a>
+                </v-list-item-subtitle>
+              </div>
+            </v-list>
           </template>
         </v-infinite-scroll>
-<!--        TODO: hide replies and show replies handling with text field answer to whom!-->
+        <!--        TODO: hide replies and show replies handling with text field answer to whom!-->
       </v-card-text>
       <v-divider/>
-          <v-text-field label="پاسخ به " class="border-none p-0 m-0"></v-text-field>
+      <v-text-field label="پاسخ به " class="border-none p-0 m-0"></v-text-field>
       <v-card-actions>
         <v-btn
             color="blue-darken-1"
