@@ -23,8 +23,7 @@ const openLoginDialog = () => {
   $bus.$emit('loginDialogOpen', [true, 0])
 }
 /********************************************************/
-const {activeSection} =useActiveSection(props.headerSettings?.header_items || header)
-
+const {activeSection} = useActiveSection(props.headerSettings?.header_items || header)
 
 
 </script>
@@ -160,7 +159,9 @@ const {activeSection} =useActiveSection(props.headerSettings?.header_items || he
                 :key="[]"
                 :class="{ active: activeSection === nav.key }"
             >
-              <NuxtLink :to="{path: '/', hash: `#${nav.key}`}" class="nav-link">{{ nav.label }}</NuxtLink>
+              <NuxtLink :to="nav.key === 'faq' ? '/FAQ' : {path: '/', hash: `#${nav.key}`}" class="nav-link">
+                {{ nav.label }}
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -189,7 +190,9 @@ const {activeSection} =useActiveSection(props.headerSettings?.header_items || he
               :key="[]"
               :class="{ active: activeSection === nav.key }"
           >
-            <NuxtLink :to="{ path: '/', hash: `#${nav.key}`}" class="nav-link">{{ nav.label }}</NuxtLink>
+            <NuxtLink :to="nav.key === 'faq' ? '/FAQ' : {path: '/', hash: `#${nav.key}`}" class="nav-link">
+              {{ nav.label }}
+            </NuxtLink>
           </li>
           <v-divider></v-divider>
           <li class="nav-item">
