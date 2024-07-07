@@ -729,16 +729,19 @@ const footer = [
         textColor: '#FFFFFF',
         socialMediaIconsColor: '#03192C',
         hoverColor: '#fec500',
-        first_address: 'اولین آدرس',
+        first_address: 'تهران، سعادت آباد، بلوار ۲۴متری(محمد علی کشاورز)،نبش چهارم شرقی، پلاک ۲۹، طبقه دوم، واحد ۲۰۲',
         second_address: 'دومین آدرس',
-        first_phone: 'اولین تلفن تماس',
-        second_phone: 'دومین تلفن تماس',
+        first_phone: '021-2237-2127',
+        second_phone: '021-2237-2128',
         first_email: 'اولین پست الکترونیک',
         second_email: 'دومین پست الکترونیک',
-        instagram: 'لینک اینستاگرام',
+        instagram: 'https://www.instagram.com/dr.ronaghi_s_dds',
         youtube: 'لینک یوتیوب',
         linkedin: 'لینک لینکدین',
         facebook: 'لینک فیسبوک',
+        aparat: 'لینک آپارات',
+        rubika: 'لینک روبیکا',
+        telegram: 'لینک تلگرام',
     }
 ]
 
