@@ -134,8 +134,8 @@ type HeaderItems = {
 
 
 type HeaderSettings = {
-    header_image: string,
-    header_items: HeaderItems[]
+    headerLogo: string,
+    headerItems: HeaderItems[]
 }
 
 

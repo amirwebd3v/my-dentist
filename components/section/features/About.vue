@@ -31,7 +31,7 @@ const props = defineProps({
                 <v-row class="mt-16">
                   <v-col cols="12" sm="6">
                     <div class="img-boarder mx-auto" style="max-height: 360px; max-width: 360px;">
-                      <v-img  :src="<string>props.aboutSettings?.image"></v-img>
+                      <v-img  :src="`${useAppConfig().api.baseUrl+ '/storage/' +<string>props.aboutSettings?.image}`"></v-img>
                     </div>
                   </v-col>
                   <v-col cols="12" sm="6">

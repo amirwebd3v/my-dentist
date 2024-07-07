@@ -57,11 +57,10 @@ const load = async (newPage: number) => {
   //   ] : []
   // ]
   // console.log(posts.value)
-  // const params = useApi().prepareQueryParams(options)
+  const params = useApi().prepareQueryParams({page:newPage,itemsPerPage: 3})
 
 
-  // params.relations = ['categories']
-  await usePostStore().paginate({pagination: {page: newPage, perPage: 3}})
+  await usePostStore().paginate(params)
 
   loading.value = false
 }
