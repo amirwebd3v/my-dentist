@@ -201,7 +201,7 @@ const gallery = [
                 tags: ['ocean', 'cliff', 'seascape'],
                 views: 174,
                 likes: 31,
-                images:'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+                images: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
             },
             {
                 id: 103,
@@ -557,8 +557,8 @@ const testimonialSettings = [
 ];
 
 
-/*--Articles--*/
-const Articles = [
+/*--articles--*/
+const articles = [
     {
         id: 1,
         img: "https://d45jl3w9libvn.cloudfront.net/jaypee/static/journals/JSD/13/1/JSD_Cover.jpg",
@@ -710,7 +710,7 @@ const comments = [
 ];
 
 
-const ContactUsSettings = [
+const contactUsSettings = [
     {
         title: 'تیتر کارت',
         subtitle: 'متن کارت',
@@ -722,17 +722,13 @@ const ContactUsSettings = [
     }
 ]
 
-const FooterSettings = [
-    {
-        bgColor: 'رنگ زمینه فوتر',
-        cardBgColor: 'رنگ زمینه کارت',
-        textColor: 'رنگ متن',
-        socialMediaIconsColor: 'رنگ آیکون ها',
-    }
-]
 
-const Footer = [
+const footer = [
     {
+        bgColor: '#03192C',
+        textColor: '#FFFFFF',
+        socialMediaIconsColor: '#03192C',
+        hoverColor: '#fec500',
         first_address: 'اولین آدرس',
         second_address: 'دومین آدرس',
         first_phone: 'اولین تلفن تماس',
@@ -754,11 +750,10 @@ export {
     gallerySettings,
     testimonials,
     testimonialSettings,
-    Articles,
+    articles,
     slideBanners,
     slideBannerSettings,
     comments,
-    ContactUsSettings,
-    FooterSettings,
-    Footer,
+    contactUsSettings,
+    footer,
 };
