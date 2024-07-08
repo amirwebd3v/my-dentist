@@ -45,46 +45,46 @@ onBeforeMount(async ()=>{
             v-for="card in services.values()"
             :key="card.id"
         >
-          <!--          <v-card elevation="4" class="rounded-shaped" :style=card.contextBackColor>-->
-          <!--            <v-row dir="ltr">-->
-          <!--              <v-col cols="12" sm="8" class="py-0" dir="rtl">-->
-          <!--                <v-card-text>-->
-          <!--                  <div class="d-flex align-center pt-5 pb-4">-->
-          <!--                    <v-row align="center">-->
-          <!--                      <v-col-->
-          <!--                          cols="12"-->
-          <!--                          sm="8"-->
-          <!--                          class="px-md-0 d-flex align-center"-->
-          <!--                      >-->
-          <!--                        <h4 class="font-weight-medium font-16 text-justify ellipsis" :style="`color: ${card.contextColor} ;`">-->
-          <!--                          {{ card.context }}-->
-          <!--                        </h4>-->
-          <!--                      </v-col>-->
-          <!--                      <v-col cols="12" sm="4">-->
-          <!--                        <img-->
-          <!--                            :src=card.imageSource-->
-          <!--                            class="img-fluid rounded"-->
-          <!--                            alt="service"-->
-          <!--                        />-->
-          <!--                      </v-col>-->
-          <!--                    </v-row>-->
-          <!--                  </div>-->
-          <!--                </v-card-text>-->
-          <!--              </v-col>-->
-          <!--              <v-col cols="12" sm="4">-->
-          <!--                <v-btn-->
-          <!--                    block-->
-          <!--                    class="linking service-action-btn mt-sm-0 mt-n0 rounded-0 py-5"-->
-          <!--                    elevation="4"-->
-          <!--                    :style="`background-color: ${card.btnColor} ;`"-->
-          <!--                    :to="card.btnLink"-->
-          <!--                >-->
-          <!--                  <a :style="`color: ${card.titleColor} ;`" > {{ card.title }}</a>-->
-          <!--                </v-btn>-->
-          <!--              </v-col>-->
+<!--                    <v-card elevation="4" class="rounded-shaped" :style=card.config.contextColor>-->
+<!--                      <v-row dir="ltr">-->
+<!--                        <v-col cols="12" sm="8" class="py-0" dir="rtl">-->
+<!--                          <v-card-text>-->
+<!--                            <div class="d-flex align-center pt-5 pb-4">-->
+<!--                              <v-row align="center">-->
+<!--                                <v-col-->
+<!--                                    cols="12"-->
+<!--                                    sm="8"-->
+<!--                                    class="px-md-0 d-flex align-center"-->
+<!--                                >-->
+<!--                                  <h4 class="font-weight-medium font-16 text-justify ellipsis" :style="`color: ${card.config.contextColor} ;`">-->
+<!--                                    {{ card.content }}-->
+<!--                                  </h4>-->
+<!--                                </v-col>-->
+<!--                                <v-col cols="12" sm="4">-->
+<!--                                  <img-->
+<!--                                      :src="card.image"-->
+<!--                                      class="img-fluid rounded"-->
+<!--                                      alt="service"-->
+<!--                                  />-->
+<!--                                </v-col>-->
+<!--                              </v-row>-->
+<!--                            </div>-->
+<!--                          </v-card-text>-->
+<!--                        </v-col>-->
+<!--                        <v-col cols="12" sm="4">-->
+<!--                          <v-btn-->
+<!--                              block-->
+<!--                              class="linking service-action-btn mt-sm-0 mt-n0 rounded-0 py-5"-->
+<!--                              elevation="4"-->
+<!--                              :style="`background-color: ${card.config.titleColor} ;`"-->
+<!--                          -->
+<!--                          >-->
+<!--                            <a :style="`color: ${card.config.titleColor} ;`" > {{ card.title }}</a>-->
+<!--                          </v-btn>-->
+<!--                        </v-col>-->
 
-          <!--            </v-row>-->
-          <!--          </v-card>-->
+<!--                      </v-row>-->
+<!--                    </v-card>-->
           <v-tooltip :text="card.content" location="bottom" class="text-justify" width="250" open-on-click>
             <template v-slot:activator="{ props }">
               <v-sheet
@@ -98,7 +98,7 @@ onBeforeMount(async ()=>{
                   v-bind="props"
               >
                 <div class="pt-3 text-center">
-                  <v-img class="mr-4" width="70" height="70" src="images/icons/foamy.png"></v-img>
+                  <v-img class="mr-4" width="70" height="70" :src="card.image"></v-img>
                   <p class="pt-3 font-weight-bold font-15">{{ card.title }}</p>
                 </div>
               </v-sheet>
