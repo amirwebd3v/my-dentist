@@ -13,6 +13,7 @@ interface Service {
         contextColor: string;
         titleBackColor: string;
     };
+    image: string;
     created_at: number;
     updated_at: number;
 }

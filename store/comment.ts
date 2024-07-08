@@ -1,22 +1,77 @@
-import {defineStore} from "pinia";
+import { defineStore } from 'pinia'
 import type {Comment} from "~/utils/types";
 
+interface PostCommentState {
+    comments: Comment[]
+    currentPage: number
+    totalPages: number
+}
 
-export const useCommentStore = defineStore('comment', {
-    state: () => ({
-        comments: new Map<number, Comment>(),
-    }),
+export const useCommentStore = defineStore('comment', () => {
+    const { paginate, prepareQueryParams } = useApi()
 
-    actions: {
-        async fetch() {
-            const response = await useApi().all<Comment>('/api/comment', {
-                    sort: {created_at: 'desc'}
-                });
 
-            // @ts-ignore
-            response.data.forEach(comment => {
-                this.comments.set(comment.id, comment);
-            });
+    const comments = reactive(new Map<number, PostCommentState>())
+    const loading = ref(false)
+    const error = ref<string | null>(null)
+
+    const getComments = async (postId: number, page = 1, itemsPerPage = 5) => {
+        loading.value = true
+        error.value = null
+
+        try {
+            const queryParams = prepareQueryParams({page, itemsPerPage})
+            queryParams.sort = { created_at: 'desc' }
+            queryParams.search = `commentable.id:${postId.toString()}`
+
+            const response = await paginate<Comment>('/api/comment', queryParams)
+
+            const currentState = comments.get(postId) || { comments: [], currentPage: 0, totalPages: 0 }
+
+            if (page === 1) {
+                currentState.comments = response.data
+            } else {
+                currentState.comments = [...currentState.comments, ...response.data]
+            }
+
+            currentState.currentPage = response.meta.current_page
+            currentState.totalPages = response.meta.last_page
+
+            comments.set(postId, currentState)
+        } catch (err) {
+            error.value = 'Failed to fetch comments'
+            console.error('Error fetching comments:', err)
+        } finally {
+            loading.value = false
         }
-    },
+    }
+
+    const loadMoreComments = async (postId: number) => {
+        const currentState = comments.get(postId)
+        if (currentState && currentState.currentPage < currentState.totalPages) {
+            await getComments(postId, currentState.currentPage + 1)
+        }
+    }
+
+    const getCommentsForPost = computed(() => (postId: number) => {
+        return comments.get(postId)?.comments || []
+    })
+
+    const getCurrentPage = computed(() => (postId: number) => {
+        return comments.get(postId)?.currentPage || 1
+    })
+
+    const getTotalPages = computed(() => (postId: number) => {
+        return comments.get(postId)?.totalPages || 1
+    })
+
+    return {
+        getComments,
+        loadMoreComments,
+        getCommentsForPost,
+        getCurrentPage,
+        getTotalPages,
+        loading,
+        error
+    }
 })

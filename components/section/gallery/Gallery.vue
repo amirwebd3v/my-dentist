@@ -16,7 +16,20 @@ const loading = ref(false)
 /**************************************************************************/
 const tab = ref(1);
 const unLike = ref('mdi-heart-outline');
-const show = ref(false);
+const showStates = reactive({})
+
+const show = (id) => {
+  if (!(id in showStates)) {
+    showStates[id] = false
+  }
+  return showStates[id]
+}
+
+const toggleShow = (id) => {
+  showStates[id] = !showStates[id]
+}
+
+
 //
 // const filteredGallery = computed(() => {
 //   return gallery.filter((item) => item.id === tab.value);
@@ -152,7 +165,7 @@ onMounted(() => {
                   </v-carousel>
 
 
-                  <v-card-title :style="`color: ${props.gallerySettings.cardTitleColor}`">
+                  <v-card-title :style="`color: ${props.gallerySettings.cardTitleColor}`" :key="post.id">
                     <v-row justify="space-between" align="center" class="py-4 px-1">
                       <div class="text-truncate" style="max-width: 200px;">
                         {{ post.title }}
@@ -162,15 +175,15 @@ onMounted(() => {
                           variant="text"
                           :color="props.gallerySettings.iconColor"
                           class="align-self-center"
-                          :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'"
-                          @click="show = !show"
+                          :icon="show(post.id) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
+                          @click="toggleShow(post.id)"
                       />
                     </v-row>
                   </v-card-title>
 
 
                   <v-expand-transition>
-                    <div v-show="show">
+                    <div v-show="show(post.id)">
                       <v-card-subtitle class="pb-2" :style="`color: ${props.gallerySettings.cardTitleColor};`">
                         {{ post.subtitle }}
 
