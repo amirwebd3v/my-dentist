@@ -40,8 +40,8 @@ interface Comment {
     reply: string;
     is_approved: boolean;
     user_id: number;
-    commentable: Post[];
-    commentator: User[]
+    commentable: Post;
+    commentator: User;
     created_at: number;
     updated_at: number;
 }

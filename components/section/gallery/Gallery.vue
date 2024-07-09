@@ -70,8 +70,12 @@ const load = async (newPage: number) => {
   //   ] : []
   // ]
   // console.log(posts.value)
-  const params = useApi().prepareQueryParams({page:newPage,itemsPerPage: 3})
+  const params = useApi().prepareQueryParams({
+    page:newPage,
+    itemsPerPage: 3,
+  })
 
+  params.sort = { created_at: 'desc' }
 
   await usePostStore().paginate(params)
 
