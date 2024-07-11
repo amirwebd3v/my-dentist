@@ -259,7 +259,7 @@ h6 {
 .c2a-title {
   font-size: 16px;
 }
-@media (min-width: 1600px){
+@media (max-width: 1600px) and (min-width: 1024px){
   .v-container {
       max-width: 1170px;
   }

@@ -2,15 +2,47 @@
   padding: 40px;
   .detail-title {
     line-height: 36px;
-    font-size: 30px;
+    font-size: 26px;
     margin-bottom: 10px;
+
   }
 }
 
 .contact-title {
   margin: 20px 0 15px;
   line-height: 26px;
-  font-size: 21px;
+  font-size: 24px;
+
 }
 
 
+.sendBtn {
+  margin-top: 12px !important;
+}
+
+@media (max-width: 1024px)  {
+  .contact-detail-card .detail-title {
+    font-size: 23px;
+  }
+
+
+}
+
+
+@media (max-width: 984px) and (min-width: 960px) {
+  .sendBtn {
+    margin-top: 56px !important;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 985px) {
+  .sendBtn {
+    margin-top: 32px !important;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1075px) {
+  .sendBtn {
+    margin-top: 32px !important;
+  }
+}
