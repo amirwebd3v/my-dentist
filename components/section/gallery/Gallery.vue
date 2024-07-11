@@ -169,7 +169,7 @@ onMounted(() => {
                   </v-carousel>
 
 
-                  <v-card-title :style="`color: ${props.gallerySettings.cardTitleColor}`" :key="post.id">
+                  <v-card-title class="font-weight-regular" :style="`color: ${props.gallerySettings.cardTitleColor}`" :key="post.id">
                     <v-row justify="space-between" align="center" class="py-4 px-1">
                       <div class="text-truncate" style="max-width: 200px;">
                         {{ post.title }}
@@ -188,9 +188,8 @@ onMounted(() => {
 
                   <v-expand-transition>
                     <div v-show="show(post.id)">
-                      <v-card-subtitle class="pb-2" :style="`color: ${props.gallerySettings.cardTitleColor};`">
+                      <v-card-subtitle  class="pb-2 text-wrap" :style="`color: ${props.gallerySettings.cardTitleColor};`">
                         {{ post.subtitle }}
-
                       </v-card-subtitle>
 
                       <v-divider class="mx-4"/>
