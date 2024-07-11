@@ -127,6 +127,17 @@ type TestimonialSettings = {
     cardContextColor: string,
 }
 
+type ContactUsSettings = {
+    title: string;
+    subtitle: string;
+    sendBtnColor: string;
+    cardBgColor: string;
+    map: {
+        lat: number;
+        lng: number;
+    };
+}
+
 
 type HeaderItems = {
     key: string
@@ -213,6 +224,7 @@ export {
     AboutItems,
     GallerySettings,
     TestimonialSettings,
+    ContactUsSettings,
     HeaderItems,
     HeaderSettings,
     Service,

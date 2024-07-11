@@ -5,13 +5,13 @@ import {storeToRefs} from "pinia";
 import {useSettingStore} from "~/store/setting";
 
 
-const title = ref(" دکتر دندان پزشکیان - دندانپزشک و جراح");
+const title = ref(" دکتر سمیرا رونقی - دندانپزشک و جراح");
 useHead({
   meta: [{content: title}],
   titleTemplate: (titleChunk) => {
     return titleChunk
         ? `${titleChunk} - دندانپزشک و جراح `
-        : "وبسایت دکتر دندان پزشکیان";
+        : "وبسایت دکتر سمیرا رونقی";
   },
 });
 
@@ -20,6 +20,7 @@ const carouselSettings = ref()
 const aboutSettings = ref()
 const gallerySettings = ref()
 const testimonialSettings = ref()
+const contactUsSettings = ref()
 
 
 const {getSettingsByGroup} = storeToRefs(useSettingStore())
@@ -30,12 +31,14 @@ await getSettingsByGroup.value('slider-banner').then(res => carouselSettings.val
 await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
 await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.value = res)
+await getSettingsByGroup.value('contact-us').then(res => contactUsSettings.value = res)
 
 
 provide('carouselSettings',carouselSettings.value)
 provide('aboutSettings',aboutSettings.value)
 provide('gallerySettings',gallerySettings.value)
 provide('testimonialSettings',testimonialSettings.value)
+provide('contactUsSettings',contactUsSettings.value)
 
 
 </script>

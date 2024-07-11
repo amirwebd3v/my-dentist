@@ -9,11 +9,10 @@ import service from './features/Service.vue';
 import Testimonial from './testimonial/Testimonial.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
 import ContactForm from './contact/Contact.vue';
-import Map from "../shared/map/Map.vue";
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
 
-import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings} from "~/utils/types";
+import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings, ContactUsSettings} from "~/utils/types";
 
 /********************************************************/
 const carouselSettings =
@@ -24,6 +23,8 @@ const gallerySettings =
     inject('gallerySettings') as GallerySettings
 const testimonialSettings =
     inject('testimonialSettings') as TestimonialSettings
+const contactUsSettings =
+    inject('contactUsSettings') as ContactUsSettings
 
 
 </script>
@@ -57,11 +58,7 @@ const testimonialSettings =
   </div>
 
   <div id="contact-us">
-    <ContactForm/>
-  </div>
-
-  <div id="map">
-    <Map/>
+    <ContactForm :contactUs-settings="contactUsSettings"/>
   </div>
 
 </template>

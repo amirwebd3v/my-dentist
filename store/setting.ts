@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import type { Setting } from "~/utils/types";
 
-type SettingGroup = 'testimonial' | 'about' | 'general' | 'slider-banner' | 'gallery' | 'footer';
+type SettingGroup = 'testimonial' | 'about' | 'general' | 'slider-banner' | 'gallery' | 'contact-us' | 'footer' ;
 interface SettingsState {
     settings: Setting[];
 }
