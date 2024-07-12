@@ -53,7 +53,6 @@ const load = async (newPage: number = meta.value.current_page,itemsPerPage: numb
     return
   }
 
-  console.log(itemsPerPage,xs.value)
 
 
   loading.value = true
