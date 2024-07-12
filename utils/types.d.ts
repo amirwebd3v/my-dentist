@@ -127,7 +127,7 @@ type TestimonialSettings = {
     cardContextColor: string,
 }
 
-type ContactUsSettings = {
+type ContactusSettings = {
     title: string;
     subtitle: string;
     sendBtnColor: string;
@@ -138,17 +138,35 @@ type ContactUsSettings = {
     };
 }
 
+type HeaderSettings = {
+    headerLogo: string,
+    headerItems: HeaderItems[]
+}
 
 type HeaderItems = {
     key: string
     label: string
 }
 
-
-type HeaderSettings = {
-    headerLogo: string,
-    headerItems: HeaderItems[]
-}
+type FooterSettings = {
+    footerBgColor: string;
+    footerHoverColor: string;
+    footerTextColor: string;
+    footerSocialMediaIconsColor: string;
+    footerFirstAddress: string;
+    footerSecondAddress: string | null;
+    footerFirstPhone: string;
+    footerSecondPhone: string | null;
+    footerFirstEmail: string;
+    footerSecondEmail: string | null;
+    footerInstagram: string | null;
+    footerYoutube: string | null;
+    footerLinkedin: string | null;
+    footerFacebook: string | null;
+    footerAparat: string | null;
+    footerRubika: string | null;
+    footerTelegram: string | null;
+};
 
 
 interface Preview {
@@ -224,8 +242,9 @@ export {
     AboutItems,
     GallerySettings,
     TestimonialSettings,
-    ContactUsSettings,
+    ContactusSettings,
     HeaderItems,
+    FooterSettings,
     HeaderSettings,
     Service,
     Post,

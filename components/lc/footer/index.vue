@@ -1,8 +1,22 @@
 <script setup lang="ts">
+import type {PropType} from "@vue/runtime-core";
+import {footer} from "~/data/CustomComponents";
+import type {FooterSettings} from "~/utils/types";
+import {useLocale} from "vuetify";
+
 const isHovered = ref<boolean>(false)
 
-import {footer} from "~/data/CustomComponents";
+const props = defineProps({
+  footerSettings: {
+    type: Object as PropType<FooterSettings>,
+    required: true,
+    default: {
+      footerSettings: footer[0]
+    },
+  }
+})
 
+console.log(useLocale().n(props.footerSettings?.footerFirstPhone))
 </script>
 
 
@@ -10,7 +24,8 @@ import {footer} from "~/data/CustomComponents";
   <!-- -----------------------------------------------
         Start Footer
   ----------------------------------------------- -->
-  <v-footer class="footer px-4" :style="`background-color: ${footer[0].bgColor}; color: ${footer[0].textColor}`">
+  <v-footer v-if="!!props.footerSettings"
+            class="footer px-4" :style="`background-color: ${props.footerSettings.footerBgColor}; color: ${props.footerSettings.footerTextColor}`">
     <v-container>
       <v-row class="py-6 py-sm-7">
         <!-- -----------------------------------------------
@@ -18,15 +33,15 @@ import {footer} from "~/data/CustomComponents";
       ----------------------------------------------- -->
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18 ">آدرس مطب</h4>
-          <p class="mt-5">ایران - تهران، رباط کریم</p>
+          <p class="mt-5">{{ props.footerSettings.footerFirstAddress }}</p>
         </v-col>
         <!-- -----------------------------------------------
         Second Column
       ----------------------------------------------- -->
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18 ">تلفن تماس</h4>
-          <p class="mt-5 ">پذیرش : ۹۸۸۹ ۷۶۵ ۰۹۳۸</p>
-          <p class="mt-3 ">مطب : ۱۲۳۴ ۳۲ ۶۲۶-۰۲۱</p>
+          <p class="mt-5 ">{{ useLocale().n(props.footerSettings.footerFirstPhone)}}</p>
+          <p class="mt-3 ">{{ useLocale().n(props.footerSettings?.footerSecondPhone)}}</p>
         </v-col>
         <!-- -----------------------------------------------
         Third Column
@@ -35,17 +50,17 @@ import {footer} from "~/data/CustomComponents";
           <h4 class="font-weight-regular font-18 ">پست الکترونیک</h4>
           <p class="mt-5 ">
             <span class="text-white">مطب : </span>
-            <a class="text-decoration-none" :style="`color: ${footer[0].textColor} !important;`"
-               href="/" @mouseover="$event.target.style.color = footer[0].hoverColor"
-               @mouseout="$event.target.style.color = footer[0].textColor">
-              info@wrappixel.com</a>
+            <a class="text-decoration-none" :style="`color: ${props.footerSettings.footerTextColor} !important;`"
+               href="/" @mouseover="$event.target.style.color = props.footerSettings.footerHoverColor"
+               @mouseout="$event.target.style.color = props.footerSettings.footerTextColor">
+              {{ props.footerSettings.footerFirstEmail }}</a>
           </p>
           <p class="mt-3">
             <span class="text-white">دکتر : </span>
-            <a class="text-decoration-none" :style="`color: ${footer[0].textColor} !important;`"
-               href="/"  @mouseover="$event.target.style.color = footer[0].hoverColor"
-               @mouseout="$event.target.style.color = footer[0].textColor">
-              info@wrappixel.com</a>
+            <a class="text-decoration-none" :style="`color: ${props.footerSettings.footerTextColor} !important;`"
+               href="/" @mouseover="$event.target.style.color = props.footerSettings.footerHoverColor"
+               @mouseout="$event.target.style.color = props.footerSettings.footerTextColor">
+              {{ props.footerSettings.footerSecondEmail }}</a>
           </p>
         </v-col>
         <!-- -----------------------------------------------
@@ -54,50 +69,50 @@ import {footer} from "~/data/CustomComponents";
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18">شبکه های اجتماعی</h4>
           <div class="social-icons mt-5">
-            <a :href="footer[0].facebook" v-if="!!footer[0].facebook"
-               :style="`color: ${footer[0].socialMediaIconsColor};
-                background: ${footer[0].textColor}`"
-               @mouseover="$event.currentTarget.style.color = footer[0].textColor;
-               $event.currentTarget.style.background = footer[0].hoverColor;"
-               @mouseout="$event.currentTarget.style.background= footer[0].textColor;
-               $event.currentTarget.style.color= footer[0].socialMediaIconsColor;"
+            <a :href="props.footerSettings.footerFacebook" v-if="!!props.footerSettings.footerFacebook"
+               :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
+                background: ${props.footerSettings.footerTextColor}`"
+               @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
+               $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
+               @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
+               $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-facebook" />
+              <i class="mdi mdi-facebook"/>
             </a>
-            <a :href="footer[0].linkedin" v-if="!!footer[0].linkedin"
-               :style="`color: ${footer[0].socialMediaIconsColor};
-                background: ${footer[0].textColor}`"
-               @mouseover="$event.currentTarget.style.color = footer[0].textColor;
-               $event.currentTarget.style.background = footer[0].hoverColor;"
-               @mouseout="$event.currentTarget.style.background= footer[0].textColor;
-               $event.currentTarget.style.color= footer[0].socialMediaIconsColor;"
+            <a :href="props.footerSettings.footerLinkedin" v-if="!!props.footerSettings.footerLinkedin"
+               :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
+                background: ${props.footerSettings.footerTextColor}`"
+               @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
+               $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
+               @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
+               $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-linkedin" />
+              <i class="mdi mdi-linkedin"/>
             </a>
-            <a :href="footer[0].youtube" v-if="!!footer[0].youtube"
-               :style="`color: ${footer[0].socialMediaIconsColor};
-                background: ${footer[0].textColor}`"
-               @mouseover="$event.currentTarget.style.color = footer[0].textColor;
-               $event.currentTarget.style.background = footer[0].hoverColor;"
-               @mouseout="$event.currentTarget.style.background= footer[0].textColor;
-               $event.currentTarget.style.color= footer[0].socialMediaIconsColor;"
+            <a :href="props.footerSettings.footerYoutube" v-if="!!props.footerSettings.footerYoutube"
+               :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
+                background: ${props.footerSettings.footerTextColor}`"
+               @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
+               $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
+               @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
+               $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-youtube" />
+              <i class="mdi mdi-youtube"/>
             </a>
-            <a :href="footer[0].instagram" v-if="!!footer[0].instagram"
-               :style="`color: ${footer[0].socialMediaIconsColor};
-                background: ${footer[0].textColor}`"
-               @mouseover="$event.currentTarget.style.color = footer[0].textColor;
-               $event.currentTarget.style.background = footer[0].hoverColor;"
-               @mouseout="$event.currentTarget.style.background= footer[0].textColor;
-               $event.currentTarget.style.color= footer[0].socialMediaIconsColor;"
+            <a :href="props.footerSettings.footerInstagram" v-if="!!props.footerSettings.footerInstagram"
+               :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
+                background: ${props.footerSettings.footerTextColor}`"
+               @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
+               $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
+               @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
+               $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-instagram" />
+              <i class="mdi mdi-instagram"/>
             </a>
           </div>
         </v-col>
       </v-row>
-      <v-col class="text-center mt-4" >
+      <v-col class="text-center mt-4">
         <a :class="['text-decoration-none' +
          ' font-weight-bold mb-sm-0 mb-3' +
           ' rainbow-text-animated',
@@ -123,7 +138,7 @@ import {footer} from "~/data/CustomComponents";
 
 
 .rainbow-text-animated {
-  background: linear-gradient(to right, #57434C, #9B2E55,#fefdfd,  #9B2E55,#57434C);
+  background: linear-gradient(to right, #57434C, #9B2E55, #fefdfd, #9B2E55, #57434C);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

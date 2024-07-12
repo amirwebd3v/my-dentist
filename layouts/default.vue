@@ -16,29 +16,64 @@ useHead({
 });
 
 const headerSettings = ref()
+const footerSettings = ref()
 const carouselSettings = ref()
 const aboutSettings = ref()
 const gallerySettings = ref()
 const testimonialSettings = ref()
-const contactUsSettings = ref()
+const contactusSettings = ref()
 
 
 const {getSettingsByGroup} = storeToRefs(useSettingStore())
 await useSettingStore().fetch()
 
-await getSettingsByGroup.value('general').then(res => headerSettings.value = res)
+await getSettingsByGroup.value('general').then(res => {
+  type OriginalObject = {
+    [key: string]: string | null | object[];
+  };
+
+  type FooterObject = {
+    [key: string]: string | null;
+  };
+
+  type HeaderObject = {
+    [key: string]: string | null | object[];
+  };
+
+  function separateKeys(obj: OriginalObject): [FooterObject, HeaderObject] {
+    return Object.keys(obj).reduce(
+        (acc, key) => {
+          if (key.indexOf('footer') === 0) {
+            acc[0][key] = obj[key] as string | null;
+          } else {
+            acc[1][key] = obj[key];
+          }
+          return acc;
+        },
+        [{} as FooterObject, {} as HeaderObject]
+    );
+  }
+
+
+  [footerSettings.value, headerSettings.value] = separateKeys(res);
+
+});
+
+
+
+
 await getSettingsByGroup.value('slider-banner').then(res => carouselSettings.value = res)
 await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
 await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.value = res)
-await getSettingsByGroup.value('contact-us').then(res => contactUsSettings.value = res)
+await getSettingsByGroup.value('contact-us').then(res => contactusSettings.value = res)
 
 
 provide('carouselSettings',carouselSettings.value)
 provide('aboutSettings',aboutSettings.value)
 provide('gallerySettings',gallerySettings.value)
 provide('testimonialSettings',testimonialSettings.value)
-provide('contactUsSettings',contactUsSettings.value)
+provide('contactusSettings',contactusSettings.value)
 
 
 </script>
@@ -57,7 +92,7 @@ provide('contactUsSettings',contactUsSettings.value)
             </v-col>
           </v-row>
         </div>
-        <LcFooter/>
+        <LcFooter :footer-settings="footerSettings"/>
       </v-main>
     </v-locale-provider>
   </v-app>

@@ -710,7 +710,7 @@ const comments = [
 ];
 
 
-const contactUsSettings = [
+const contactusSettings = [
     {
         title: ' انتقادات و پیشنهادات',
         subtitle: 'شما می‌توانید هر زمان که تمایل داشتید با ما تماس بگیرید یا\n' +
@@ -728,23 +728,23 @@ const contactUsSettings = [
 
 const footer = [
     {
-        bgColor: '#03192C',
-        textColor: '#FFFFFF',
-        socialMediaIconsColor: '#03192C',
-        hoverColor: '#fec500',
-        first_address: 'تهران، سعادت آباد، بلوار ۲۴متری(محمد علی کشاورز)،نبش چهارم شرقی، پلاک ۲۹، طبقه دوم، واحد ۲۰۲',
-        second_address: 'دومین آدرس',
-        first_phone: '021-2237-2127',
-        second_phone: '021-2237-2128',
-        first_email: 'اولین پست الکترونیک',
-        second_email: 'دومین پست الکترونیک',
-        instagram: 'https://www.instagram.com/dr.ronaghi_s_dds',
-        youtube: 'لینک یوتیوب',
-        linkedin: 'لینک لینکدین',
-        facebook: 'لینک فیسبوک',
-        aparat: 'لینک آپارات',
-        rubika: 'لینک روبیکا',
-        telegram: 'لینک تلگرام',
+        footerBgColor: '#03192C',
+        footerTextColor: '#FFFFFF',
+        footerSocialMediaIconsColor: '#03192C',
+        footerHoverColor: '#fec500',
+        footerFirst_address: 'تهران، سعادت آباد، بلوار ۲۴متری(محمد علی کشاورز)،نبش چهارم شرقی، پلاک ۲۹، طبقه دوم، واحد ۲۰۲',
+        footerSecond_address: 'دومین آدرس',
+        footerFirst_phone: '021-2237-2127',
+        footerSecond_phone: '021-2237-2128',
+        footerFirst_email: 'اولین پست الکترونیک',
+        footerSecond_email: 'دومین پست الکترونیک',
+        footerInstagram: 'https://www.instagram.com/dr.ronaghi_s_dds',
+        footerYoutube: 'لینک یوتیوب',
+        footerLinkedin: 'لینک لینکدین',
+        footerFacebook: 'لینک فیسبوک',
+        footerAparat: 'لینک آپارات',
+        footerRubika: 'لینک روبیکا',
+        footerTelegram: 'لینک تلگرام',
     }
 ]
 
@@ -760,6 +760,6 @@ export {
     slideBanners,
     slideBannerSettings,
     comments,
-    contactUsSettings,
+    contactusSettings,
     footer,
 };
