@@ -79,7 +79,7 @@ onBeforeMount(async ()=>{
                       </v-avatar>
                       <div class="mr-3">
                         <h6 class="text-uppercase font-weight-bold font-14">{{ card.full_name }}</h6>
-                        <p class="mt-1"> {{ card.date !== null ? card.service.concat('/', DateTime.fromISO(card.date)
+                        <p class="mt-1"> {{ card.date !== null ? card.service.concat(' | ', DateTime.fromISO(card.date)
                             .setZone('Asia/Tehran')
                             .toLocaleString(DateTime.DATE_FULL, { locale: 'fa' })) : card.service }}</p>
                       </div>
