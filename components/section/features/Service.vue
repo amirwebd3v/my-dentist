@@ -98,7 +98,7 @@ onBeforeMount(async ()=>{
                   v-bind="props"
               >
                 <div class="pt-3 text-center">
-                  <v-img class="mr-4" width="70" height="70" :src="card.image"></v-img>
+                  <v-img class="mr-5" width="70" height="70" :src="`${useAppConfig().api.baseUrl +'/storage/'+card.image}`"></v-img>
                   <p class="pt-3 font-weight-bold font-15">{{ card.title }}</p>
                 </div>
               </v-sheet>
