@@ -16,7 +16,7 @@ const props = defineProps({
   }
 })
 
-console.log(useLocale().n(props.footerSettings?.footerFirstPhone))
+const {formattedPhoneNumber} = usePersianNumber()
 </script>
 
 
@@ -40,8 +40,8 @@ console.log(useLocale().n(props.footerSettings?.footerFirstPhone))
       ----------------------------------------------- -->
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18 ">تلفن تماس</h4>
-          <p class="mt-5 ">{{ useLocale().n(props.footerSettings.footerFirstPhone)}}</p>
-          <p class="mt-3 ">{{ useLocale().n(props.footerSettings?.footerSecondPhone)}}</p>
+          <p class="mt-5 ">{{ formattedPhoneNumber(props.footerSettings.footerFirstPhone)}}</p>
+          <p class="mt-3 ">{{ formattedPhoneNumber(props.footerSettings?.footerSecondPhone)}}</p>
         </v-col>
         <!-- -----------------------------------------------
         Third Column
@@ -55,7 +55,7 @@ console.log(useLocale().n(props.footerSettings?.footerFirstPhone))
                @mouseout="$event.target.style.color = props.footerSettings.footerTextColor">
               {{ props.footerSettings.footerFirstEmail }}</a>
           </p>
-          <p class="mt-3">
+          <p class="mt-3" v-if="!!props.footerSettings.footerSecondEmail">
             <span class="text-white">دکتر : </span>
             <a class="text-decoration-none" :style="`color: ${props.footerSettings.footerTextColor} !important;`"
                href="/" @mouseover="$event.target.style.color = props.footerSettings.footerHoverColor"
