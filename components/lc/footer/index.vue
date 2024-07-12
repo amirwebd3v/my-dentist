@@ -2,7 +2,7 @@
 import type {PropType} from "@vue/runtime-core";
 import {footer} from "~/data/CustomComponents";
 import type {FooterSettings} from "~/utils/types";
-import {useLocale} from "vuetify";
+
 
 const isHovered = ref<boolean>(false)
 
