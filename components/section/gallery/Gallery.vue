@@ -9,7 +9,7 @@ import {usePostStore} from "~/store/post";
 import {storeToRefs} from "pinia";
 /**************************************************************************/
 const {posts, meta} = storeToRefs(usePostStore())
-
+const {formattedNumber} = usePersianNumber()
 const loading = ref(false)
 
 
@@ -209,13 +209,13 @@ onMounted(() => {
                         <div class="justify-self-start">
                           <v-icon class="me-1" size="small" icon="mdi-eye"
                                   :style="`color: ${props.gallerySettings.iconColor}`"/>
-                          <span class="me-2">{{ post.views_count }}</span>
+                          <span class="me-2">{{ formattedNumber(post.views_count) }}</span>
                           <span class="me-1">·</span>
                           <v-icon class="me-1" size="small" :color="props.gallerySettings.iconColor"
                                   :icon="unLike"
                                   @click="unLike = (unLike === 'mdi-heart' ? 'mdi-heart-outline' : 'mdi-heart')"
                           />
-                          <span>{{ post.likes_count }}</span>
+                          <span>{{ formattedNumber(post.likes_count) }}</span>
                         </div>
                       </v-card-actions>
                     </div>

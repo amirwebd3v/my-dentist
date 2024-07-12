@@ -68,7 +68,7 @@ onMounted(() => {
   >
     <template v-slot:activator="{ props }" v-if="!!properties.settings">
       <v-btn class="text-none px-0 py-0" size="small" v-bind="props">
-        <v-badge :content="<number>properties.commentsCount" :color="properties.settings.iconColor"
+        <v-badge :content="usePersianNumber().formattedNumber(<number>properties.commentsCount)" :color="properties.settings.iconColor"
                  :text-color="properties.settings.iconBadgeTextColor" v-if="properties.commentsCount !== 0">
           <v-icon class="mdi mdi-comment-multiple-outline ml-1"
                   :style="`color: ${properties.settings.iconColor}`"></v-icon>
