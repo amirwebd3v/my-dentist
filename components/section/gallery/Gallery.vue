@@ -2,20 +2,27 @@
 
 
 import CommentsModal from "~/components/section/gallery/CommentsModal.vue";
-import {gallery, gallerySettings} from "~/data/CustomComponents";
+import {gallerySettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {GallerySettings} from "~/utils/types";
+import {useServiceStore} from "~/store/service";
 import {usePostStore} from "~/store/post";
 import {storeToRefs} from "pinia";
+import {useDisplay} from "vuetify";
+const { xlAndUp,md,sm,xs,thresholds } = useDisplay();
+thresholds.value.sm = 932
+
 /**************************************************************************/
 const {posts, meta} = storeToRefs(usePostStore())
+const {services} = storeToRefs(useServiceStore())
 const {formattedNumber} = usePersianNumber()
 const loading = ref(false)
 
 
 /**************************************************************************/
-const tab = ref(1);
 const unLike = ref('mdi-heart-outline');
+const activeService = ref(1)
+
 const showStates = reactive({})
 
 const show = (id) => {
@@ -30,61 +37,50 @@ const toggleShow = (id) => {
 }
 
 
-//
-// const filteredGallery = computed(() => {
-//   return gallery.filter((item) => item.id === tab.value);
-// });
-//
-
-const galleries = ref(gallery)
-const activeTab = ref(galleries.value[0])
-
 /**************************************************************************/
 
 const props = defineProps({
   gallerySettings: {
     type: Object as PropType<GallerySettings>,
     required: true,
-    default: {
-      posts: gallerySettings[0],
-    },
+    default: gallerySettings[0],
   }
 })
 
 
-const load = async (newPage: number) => {
+const load = async (newPage: number = meta.value.current_page,itemsPerPage: number = xlAndUp.value ? 4 : 3) => {
   if (loading.value) {
     return
   }
 
+  console.log(itemsPerPage,xs.value)
+
+
   loading.value = true
-  // let categoriesFilter = selectedCategories.value.filter(c => c !== '*').join(',')
-  // const search: FilterSearchItem[] = [
-  //   ...searchText.value === '' ? [] : [
-  //     {field: 'title', operator: 'ilike', value: searchText.value},
-  //     {field: 'description', operator: 'ilike', value: searchText.value},
-  //     {field: 'price', operator: 'like', value: searchText.value}
-  //   ],
-  //   ...categoriesFilter.length > 0 ? [
-  //     {field: 'categories.slug', operator: 'in', value: categoriesFilter}
-  //   ] : []
-  // ]
-  // console.log(posts.value)
   const params = useApi().prepareQueryParams({
     page:newPage,
-    itemsPerPage: 3,
+    itemsPerPage: itemsPerPage
   })
 
   params.sort = { created_at: 'desc' }
+  params.search = `services.id:${activeService.value}`
 
   await usePostStore().paginate(params)
 
   loading.value = false
 }
 
-onMounted(() => {
-  load(meta.value.current_page)
+onBeforeMount(() => {
+  load()
 })
+
+watch([xlAndUp, md,xs], ([isXl, isMd,isXs]) => {
+  if (isXl || isMd || isXs) {
+    load(1, 4);
+  } else {
+    load(1, 3);
+  }
+}, { immediate: true });
 
 
 </script>
@@ -97,25 +93,28 @@ onMounted(() => {
             Start Gallery
         ----------------------------------------------- -->
         <v-tabs
-            v-model="activeTab"
+            :center-active="true"
+            mandatory
+            v-model="activeService"
             align-tabs="center"
             :bg-color="props.gallerySettings.tabBackColor"
             :class="`${props.gallerySettings.tabRounded} mt-8 elevation-5`"
+            @update:model-value="load(meta.current_page)"
         >
-          <v-tab v-for="gallery in galleries"
-                 :key="gallery.id"
-                 :value="gallery"
+          <v-tab v-for="service in services.values()"
+                 :key="service.id"
+                 :value="service.id"
                  :color="props.gallerySettings.tabActiveBtnColor"
 
-          >{{ gallery.title }}
+          >{{ service.title }}
           </v-tab>
+
         </v-tabs>
-        <v-card-text class="pt-0 pb-0 px-0">
+        <v-card-text class="pt-0 pb-0 px-0" >
           <v-chip-group mandatory class=" mb-4 elevation-5"
                         :style="`color: ${props.gallerySettings.tabActiveBtnColor}; background-color: ${props.gallerySettings.tabBackColor};`">
 
             <v-select
-                :loading="loading"
                 class="mx-12 mt-2"
                 multiple
                 :item-color="props.gallerySettings.selectedSortItemColor"
@@ -124,8 +123,9 @@ onMounted(() => {
                 chips
                 hide-details
                 label="مرتب سازی بر اساس"
-                :items="['تصویر','ویدیو', 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
-                :item-value="['تصویر','ویدیو', 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
+                :loading="loading"
+                :items="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
+                :item-value="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
             >
             </v-select>
 
@@ -133,35 +133,35 @@ onMounted(() => {
 
 
         </v-card-text>
-        <v-window v-model="tab">
-          <!--          v-for="galleryItem in filteredGallery" :key="galleryItem.id" :value="galleryItem.id"-->
-          <v-window-item>
-            <v-row>
-              <v-col v-for="post in posts.values()" :key="post.id" cols="12" md="4">
-                <v-card class="mx-auto border-left border-top" max-width="325"
+        <v-window>
+
+          <v-window-item  >
+            <v-row justify="space-around">
+              <v-col v-for="post in posts.values()" :key="post.id" cols="12" :lg="xlAndUp || md ? 3 : 4" md="6" sm="12" >
+
+                <v-card  v-if="!!props.gallerySettings" class="mx-auto border-left border-top" max-width="360"
                         :color="props.gallerySettings.cardBorderColor"
                         :elevation="props.gallerySettings.cardElevation"
                         :variant="props.gallerySettings.cardVariant"
                 >
+
                   <v-carousel :continuous="false" :show-arrows="false" hide-delimiter-background
-                              delimiter-icon="mdi mdi-circle-medium" height="300" style="background-color: black;"
+                              delimiter-icon="mdi mdi-circle-medium"  style="background-color: black;"
                               :color="props.gallerySettings.delimitersColor">
                     <v-carousel-item v-for="item in post.images"
                                      :key="item"
-                                     :src="item"
-                                     cover
+                                     :class="`${$vuetify.display.width < 389 ? 'pb-8' : ''}`"
+                                     :src="`${useAppConfig().api.baseUrl +'/storage/'+item}` || item"
+                                     :loading="loading"
+                                     lazy-src="/images/logos/Sami-logo-white.png"
+
                     >
                     </v-carousel-item>
 
-                    <v-window-item class="v-carousel-item" v-for="item in posts.values()" :key="item.id">
-
-
+                    <v-window-item class="v-carousel-item" v-for="item in post.videos" :key="item">
                       <iframe
-                          class="border-none mt-16 w-100"
-                          style="height: 62%!important;"
-                          v-for="(videoUrl, index) in item.videos"
-                          :key="index"
-                          :src="`https://www.aparat.com/video/video/embed/videohash/${videoUrl.split('/').pop()}/vt/frame`"
+                          class="border-none"
+                          :src="`https://www.aparat.com/video/video/embed/videohash/${item.split('/').pop()}/vt/frame`"
                       />
 
                     </v-window-item>
@@ -169,7 +169,7 @@ onMounted(() => {
                   </v-carousel>
 
 
-                  <v-card-title class="font-weight-regular" :style="`color: ${props.gallerySettings.cardTitleColor}`" :key="post.id">
+                  <v-card-title class="font-weight-regular" :style="`color: ${props.gallerySettings?.cardTitleColor}`" :key="post.id">
                     <v-row justify="space-between" align="center" class="py-4 px-1">
                       <div class="text-truncate" style="max-width: 200px;">
                         {{ post.title }}
@@ -177,7 +177,7 @@ onMounted(() => {
                       <v-btn
                           size="small"
                           variant="text"
-                          :color="props.gallerySettings.iconColor"
+                          :color="<string>props.gallerySettings?.iconColor"
                           class="align-self-center"
                           :icon="show(post.id) ? 'mdi-chevron-up' : 'mdi-chevron-down'"
                           @click="toggleShow(post.id)"
@@ -186,7 +186,7 @@ onMounted(() => {
                   </v-card-title>
 
 
-                  <v-expand-transition>
+                  <v-expand-transition  v-if="!!props.gallerySettings">
                     <div v-show="show(post.id)">
                       <v-card-subtitle  class="pb-2 text-wrap" :style="`color: ${props.gallerySettings.cardTitleColor};`">
                         {{ post.subtitle }}
@@ -237,7 +237,7 @@ onMounted(() => {
             :show-first-last-page="true"
             last-icon="mdi-moon-first-quarter"
             first-icon="mdi-moon-last-quarter"
-            @update:model-value="load(meta.current_page)"
+            @update:model-value="load(meta.current_page,xlAndUp || md ? 4 : 3)"
         >
         </v-pagination>
 
@@ -249,3 +249,42 @@ onMounted(() => {
   </div>
 </template>
 
+<style lang="scss" scoped>
+.v-carousel {
+  height: 321.5px !important;
+}
+
+
+iframe {
+  height: 82%;
+  width: 100%;
+  margin-top: 56px;
+}
+//@media (max-width: 932px) {
+//  iframe {
+//    height: 82%;
+//  }
+//}
+
+@media (min-width: 1280px) and (max-width: 1919px)   {
+  iframe {
+    margin-top: 56px;
+  }
+}
+
+@media (max-width: 460px)    {
+  iframe {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 389px) and (min-width: 344px) {
+  .v-carousel {
+    max-height: 288px !important;
+  }
+  iframe {
+    margin-top: 55px;
+  }
+}
+
+</style>
