@@ -260,11 +260,6 @@ iframe {
   width: 100%;
   margin-top: 56px;
 }
-//@media (max-width: 932px) {
-//  iframe {
-//    height: 82%;
-//  }
-//}
 
 @media (min-width: 1280px) and (max-width: 1919px)   {
   iframe {
