@@ -5,7 +5,7 @@ import type {PropType} from "@vue/runtime-core";
 import type {TestimonialSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
 import {useTestimonialStore} from "~/store/testimonial";
-
+import { DateTime } from 'luxon'
 
 const props = defineProps({
   testimonialSettings: {
@@ -79,7 +79,9 @@ onBeforeMount(async ()=>{
                       </v-avatar>
                       <div class="mr-3">
                         <h6 class="text-uppercase font-weight-bold font-14">{{ card.full_name }}</h6>
-                        <p class="mt-1"> {{ card.service.concat('/', card.date) }}</p>
+                        <p class="mt-1"> {{ card.date !== null ? card.service.concat('/', DateTime.fromISO(card.date)
+                            .setZone('Asia/Tehran')
+                            .toLocaleString(DateTime.DATE_FULL, { locale: 'fa' })) : card.service }}</p>
                       </div>
                     </div>
                     <p class="text-body-1 text-black text-justify">“{{ card.content }}”</p>
