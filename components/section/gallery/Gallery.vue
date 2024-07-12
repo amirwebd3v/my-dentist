@@ -150,7 +150,7 @@ watch([xlAndUp, md,xs], ([isXl, isMd,isXs]) => {
                     <v-carousel-item v-for="item in post.images"
                                      :key="item"
                                      :class="`${$vuetify.display.width < 389 ? 'pb-8' : ''}`"
-                                     :src="`${useAppConfig().api.baseUrl +'/storage/'+item}` || item"
+                                     :src="`${useAppConfig().api.baseUrl +'/storage/'+item}`"
                                      :loading="loading"
                                      lazy-src="/images/logos/Sami-logo-white.png"
 
