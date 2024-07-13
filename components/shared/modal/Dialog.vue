@@ -18,8 +18,8 @@ defineProps({
       <slot name="button" v-bind="props"/>
     </template>
     <v-card>
-      <v-card-title>
-        {{ formTitle }}
+      <v-card-title class="mt-2">
+          {{ formTitle }}
       </v-card-title>
 
       <v-card-text class="py-0">

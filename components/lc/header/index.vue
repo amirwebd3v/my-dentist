@@ -36,14 +36,14 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
       <v-toolbar v-if="props.headerSettings">
         <v-app-bar-nav-icon
             width="30"
-            class="d-md-none d-sm-flex drawer-icon ml-auto mr-0"
+            class="drawer-icon mr-0"
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
         <Dialog :form-title="'رزرو نوبت'" v-model="showReserveDialog">
           <template v-slot:button="props">
             <v-btn
-                class="px-6 py-3 bg-primary ml-2 d-md-flex d-none"
+                class="px-6 py-0 bg-primary ml-2 reserve-btn"
                 flat
                 size="large"
                 text="رزرو نوبت"
@@ -144,13 +144,13 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
 
         <!--         Desktop view Navigation-->
         <v-navigation-drawer
-            class="d-md-none"
             v-model="drawer"
             location="right"
             temporary
         />
+        <v-row align="center" class="my-0">
         <div
-            class="navigation ml-auto"
+            class="navigation"
         >
           <ul class="navbar-nav d-flex">
             <li
@@ -166,12 +166,12 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
           </ul>
         </div>
         <!--         Logo-->
-        <div class="logo px-10">
-          <NuxtLink to="/" class="d-flex logo">
+        <div class="logo mr-auto pr-5">
+          <NuxtLink to="/" class="logo d-flex">
             <img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="logo"/>
           </NuxtLink>
         </div>
-
+        </v-row>
       </v-toolbar>
     </v-container>
   </v-app-bar>
@@ -233,3 +233,28 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
   </div>
 </template>
 
+<style scoped lang="scss">
+.drawer-icon {
+  display: none;
+}
+
+.reserve-btn {
+  display: inline;
+}
+
+@media (max-width: 855px) {
+  .drawer-icon {
+    display: inline;
+  }
+
+  .reserve-btn {
+    display: none;
+  }
+
+  .app-header {
+    .navigation {
+      display: none;
+    }
+  }
+}
+</style>
