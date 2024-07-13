@@ -80,7 +80,7 @@ const props = defineProps({
             </form>
           </div>
         </v-col>
-        <v-col cols="12" md="4">
+        <v-col cols="12" xl="3" xxl="2" md="4" class="mt-xl-6">
           <div class="contact-detail-card rounded" :style="`background-color: ${props.contactusSettings.cardBgColor}`">
             <h2 class="detail-title font-weight-medium text-white">
               {{props.contactusSettings.title}}
