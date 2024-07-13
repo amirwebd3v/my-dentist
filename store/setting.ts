@@ -1,29 +1,39 @@
-import { defineStore } from "pinia";
-import type { Setting } from "~/utils/types";
+import {defineStore} from "pinia";
+import type {Setting} from "~/utils/types";
 
-type SettingGroup = 'testimonial' | 'about' | 'general' | 'slider-banner' | 'gallery' | 'contact-us' | 'footer' ;
+type SettingGroup =
+    'testimonial'
+    | 'about'
+    | 'general'
+    | 'slider-banner'
+    | 'gallery'
+    | 'video'
+    | 'contact-us'
+    | 'footer';
+
 interface SettingsState {
     settings: Setting[];
 }
+
 export const useSettingStore = defineStore('setting', {
     state: (): SettingsState => ({
         settings: [],
     }),
 
     getters: {
-        getSettingsByGroup: (state) => async (group: SettingGroup)  => {
+        getSettingsByGroup: (state) => async (group: SettingGroup) => {
             const groupSettings = state.settings.filter(setting => setting.group === group);
             return groupSettings.reduce((acc, setting) => {
                 acc[setting.name] = setting.payload;
                 return acc;
-            }, {} as { [key: string]: Setting['payload']});
+            }, {} as { [key: string]: Setting['payload'] });
         },
     },
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Setting>('/api/setting',{
-                pagination : {page : 1, perPage: -1}
+            const response = await useApi().all<Setting>('/api/setting', {
+                pagination: {page: 1, perPage: -1}
             });
 
             // @ts-ignore

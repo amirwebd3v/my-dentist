@@ -496,12 +496,16 @@ const gallerySettings = [
         tagsVariant: 'outlined',
         iconColor: '#03192C',
         iconBadgeTextColor: 'white',
-        videoBorder: 'border-xl',
-        videoCardBackColor: 'white',
-        videoCardBorderColor: '#03192c',
-        videoHidden: 'd-none'
     }
 ];
+
+const videoSettings = [{
+    border: 'border-xl',
+    cardBackColor: 'white',
+    cardBorderColor: '#03192c',
+    hidden: 'd-none',
+    link: '',
+}]
 
 /*--Testimonials--*/
 const testimonials = [
@@ -754,6 +758,7 @@ export {
     services,
     gallery,
     gallerySettings,
+    videoSettings,
     testimonials,
     testimonialSettings,
     articles,

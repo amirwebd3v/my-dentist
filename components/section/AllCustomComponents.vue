@@ -12,7 +12,7 @@ import ContactForm from './contact/Contact.vue';
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
 
-import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings, ContactusSettings} from "~/utils/types";
+import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings, ContactusSettings,VideoSettings} from "~/utils/types";
 
 /********************************************************/
 const carouselSettings =
@@ -21,6 +21,8 @@ const aboutSettings =
     inject('aboutSettings') as AboutSettings
 const gallerySettings =
     inject('gallerySettings') as GallerySettings
+const videoSettings =
+    inject('videoSettings') as VideoSettings
 const testimonialSettings =
     inject('testimonialSettings') as TestimonialSettings
 const contactusSettings =
@@ -50,7 +52,7 @@ const contactusSettings =
   </div>
 
   <div id="video">
-    <Video/>
+    <Video :video-settings="videoSettings"/>
   </div>
 
   <div id="testimonials">

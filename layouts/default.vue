@@ -20,6 +20,7 @@ const footerSettings = ref()
 const carouselSettings = ref()
 const aboutSettings = ref()
 const gallerySettings = ref()
+const videoSettings = ref()
 const testimonialSettings = ref()
 const contactusSettings = ref()
 
@@ -65,6 +66,7 @@ await getSettingsByGroup.value('general').then(res => {
 await getSettingsByGroup.value('slider-banner').then(res => carouselSettings.value = res)
 await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
+await getSettingsByGroup.value('video').then(res => videoSettings.value = res)
 await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.value = res)
 await getSettingsByGroup.value('contact-us').then(res => contactusSettings.value = res)
 
@@ -72,6 +74,7 @@ await getSettingsByGroup.value('contact-us').then(res => contactusSettings.value
 provide('carouselSettings',carouselSettings.value)
 provide('aboutSettings',aboutSettings.value)
 provide('gallerySettings',gallerySettings.value)
+provide('videoSettings',videoSettings.value)
 provide('testimonialSettings',testimonialSettings.value)
 provide('contactusSettings',contactusSettings.value)
 

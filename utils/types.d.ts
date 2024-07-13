@@ -110,10 +110,14 @@ type GallerySettings = {
     tagsVariant: "flat" | "text" | "elevated" | "tonal" | "outlined" | "plain",
     iconColor: string,
     iconBadgeTextColor: string,
-    videoBorder: string,
-    videoCardBackColor: string,
-    videoCardBorderColor: string,
-    videoHidden: "d-none" | null
+}
+
+type VideoSettings = {
+    border: string,
+    cardBackColor: string,
+    cardBorderColor: string,
+    hidden: "d-none" | null,
+    link: string
 }
 
 type TestimonialSettings = {
@@ -241,6 +245,7 @@ export {
     AboutSettings,
     AboutItems,
     GallerySettings,
+    VideoSettings,
     TestimonialSettings,
     ContactusSettings,
     HeaderItems,
