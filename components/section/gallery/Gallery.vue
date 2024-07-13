@@ -98,7 +98,7 @@ watch([xlAndUp, md,xs], ([isXl, isMd,isXs]) => {
             align-tabs="center"
             :bg-color="props.gallerySettings.tabBackColor"
             :class="`${props.gallerySettings.tabRounded} mt-8 elevation-5`"
-            @update:model-value="load(meta.current_page)"
+            @update:model-value="load(1)"
         >
           <v-tab v-for="service in services.values()"
                  :key="service.id"
@@ -231,6 +231,7 @@ watch([xlAndUp, md,xs], ([isXl, isMd,isXs]) => {
             :length="meta.last_page"
             :total-visible="$vuetify.display.smAndUp ? 3 : 1"
             class="mt-8"
+            size="small"
             next-icon="mdi-menu-right"
             prev-icon="mdi-menu-left"
             :show-first-last-page="true"
