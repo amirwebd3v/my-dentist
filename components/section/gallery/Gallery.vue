@@ -9,7 +9,7 @@ import {useServiceStore} from "~/store/service";
 import {usePostStore} from "~/store/post";
 import {storeToRefs} from "pinia";
 import {useDisplay} from "vuetify";
-const { xlAndUp,md,sm,xs,thresholds } = useDisplay();
+const { xlAndUp,md,sm,thresholds,width } = useDisplay();
 thresholds.value.sm = 932
 
 /**************************************************************************/
@@ -73,8 +73,12 @@ onBeforeMount(() => {
   load()
 })
 
-watch([xlAndUp, md,xs], ([isXl, isMd,isXs]) => {
-  if (isXl || isMd || isXs) {
+const initialBreakpoint = computed(() => width.value)
+
+
+watch([md,initialBreakpoint], ([isMd,isInit]) => {
+
+  if (isMd || isInit > 1907) {
     load(1, 4);
   } else {
     load(1, 3);
