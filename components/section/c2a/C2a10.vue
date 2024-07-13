@@ -42,7 +42,7 @@ const loading = computed(() => {
 
 onMounted(() => {
   setInterval(() => {
-    state.currentDateTime = DateTime.now().toFormat('EEEE,fff', {locale: 'fa-IR'})
+    state.currentDateTime = DateTime.now().toFormat('EEEE,d MMMM yyyy | ساعت HH:mm:ss', { locale: 'fa-IR' })
   })
 })
 
@@ -141,109 +141,109 @@ $bus.$on("loginDialogOpen" , (value) => {
           </p>
         </v-col>
 
-        <v-col cols="auto">
-          <span
-              class="font-12 ">* برای استفاده از امکانات سایت ابتدا باید وارد پنل کاربری خود شوید یا ثبت نام کنید.
-          </span>
-          <v-row class="d-flex flex-row pt-1">
-            <v-col cols="6">
-              <Dialog :form-title="'خوش آمدید'" v-model="state.showLoginModal"  >
-                <template v-slot:button="props">
-                  <v-btn
-                      prepend-icon="mdi mdi-login"
-                      variant="tonal"
-                      size="large"
-                      class="px-sm-7 py-sm-3"
-                      block=""
-                      text="ورود"
-                      v-bind="props"
-                      @click="step(0)"
-                  />
-                </template>
+<!--        <v-col cols="auto">-->
+<!--          <span-->
+<!--              class="font-12 ">* برای استفاده از امکانات سایت ابتدا باید وارد پنل کاربری خود شوید یا ثبت نام کنید.-->
+<!--          </span>-->
+<!--          <v-row class="d-flex flex-row pt-1">-->
+<!--            <v-col cols="6">-->
+<!--              <Dialog :form-title="'خوش آمدید'" v-model="state.showLoginModal"  >-->
+<!--                <template v-slot:button="props">-->
+<!--                  <v-btn-->
+<!--                      prepend-icon="mdi mdi-login"-->
+<!--                      variant="tonal"-->
+<!--                      size="large"-->
+<!--                      class="px-sm-7 py-sm-3"-->
+<!--                      block-->
+<!--                      text="ورود"-->
+<!--                      v-bind="props"-->
+<!--                      @click="step(0)"-->
+<!--                  />-->
+<!--                </template>-->
 
-                <template #body>
-                  <span class="pt-3 pb-1 text-justify font-16">
-                    برای ورود شماره تلفن همراه خود را وارد کنید. سپس، به روی دکمه تایید کلیک نموده و منتظر کد فعالسازی
-                    که برای شما پیامک میشود باشید.
-                  </span>
-                  <v-col cols="12">
-                    <div class="text-subtitle-2 font-weight-medium pa-1">شماره تلفن همراه</div>
+<!--                <template #body>-->
+<!--                  <span class="pt-3 pb-1 text-justify font-16">-->
+<!--                    برای ورود شماره تلفن همراه خود را وارد کنید. سپس، به روی دکمه تایید کلیک نموده و منتظر کد فعالسازی-->
+<!--                    که برای شما پیامک میشود باشید.-->
+<!--                  </span>-->
+<!--                  <v-col cols="12">-->
+<!--                    <div class="text-subtitle-2 font-weight-medium pa-1">شماره تلفن همراه</div>-->
 
-                    <v-text-field
-                        :readonly="!state.phoneInput"
-                        v-model="state.phoneInputText"
-                        label="*********۰۹"
-                        single-line
-                        variant="outlined"
-                    >
-                      <template v-slot:append>
-                        <v-btn
-                            elevation="1"
-                            variant="tonal"
-                            :disabled="!state.verificationInput"
-                            color="orange"
-                            icon='mdi mdi-pencil'
-                            @click="phoneEditBtn"
-                        >
-                        </v-btn>
-                      </template>
-                    </v-text-field>
-                  </v-col>
-                  <v-col cols="12" >
-                    <v-text-field
-                        v-if="state.verificationInput"
-                        label="کد فعالسازی"
-                        single-line
-                        variant="outlined"
-                    >
-                      <template v-slot:append>
-                        <v-btn
-                            elevation="1"
-                            variant="tonal"
-                            color="inverse-dark"
-                            :disabled="state.resendCodeBtn"
-                            :icon="(state.timer !== 0) ? '' : 'mdi mdi-email-sync-outline'"
-                            @click="resendCode"
-                            :text="(state.timer > 0 && state.timer <= 10) ? state.timer : ''"
-                        >
-                        </v-btn>
-                      </template>
-                    </v-text-field>
-                  </v-col>
-                </template>
+<!--                    <v-text-field-->
+<!--                        :readonly="!state.phoneInput"-->
+<!--                        v-model="state.phoneInputText"-->
+<!--                        label="*********۰۹"-->
+<!--                        single-line-->
+<!--                        variant="outlined"-->
+<!--                    >-->
+<!--                      <template v-slot:append>-->
+<!--                        <v-btn-->
+<!--                            elevation="1"-->
+<!--                            variant="tonal"-->
+<!--                            :disabled="!state.verificationInput"-->
+<!--                            color="orange"-->
+<!--                            icon='mdi mdi-pencil'-->
+<!--                            @click="phoneEditBtn"-->
+<!--                        >-->
+<!--                        </v-btn>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+<!--                  <v-col cols="12" >-->
+<!--                    <v-text-field-->
+<!--                        v-if="state.verificationInput"-->
+<!--                        label="کد فعالسازی"-->
+<!--                        single-line-->
+<!--                        variant="outlined"-->
+<!--                    >-->
+<!--                      <template v-slot:append>-->
+<!--                        <v-btn-->
+<!--                            elevation="1"-->
+<!--                            variant="tonal"-->
+<!--                            color="inverse-dark"-->
+<!--                            :disabled="state.resendCodeBtn"-->
+<!--                            :icon="(state.timer !== 0) ? '' : 'mdi mdi-email-sync-outline'"-->
+<!--                            @click="resendCode"-->
+<!--                            :text="(state.timer > 0 && state.timer <= 10) ? state.timer : ''"-->
+<!--                        >-->
+<!--                        </v-btn>-->
+<!--                      </template>-->
+<!--                    </v-text-field>-->
+<!--                  </v-col>-->
+<!--                </template>-->
 
-                <template #actionButtons>
-                  <v-col cols="12">
-                  <v-btn
-                      :disabled="loading"
-                      :loading="loading"
-                      block=""
-                      class="text-none mb-4"
-                      color="success"
-                      size="x-large"
-                      variant="text"
-                      @click="verifyBtn"
-                  >
-                    {{ btnTextAny }}
-                  </v-btn>
+<!--                <template #actionButtons>-->
+<!--                  <v-col cols="12">-->
+<!--                  <v-btn-->
+<!--                      :disabled="loading"-->
+<!--                      :loading="loading"-->
+<!--                      block-->
+<!--                      class="text-none mb-4"-->
+<!--                      color="success"-->
+<!--                      size="x-large"-->
+<!--                      variant="text"-->
+<!--                      @click="verifyBtn"-->
+<!--                  >-->
+<!--                    {{ btnTextAny }}-->
+<!--                  </v-btn>-->
 
-                  <v-btn
-                      block=""
-                      class="text-none"
-                      color="red-light"
-                      size="x-large"
-                      variant="text"
-                      @click="closeBtn"
-                  >
-                    خروج
-                  </v-btn>
-                  </v-col>
-                </template>
-              </Dialog>
-            </v-col>
-          </v-row>
+<!--                  <v-btn-->
+<!--                      block-->
+<!--                      class="text-none"-->
+<!--                      color="red-light"-->
+<!--                      size="x-large"-->
+<!--                      variant="text"-->
+<!--                      @click="closeBtn"-->
+<!--                  >-->
+<!--                    خروج-->
+<!--                  </v-btn>-->
+<!--                  </v-col>-->
+<!--                </template>-->
+<!--              </Dialog>-->
+<!--            </v-col>-->
+<!--          </v-row>-->
 
-        </v-col>
+<!--        </v-col>-->
 
 
       </div>
