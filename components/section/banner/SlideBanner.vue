@@ -2,8 +2,8 @@
 import {slideBanners, slideBannerSettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
-
-
+import {storeToRefs} from "pinia";
+import {useServiceStore} from "~/store/service";
 
 
 const props = defineProps({
@@ -39,7 +39,7 @@ const props = defineProps({
         :cycle="props.carouselSettings.cycle"
         :interval="props.carouselSettings.intervalTime"
         delimiter-icon="mdi mdi-circle-medium"
-        height="1280"
+        class="sliderBanner"
     >
       <v-carousel-item
           v-for="(item,i) in slideBanners"
@@ -93,3 +93,40 @@ const props = defineProps({
 </template>
 
 
+<style scoped lang="scss">
+.sliderBanner {
+  width: 100%;
+  height: 900px !important;
+
+  :deep(.v-carousel-item) {
+    .v-img {
+      .v-img__img--cover {
+        object-position: 100% top !important;
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 1199px) {
+    height: 800px !important;
+  }
+
+
+  @media screen and (max-width: 991px) {
+    height: 650px !important;
+  }
+
+
+  @media screen and (max-width: 767px) {
+    height: 724px !important;
+    :deep(.v-carousel-item) {
+      .v-img {
+        .v-img__img--cover {
+          object-position: 80% top !important;
+        }
+      }
+    }
+  }
+
+}
+</style>
