@@ -30,8 +30,10 @@ const props = defineProps({
         ----------------------------------------------- -->
                 <v-row class="mt-16">
                   <v-col cols="12" sm="6">
-                    <div class="img-boarder mx-auto" style="max-height: 360px; max-width: 360px;">
-                      <v-img  :src="`${useAppConfig().api.baseUrl+ '/storage/' +<string>props.aboutSettings?.image}`"></v-img>
+                    <div class="img-boarder mx-auto" style="max-height: 490px; max-width: 378px;">
+                      <v-img aspect-ratio="3/4" class="elevation-1"
+                             rounded cover
+                             :src="`${useAppConfig().api.baseUrl+ '/storage/' +<string>props.aboutSettings?.image}`"/>
                     </div>
                   </v-col>
                   <v-col cols="12" sm="6">
@@ -61,7 +63,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .img-boarder {
   --color: #03192C; /* the border color */
-  --border: 10px; /* the border thickness*/
+  --border: 8px; /* the border thickness*/
   --offset: 20px; /* control the offset*/
   --gap: 5px; /* the gap on hover */
   --_c: var(--color) var(--border), #0000 0 calc(100% - var(--border)), var(--color) 0;
@@ -71,14 +73,14 @@ const props = defineProps({
   linear-gradient(90deg, var(--_c)) var(--_o) var(--_o);
   background-size: calc(100% - var(--_o)) calc(100% - var(--_o));
   background-repeat: no-repeat;
-  filter: grayscale(.4);
+  //filter: grayscale(.4);
   transition: .5s;
 }
 
 .img-boarder:hover {
   background-position: 0 0;
   background-size: calc(100% - var(--offset)) calc(100% - var(--offset));
-  filter: grayscale(0);
+  //filter: grayscale(0);
 }
 
 </style>
