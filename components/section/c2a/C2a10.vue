@@ -42,7 +42,7 @@ const loading = computed(() => {
 
 onMounted(() => {
   setInterval(() => {
-    state.currentDateTime = DateTime.now().toFormat('EEEE,d MMMM yyyy | ساعت HH:mm:ss', { locale: 'fa-IR' })
+    state.currentDateTime = DateTime.now().toFormat('EEEE,d MMMM yyyy | ساعت HH:mm:ss', { locale: 'fa-IR', outputCalendar: 'persian' })
   })
 })
 
