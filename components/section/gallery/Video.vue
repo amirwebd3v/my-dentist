@@ -8,7 +8,7 @@ const settings = gallerySettings[0];
 
 <template>
 
-  <v-container v-if="props.videoSettings?.hidden === null">
+  <v-container v-if="props.videoSettings?.hidden === ''">
 <!--    <div v-if="!props.videoSettings.link" :class="`videoWrapper ${props.videoSettings.hidden}`">-->
 <!--      <video  playsinline autoplay loop :style="`border-color: ${props.videoSettings.cardBorderColor} !important;-->
 <!--      background-color: ${props.videoSettings.cardBackColor}; `"-->
@@ -21,7 +21,7 @@ const settings = gallerySettings[0];
 
     <div class="iframeWrapper">
       <iframe
-          :class="[props.videoSettings.border,'rounded']"
+          :class="['rounded-lg']"
           :style="`border-color: ${props.videoSettings.cardBorderColor} !important;`"
           :src="`https://www.aparat.com/video/video/embed/videohash/${props.videoSettings.link.split('/').pop()}/vt/frame`"
       />
@@ -38,7 +38,7 @@ const settings = gallerySettings[0];
 .iframeWrapper {
   position: relative;
   width: 100%;
-  padding-top: 57.5%; /* 16:9 Aspect Ratio */
+  padding-top: 57.25%; /* 16:9 Aspect Ratio */
   overflow: hidden;
 }
 
