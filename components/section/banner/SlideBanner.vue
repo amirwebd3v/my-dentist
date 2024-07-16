@@ -26,7 +26,7 @@ onBeforeMount(async ()=>{
   await useslideBannerStore().fetch()
 })
 
-console.log(slideBanners.value)
+
 </script>
 
 <template>
