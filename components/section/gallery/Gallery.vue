@@ -9,7 +9,8 @@ import {useServiceStore} from "~/store/service";
 import {usePostStore} from "~/store/post";
 import {storeToRefs} from "pinia";
 import {useDisplay} from "vuetify";
-const { xlAndUp,md,sm,thresholds,width } = useDisplay();
+
+const {xlAndUp, md, sm, thresholds, width, mobile} = useDisplay();
 thresholds.value.sm = 932
 
 /**************************************************************************/
@@ -27,7 +28,7 @@ const showStates = reactive({})
 
 const show = (id) => {
   if (!(id in showStates)) {
-    showStates[id] = false
+    showStates[id] = width.value > 850;
   }
   return showStates[id]
 }
@@ -48,20 +49,19 @@ const props = defineProps({
 })
 
 
-const load = async (newPage: number = meta.value.current_page,itemsPerPage: number = xlAndUp.value ? 4 : 3) => {
+const load = async (newPage: number = meta.value.current_page, itemsPerPage: number = xlAndUp.value ? 4 : 3) => {
   if (loading.value) {
     return
   }
 
 
-
   loading.value = true
   const params = useApi().prepareQueryParams({
-    page:newPage,
+    page: newPage,
     itemsPerPage: itemsPerPage
   })
 
-  params.sort = { created_at: 'desc' }
+  params.sort = {created_at: 'desc'}
   params.search = `services.id:${activeService.value}`
 
   await usePostStore().paginate(params)
@@ -76,14 +76,15 @@ onBeforeMount(() => {
 const initialBreakpoint = computed(() => width.value)
 
 
-watch([md,initialBreakpoint], ([isMd,isInit]) => {
+watch([md, initialBreakpoint], ([isMd, isInit]) => {
 
   if (isMd || isInit > 1907) {
     load(1, 4);
+
   } else {
     load(1, 3);
   }
-}, { immediate: true });
+}, {immediate: true});
 
 
 </script>
@@ -113,10 +114,10 @@ watch([md,initialBreakpoint], ([isMd,isInit]) => {
           </v-tab>
 
         </v-tabs>
-        <v-card-text class="pt-0 pb-0 px-0" >
+        <v-card-text class="pt-0 pb-0 px-0">
           <v-chip-group mandatory class=" mb-4 elevation-5"
-                        :style="`color: ${props.gallerySettings.tabActiveBtnColor}; background-color: ${props.gallerySettings.tabBackColor};`">
-
+                        :style="`color: ${props.gallerySettings.tabActiveBtnColor};
+                        background-color: ${props.gallerySettings.tabBackColor};`">
             <v-select
                 class="mx-12 mt-2"
                 multiple
@@ -138,18 +139,18 @@ watch([md,initialBreakpoint], ([isMd,isInit]) => {
         </v-card-text>
         <v-window>
 
-          <v-window-item  >
+          <v-window-item>
             <v-row justify="space-around">
-              <v-col v-for="post in posts.values()" :key="post.id" cols="12" :lg="xlAndUp || md ? 3 : 4" md="6" sm="12" >
+              <v-col v-for="post in posts.values()" :key="post.id" cols="12" :lg="xlAndUp || md ? 3 : 4" md="6" sm="12">
 
-                <v-card  v-if="!!props.gallerySettings" class="mx-auto border-left border-top" max-width="360"
+                <v-card v-if="!!props.gallerySettings" class="mx-auto border-left border-top" max-width="360"
                         :color="props.gallerySettings.cardBorderColor"
                         :elevation="props.gallerySettings.cardElevation"
                         :variant="props.gallerySettings.cardVariant"
                 >
 
                   <v-carousel :continuous="false" :show-arrows="false" hide-delimiter-background
-                              delimiter-icon="mdi mdi-circle-medium"  style="background-color: black;"
+                              delimiter-icon="mdi mdi-circle-medium" style="background-color: black;"
                               :color="props.gallerySettings.delimitersColor">
                     <v-carousel-item v-for="item in post.images"
                                      :key="item"
@@ -172,7 +173,8 @@ watch([md,initialBreakpoint], ([isMd,isInit]) => {
                   </v-carousel>
 
 
-                  <v-card-title class="font-weight-regular" :style="`color: ${props.gallerySettings?.cardTitleColor}`" :key="post.id">
+                  <v-card-title class="font-weight-regular" :style="`color: ${props.gallerySettings?.cardTitleColor}`"
+                                :key="post.id">
                     <v-row justify="space-between" align="center" class="py-4 px-1">
                       <div class="text-truncate" style="max-width: 200px;">
                         {{ post.title }}
@@ -189,9 +191,10 @@ watch([md,initialBreakpoint], ([isMd,isInit]) => {
                   </v-card-title>
 
 
-                  <v-expand-transition  v-if="!!props.gallerySettings">
+                  <v-expand-transition v-if="!!props.gallerySettings">
                     <div v-show="show(post.id)">
-                      <v-card-subtitle  class="pb-2 text-wrap" :style="`color: ${props.gallerySettings.cardTitleColor};`">
+                      <v-card-subtitle class="pb-2 text-wrap"
+                                       :style="`color: ${props.gallerySettings.cardTitleColor};`">
                         {{ post.subtitle }}
                       </v-card-subtitle>
 
@@ -208,7 +211,8 @@ watch([md,initialBreakpoint], ([isMd,isInit]) => {
                       </div>
 
                       <v-card-actions class="justify-space-around mt-5">
-                        <CommentsModal :post-id="post.id" :comments-count="post.comments_count" :settings="props.gallerySettings"/>
+                        <CommentsModal :post-id="post.id" :comments-count="post.comments_count"
+                                       :settings="props.gallerySettings"/>
                         <div class="justify-self-start">
                           <v-icon class="me-1" size="small" icon="mdi-eye"
                                   :style="`color: ${props.gallerySettings.iconColor}`"/>
@@ -265,13 +269,13 @@ iframe {
   margin-top: 56px;
 }
 
-@media (min-width: 1280px) and (max-width: 1919px)   {
+@media (min-width: 1280px) and (max-width: 1919px) {
   iframe {
     margin-top: 56px;
   }
 }
 
-@media (max-width: 460px)    {
+@media (max-width: 460px) {
   iframe {
     margin-top: 60px;
   }

@@ -46,7 +46,7 @@ onBeforeMount(async ()=>{
     >
       <v-carousel-item
           v-for="item in slideBanners.values()"
-          :key="item.id"
+          :key="item.order"
           :src="`${useAppConfig().api.baseUrl +'/storage/'+item.image}`"
           cover
       >
@@ -56,7 +56,7 @@ onBeforeMount(async ()=>{
 
           <v-row justify="start">
             <v-col cols="12" sm="7" lg="6">
-              <div class="px-8 text-sm-right text-center ">
+              <div class="px-8 text-sm-right text-center">
                 <v-chip :size="item.setting.tagChipSize"
                         :text="item.tags[0]"
                         :color="item.setting.tagColor"
@@ -64,18 +64,18 @@ onBeforeMount(async ()=>{
                 <h2
                     class="
                   brand-banner-title
-                  font-weight-bold
-                  text-uppercase" :style="`color: ${item.setting.titleColor} ;`"
+                  font-weight-bold" :style="`color: ${item.setting.titleColor}; text-shadow: 0 0 3px ${item.setting.titleColor};`"
                 >
                   {{ item.title }}
                 </h2>
-                <p :class="`font-${item.setting.contextFontSize}`" :style="`color: ${item.setting.contextColor} ;`">
+                <p  :style="`font-size: ${item.setting.contextFontSize}px;
+                  text-shadow: 0 0 2px ${item.setting.contextColor};color: ${item.setting.contextColor};`">
                   {{ item.context }}
                 </p>
                 <div class="mt-8">
                   <v-btn
                       :to="item.setting.btnLink"
-                      class="rounded-xl px-6 py-0"
+                      class="rounded-xl w-auto px-6 py-0 text-white"
                       :color="item.setting.btnColor"
                       variant="flat"
                       :size="item.setting.btnSize"
@@ -104,11 +104,15 @@ onBeforeMount(async ()=>{
   width: 100%;
   height: 900px !important;
 
+
   :deep(.v-carousel-item) {
     .v-img {
       .v-img__img--cover {
         object-position: 100% top !important;
       }
+    }
+    .v-btn__overlay{
+      opacity: 0 !important;
     }
   }
 
