@@ -1,8 +1,18 @@
 <script setup lang="ts">
-import {gallerySettings} from "~/data/CustomComponents";
+import {videoSettings} from "~/data/CustomComponents";
+import type {PropType} from "@vue/runtime-core";
+import type {VideoSettings} from "~/utils/types";
 
 
-const settings = gallerySettings[0];
+const props = defineProps({
+  videoSettings: {
+    type: Object as PropType<VideoSettings>,
+    required: true,
+    default: videoSettings[0],
+  }
+})
+
+
 
 </script>
 
@@ -23,7 +33,7 @@ const settings = gallerySettings[0];
       <iframe
           :class="['rounded-lg']"
           :style="`border-color: ${props.videoSettings.cardBorderColor} !important;`"
-          :src="`https://www.aparat.com/video/video/embed/videohash/${props.videoSettings.link.split('/').pop()}/vt/frame`"
+          :src="`https://www.aparat.com/video/video/embed/videohash/${props.videoSettings?.link.split('/').pop()}/vt/frame`"
       />
     </div>
   </v-container>
