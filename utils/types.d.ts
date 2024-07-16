@@ -1,10 +1,32 @@
-interface Error {
+type Error = {
     status: number | undefined,
     message: string | undefined,
     errors: Record<string, string[]> | undefined
 }
+type SlideBanner = {
+    id: number;
+    order: number;
+    title: string;
+    context: string;
+    image: string;
+    tags: string[];
+    setting: {
+        btnLink: string;
+        btnSize: string;
+        btnText: string;
+        btnColor: string;
+        tagColor: string;
+        tagVariant: NonNullable<"flat" | "text" | "elevated" | "tonal" | "outlined" | "plain">;
+        titleColor: string;
+        tagChipSize: string;
+        contextColor: string;
+        contextFontSize: number;
+    };
+    created_at: string;
+    updated_at: string;
+}
 
-interface Service {
+type Service = {
     id: number;
     title: string;
     content: string;
@@ -18,7 +40,7 @@ interface Service {
     updated_at: number;
 }
 
-interface Post {
+type Post = {
     id: number;
     title: string;
     subtitle: string;
@@ -34,7 +56,7 @@ interface Post {
 
 
 
-interface Comment {
+type Comment = {
     id: number;
     comment: string;
     reply: string;
@@ -47,7 +69,7 @@ interface Comment {
 }
 
 
-interface Testimonial {
+type Testimonial = {
     id: number;
     full_name: string;
     service: string;
@@ -58,7 +80,7 @@ interface Testimonial {
     updated_at: number;
 }
 
-interface Setting {
+type Setting = {
     id: string
     group: string
     name: string
@@ -173,7 +195,7 @@ type FooterSettings = {
 };
 
 
-interface Preview {
+type Preview = {
     id: string
     url: string
     mime_type: string
@@ -181,12 +203,12 @@ interface Preview {
     created_at: number
 }
 
-interface MediaPreview {
+type MediaPreview = {
     picture: Preview | null;
     track: Preview | null;
 }
 
-interface Media {
+type Media = {
     collection_name: string;
     created_at: number
     custom_properties: object
@@ -206,7 +228,7 @@ interface Media {
 }
 
 
-interface User {
+type User = {
     uuid: string
     name: string
     email: string
@@ -218,7 +240,7 @@ interface User {
 }
 
 
-interface Category {
+type Category = {
     id: number
     name: string
     slug: string
@@ -230,11 +252,11 @@ interface Category {
 }
 
 
-interface ValidationRule {
+type ValidationRule = {
     (value: any, param?: any): string | boolean;
 }
 
-interface ValidationRules {
+type ValidationRules = {
     [key: string]: ValidationRule
 }
 
@@ -242,6 +264,7 @@ export {
     Error,
     Setting,
     CarouselSettings,
+    SlideBanner,
     AboutSettings,
     AboutItems,
     GallerySettings,

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import {slideBanners, slideBannerSettings} from "~/data/CustomComponents";
+import {slideBannerSettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
-import {useServiceStore} from "~/store/service";
+import {useslideBannerStore} from "~/store/slideBanner";
 
 
 const props = defineProps({
@@ -20,10 +20,13 @@ const props = defineProps({
   }
 })
 
+const {slideBanners} = storeToRefs(useslideBannerStore())
 
-// console.log(props.carouselSettings)
+onBeforeMount(async ()=>{
+  await useslideBannerStore().fetch()
+})
 
-
+console.log(slideBanners.value)
 </script>
 
 <template>
@@ -42,9 +45,9 @@ const props = defineProps({
         class="sliderBanner"
     >
       <v-carousel-item
-          v-for="(item,i) in slideBanners"
-          :key="i"
-          :src="item.imageSource"
+          v-for="item in slideBanners.values()"
+          :key="item.id"
+          :src="`${useAppConfig().api.baseUrl +'/storage/'+item.image}`"
           cover
       >
 
@@ -54,26 +57,29 @@ const props = defineProps({
           <v-row justify="start">
             <v-col cols="12" sm="7" lg="6">
               <div class="px-8 text-sm-right text-center ">
-                <v-chip :size="item.tagChipSize" :text="item.tag" :color="item.tagColor" :variant="item.tagVariant"/>
+                <v-chip :size="item.setting.tagChipSize"
+                        :text="item.tags[0]"
+                        :color="item.setting.tagColor"
+                        :variant="item.setting.tagVariant"/>
                 <h2
                     class="
                   brand-banner-title
                   font-weight-bold
-                  text-uppercase" :style="`color: ${item.titleColor} ;`"
+                  text-uppercase" :style="`color: ${item.setting.titleColor} ;`"
                 >
                   {{ item.title }}
                 </h2>
-                <p :class="`font-${item.contextFontSize}`" :style="`color: ${item.contextColor} ;`">
+                <p :class="`font-${item.setting.contextFontSize}`" :style="`color: ${item.setting.contextColor} ;`">
                   {{ item.context }}
                 </p>
                 <div class="mt-8">
                   <v-btn
-                      :to="item.btnLink"
+                      :to="item.setting.btnLink"
                       class="rounded-xl px-6 py-0"
-                      :color="item.btnColor"
+                      :color="item.setting.btnColor"
                       variant="flat"
-                      :size="item.btnSize"
-                      :text="item.btnText"
+                      :size="item.setting.btnSize"
+                      :text="item.setting.btnText"
                   >
                   </v-btn>
                 </div>
