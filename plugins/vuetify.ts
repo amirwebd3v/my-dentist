@@ -5,9 +5,7 @@ import * as components from "vuetify/components";
 import * as labsComponents from 'vuetify/labs/components'
 import * as directives from "vuetify/directives";
 import VueTablerIcons from 'vue-tabler-icons';
-
-
-
+import {fa} from "vuetify/lib/locale";
 import LuxonAdapter from "@date-io/luxon"
 
 const LightTheme: ThemeDefinition = {
@@ -75,6 +73,11 @@ export default defineNuxtPlugin((nuxtApp) => {
         },
         date: {
             adapter: luxon,
+        },
+        locale: {
+            locale: 'fa',
+            fallback: 'en',
+            messages:  {fa} ,
         },
     });
     nuxtApp.vueApp.use(vuetify);
