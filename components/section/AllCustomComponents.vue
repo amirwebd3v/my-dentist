@@ -12,7 +12,14 @@ import ContactForm from './contact/Contact.vue';
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
 
-import type {AboutSettings, CarouselSettings, GallerySettings, TestimonialSettings, ContactusSettings,VideoSettings} from "~/utils/types";
+import type {
+  AboutSettings,
+  CarouselSettings,
+  GallerySettings,
+  TestimonialSettings,
+  ContactusSettings,
+  VideoSettings
+} from "~/utils/types";
 
 /********************************************************/
 const carouselSettings =

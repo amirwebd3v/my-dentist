@@ -118,20 +118,20 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
           <v-chip-group mandatory class=" mb-4 elevation-5"
                         :style="`color: ${props.gallerySettings.tabActiveBtnColor};
                         background-color: ${props.gallerySettings.tabBackColor};`">
-            <v-select
-                class="mx-12 mt-2"
-                multiple
-                :item-color="props.gallerySettings.selectedSortItemColor"
-                variant="plain"
-                density="comfortable"
-                chips
-                hide-details
-                label="مرتب سازی بر اساس"
-                :loading="loading"
-                :items="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
-                :item-value="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"
-            >
-            </v-select>
+<!--            <v-select-->
+<!--                class="mx-12 mt-2"-->
+<!--                multiple-->
+<!--                :item-color="props.gallerySettings.selectedSortItemColor"-->
+<!--                variant="plain"-->
+<!--                density="comfortable"-->
+<!--                chips-->
+<!--                hide-details-->
+<!--                label="مرتب سازی بر اساس"-->
+<!--                :loading="loading"-->
+<!--                :items="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"-->
+<!--                :item-value="[ 'جدید ترین','محبوب ترین', 'پربازدید ترین', 'تعداد کامنت']"-->
+<!--            >-->
+<!--            </v-select>-->
 
           </v-chip-group>
 
