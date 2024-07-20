@@ -42,9 +42,9 @@ onBeforeMount(async () => {
       </v-row>
 
       <!-- Testimonial Carousel -->
-      <v-sheet class="scroll" :style="`--time:${cardCount*5}s;--card-count:${cardCount}`">
+      <v-sheet class="scroll" :style="`--time:${40}s;--card-count:${cardCount}`">
         <v-row class="my-12"  >
-          <v-col v-for="(card,i) in testimonials.values()"  :key="card.id">
+          <v-col v-for="card in testimonials.values()"  :key="card.id">
             <v-card :style="`
                             width: 330px;
                             height: 250px;
@@ -60,7 +60,7 @@ onBeforeMount(async () => {
                     <h6 class="text-uppercase font-weight-bold font-14">{{ card.full_name }}</h6>
                     <p class="mt-1 w-auto">
                       {{ card.service }}
-                      <br v-if="card.date !== null">
+                      <br v-if="!!card.date">
                       {{ card.date !== null ? DateTime.fromISO(card.date).toLocaleString(DateTime.DATE_FULL, { locale: 'fa' }) : '' }}
                     </p>
                   </div>
@@ -98,7 +98,7 @@ onBeforeMount(async () => {
     transform: translate(100%);
   }
   to {
-    transform: translate(-100%);
+    transform: translate(-32%);
   }
 }
 

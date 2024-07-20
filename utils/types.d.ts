@@ -138,7 +138,7 @@ type VideoSettings = {
     border: string,
     cardBackColor: string,
     cardBorderColor: string,
-    hidden: "d-none" | null,
+    hidden: boolean,
     link: string
 }
 
