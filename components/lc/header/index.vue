@@ -159,7 +159,7 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
                 :key="[]"
                 :class="{ active: activeSection === nav.key }"
             >
-              <NuxtLink :to="nav.key === 'faq' ? '/FAQ' : {path: '/', hash: `#${nav.key}`}" class="nav-link">
+              <NuxtLink :to="{path: '/', hash: `#${nav.key}`}" class="nav-link">
                 {{ nav.label }}
               </NuxtLink>
             </li>
@@ -190,7 +190,7 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
               :key="[]"
               :class="{ active: activeSection === nav.key }"
           >
-            <NuxtLink :to="nav.key === 'faq' ? '/FAQ' : {path: '/', hash: `#${nav.key}`}" class="nav-link">
+            <NuxtLink :to="{path: '/', hash: `#${nav.key}`}" class="nav-link">
               {{ nav.label }}
             </NuxtLink>
           </li>
