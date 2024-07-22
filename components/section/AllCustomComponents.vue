@@ -1,13 +1,16 @@
 <script setup lang="ts">
-// import Feature3 from './features/Feature3.vue';
+
 // import Portfolio from './gallery/Gallery.vue';
 // import Article from '~/components/section/articles/Article.vue';
 // import CallActionAsk1 from './c2a/C2a2.vue';
+
+
 import SlideBanner from './banner/SlideBanner.vue';
 import About from './features/About.vue';
 import service from './features/Service.vue';
 import Testimonial from './testimonial/Testimonial.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
+import Feature3 from "~/components/section/features/Feature3.vue";
 import ContactForm from './contact/Contact.vue';
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
@@ -20,6 +23,13 @@ import type {
   ContactusSettings,
   VideoSettings
 } from "~/utils/types";
+
+
+
+
+
+
+
 
 /********************************************************/
 const carouselSettings =
@@ -64,6 +74,10 @@ const contactusSettings =
 
   <div id="testimonials">
     <Testimonial :testimonial-settings="testimonialSettings"/>
+  </div>
+
+  <div id="faq">
+    <Feature3/>
   </div>
 
   <div id="contact-us">

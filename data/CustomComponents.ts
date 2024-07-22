@@ -17,8 +17,8 @@ const header = [
         label: "نظرات",
     },
     {
-        key: "FAQ",
-        label: "پرسش و پاسخ",
+        key: "faq",
+        label: "سوالات متداول",
     },
     {
         key: "contact-us",
