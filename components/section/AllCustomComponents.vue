@@ -10,7 +10,7 @@ import About from './features/About.vue';
 import service from './features/Service.vue';
 import Testimonial from './testimonial/Testimonial.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
-import Feature3 from "~/components/section/features/Feature3.vue";
+import FAQ from "~/components/section/features/Faq.vue";
 import ContactForm from './contact/Contact.vue';
 import Gallery from "~/components/section/gallery/Gallery.vue";
 import Video from "~/components/section/gallery/Video.vue";
@@ -77,7 +77,7 @@ const contactusSettings =
   </div>
 
   <div id="faq">
-    <Feature3/>
+    <FAQ/>
   </div>
 
   <div id="contact-us">

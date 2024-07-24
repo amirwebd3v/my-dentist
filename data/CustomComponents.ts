@@ -714,6 +714,43 @@ const comments = [
 ];
 
 
+const faq = [
+    {
+        id: 1,
+        question: ' چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟',
+        answer: '.در این بخش میتوانید پاسخ سوالاتی که به صورت عمومی در زمینه دهان و دندان مطرح هست را پیدا کنید.در این بخش میتوانید پاسخ سوالاتی که به صورت عمومی در زمینه دهان و دندان مطرح هست را پیدا کنید.',
+    },
+    {
+        id: 2,
+        question: '  چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟',
+        answer: 'پاسخگوی سوالات شما مراجعه کنندگان عزیز در زمینه دهان و دندان هستیم.',
+    },
+    {
+        id: 3,
+        question: ' چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟',
+        answer: 'پاسخگوی سوالات شما مراجعه کنندگان عزیز در زمینه دهان و دندان هستیم.',
+    },
+    {
+        id: 4,
+        question: ' چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟ چگونه قبل از معاینه میتوانم وقت خود را ثبت کنم؟',
+        answer: 'پاسخگوی سوالات شما مراجعه کنندگان عزیز در زمینه دهان و دندان هستیم.',
+    }
+]
+
+const faqSettings = [
+    {
+        title: ' سوالات متداول',
+        subtitle: 'پاسخگوی سوالات شما مراجعه کنندگان عزیز در زمینه دهان و دندان هستیم.',
+        cardBgColor: '#03192C',
+        titleColor: '#ffffff',
+        contextColor: '#03192C',
+        contextBgColor: '#ffffff',
+        mainImage: './images/features/3/img1.jpg',
+        rightSideImage: './images/faq/OIP.jpeg',
+        leftSideImage: './images/faq/cute-model-looking-copy-space.png',
+    }
+]
+
 const contactusSettings = [
     {
         title: ' انتقادات و پیشنهادات',
@@ -728,6 +765,8 @@ const contactusSettings = [
         }
     }
 ]
+
+
 
 
 const footer = [
@@ -765,6 +804,8 @@ export {
     slideBanners,
     slideBannerSettings,
     comments,
+    faq,
+    faqSettings,
     contactusSettings,
     footer,
 };
