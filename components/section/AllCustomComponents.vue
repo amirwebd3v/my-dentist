@@ -7,7 +7,7 @@
 
 import SlideBanner from './banner/SlideBanner.vue';
 import About from './features/About.vue';
-import service from './features/Service.vue';
+import Service from './features/Service.vue';
 import Testimonial from './testimonial/Testimonial.vue';
 import CallActionAsk1 from './c2a/C2a10.vue';
 import FAQ from "~/components/section/features/Faq.vue";
@@ -21,7 +21,7 @@ import type {
   GallerySettings,
   TestimonialSettings,
   ContactusSettings,
-  VideoSettings
+  VideoSettings, Services
 } from "~/utils/types";
 
 
@@ -44,6 +44,9 @@ const testimonialSettings =
     inject('testimonialSettings') as TestimonialSettings
 const contactusSettings =
     inject('contactusSettings') as ContactusSettings
+/*******************************************************/
+const services =
+    inject('services') as Map<number, Services>
 
 
 </script>
@@ -52,7 +55,7 @@ const contactusSettings =
 
   <div id="header">
     <SlideBanner :carousel-settings="carouselSettings"/>
-    <CallActionAsk1/>
+    <CallActionAsk1 :services="services"/>
   </div>
 
 
@@ -61,7 +64,7 @@ const contactusSettings =
   </div>
 
   <div id="services">
-    <service/>
+    <Service :services="services"/>
   </div>
 
   <div id="gallery">

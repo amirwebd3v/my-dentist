@@ -1,15 +1,15 @@
 import {defineStore} from "pinia";
-import type {Service} from "~/utils/types";
+import type {Services} from "~/utils/types";
 
 
 export const useServiceStore = defineStore('service', {
     state: () => ({
-        services: new Map<number, Service>(),
+        services: new Map<number, Services>(),
     }),
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Service>('/api/service', {
+            const response = await useApi().all<Services>('/api/service', {
                     sort: {created_at: 'desc'}
                 });
 

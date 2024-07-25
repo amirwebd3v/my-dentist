@@ -1,33 +1,38 @@
 <script lang="ts" setup>
 import { DateTime } from 'luxon'
 import Dialog from "~/components/shared/modal/Dialog.vue";
+import {useDisplay} from "vuetify";
+import type {PropType} from "@vue/runtime-core";
+import type {Services} from "~/utils/types";
+import {services} from "~/data/CustomComponents";
 
 interface State {
   currentDateTime: any;
-  showLoginModal: boolean;
-  phoneInput: boolean;
-  phoneInputText: string | null;
-  showRegModal: boolean;
+  showReserveDialog: boolean;
+  // phoneInput: boolean;
+  // phoneInputText: string | null;
+  // showRegModal: boolean;
   loading: boolean;
-  verificationInput: boolean;
-  btnText: any;
-  timer: number;
-  intervalId: number | null;
-  resendCodeBtn: boolean;
+  // verificationInput: boolean;
+  // btnText: any;
+  // timer: number;
+  // intervalId: number | null;
+  // resendCodeBtn: boolean;
 }
+
 
 const state = reactive<State>({
   currentDateTime: null,
-  showLoginModal: false,
-  phoneInput: true,
-  phoneInputText: null,
-  showRegModal: false,
+  showReserveDialog: false,
+  // phoneInput: true,
+  // phoneInputText: null,
+  // showRegModal: false,
   loading: false,
-  verificationInput: false,
-  btnText: null,
-  timer: 10,
-  intervalId: null,
-  resendCodeBtn: true
+  // verificationInput: false,
+  // btnText: null,
+  // timer: 10,
+  // intervalId: null,
+  // resendCodeBtn: true
 })
 
 const loading = computed(() => {
@@ -47,78 +52,84 @@ onMounted(() => {
 })
 
 const currentDateTimeAny = computed(() => state.currentDateTime as any);
-const btnTextAny = computed(() => state.btnText as any);
-function startTimer() {
-  console.log('startTimer function called');
-  if (state.intervalId === null) {
-    state.intervalId = setInterval(() => {
-      if (state.timer > 0) {
-        state.timer--;
-      } else if (state.timer === 0) {
-        state.resendCodeBtn = false;
-        clearInterval(state.intervalId);
-        state.intervalId = null;
-      }
-    }, 1000);
+// const btnTextAny = computed(() => state.btnText as any);
+// function startTimer() {
+//   console.log('startTimer function called');
+//   if (state.intervalId === null) {
+//     state.intervalId = setInterval(() => {
+//       if (state.timer > 0) {
+//         state.timer--;
+//       } else if (state.timer === 0) {
+//         state.resendCodeBtn = false;
+//         clearInterval(state.intervalId);
+//         state.intervalId = null;
+//       }
+//     }, 1000);
+//   }
+// }
+
+// function verifyBtn() {
+//   startTimer()
+//   console.log('startTimer called'); // Add this line for debugging
+//   state.loading = true
+//   state.verificationInput = true
+//   state.phoneInput = false
+//   step(1)
+// }
+
+// function phoneEditBtn() {
+//   state.verificationInput = false
+//   state.phoneInput = true
+//   state.phoneInputText = ''
+//   step(0)
+// }
+
+// function resendCode() {
+//   if (!state.resendCodeBtn) {
+//     state.timer = 10;
+//     state.resendCodeBtn = true;
+//     startTimer();
+//   }
+// }
+
+// function closeBtn() {
+//   clearInterval(state.intervalId);
+//   state.intervalId = null;
+//   state.timer = 10;
+//   state.resendCodeBtn = true;
+//   state.showLoginModal = false
+//   state.verificationInput = false
+//   state.phoneInput = true
+//   step(0)
+// }
+
+// function step(val: number | null = null) {
+//   if (val === 0) {
+//     state.btnText = 'ارسال کد فعالسازی'
+//   }
+//   if (val === 1) {
+//     state.btnText = 'تایید و ادامه'
+//   }
+// }
+
+
+
+// const { $bus } = useNuxtApp()
+//
+// $bus.$on("loginDialogOpen" , (value) => {
+//   state.showLoginModal = value[0]
+//   step(value[1])
+// })
+
+
+
+const props = defineProps({
+  services: {
+    type: Map as PropType<Map<number, Services>>,
+    required: true,
+    default: services[0],
   }
-}
-
-function verifyBtn() {
-  startTimer()
-  console.log('startTimer called'); // Add this line for debugging
-  state.loading = true
-  state.verificationInput = true
-  state.phoneInput = false
-  step(1)
-}
-
-function phoneEditBtn() {
-  state.verificationInput = false
-  state.phoneInput = true
-  state.phoneInputText = ''
-  step(0)
-}
-
-function resendCode() {
-  if (!state.resendCodeBtn) {
-    state.timer = 10;
-    state.resendCodeBtn = true;
-    startTimer();
-  }
-}
-
-function closeBtn() {
-  clearInterval(state.intervalId);
-  state.intervalId = null;
-  state.timer = 10;
-  state.resendCodeBtn = true;
-  state.showLoginModal = false
-  state.verificationInput = false
-  state.phoneInput = true
-  step(0)
-}
-
-function step(val: number | null = null) {
-  if (val === 0) {
-    state.btnText = 'ارسال کد فعالسازی'
-  }
-  if (val === 1) {
-    state.btnText = 'تایید و ادامه'
-  }
-}
-
-
-
-const { $bus } = useNuxtApp()
-
-$bus.$on("loginDialogOpen" , (value) => {
-  state.showLoginModal = value[0]
-  step(value[1])
 })
-
-
-
-
 
 </script>
 
@@ -141,12 +152,113 @@ $bus.$on("loginDialogOpen" , (value) => {
           </p>
         </v-col>
 
-<!--        <v-col cols="auto">-->
-<!--          <span-->
-<!--              class="font-12 ">* برای استفاده از امکانات سایت ابتدا باید وارد پنل کاربری خود شوید یا ثبت نام کنید.-->
-<!--          </span>-->
-<!--          <v-row class="d-flex flex-row pt-1">-->
-<!--            <v-col cols="6">-->
+        <v-col cols="auto" v-if="useDisplay().width.value < 856">
+          <span
+              class="font-12 ">* لطفاْ برای ثبت نوبت جدید بروی دکمه پایین بزنید.
+          </span>
+          <v-row class="d-flex flex-row pt-1">
+            <v-col cols="6">
+              <Dialog :form-title="'رزرو نوبت'" v-model="state.showReserveDialog">
+                <template v-slot:button="props">
+                  <v-btn
+                      class="px-6 py-0 bg-primary ml-2 reserve-btn"
+                      variant="outlined"
+                      text="رزرو نوبت"
+                      v-bind="props"
+                  >
+                  </v-btn>
+                </template>
+                <template #body>
+                  <v-col
+                      cols="12"
+                      sm="6"
+                  >
+                    <v-text-field
+                        variant="outlined"
+                        label="نام"
+                        required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="6"
+                  >
+                    <v-text-field
+                        variant="outlined"
+                        label="نام خانوادگی"
+                    ></v-text-field>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                        variant="outlined"
+                        label="شماره تلفن همراه"
+                        required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                        variant="outlined"
+                        label="ایمیل"
+                        required
+                    ></v-text-field>
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="6"
+                  >
+                    <v-text-field
+                        variant="outlined"
+                        required
+                        label="سن"
+                    ></v-text-field>
+
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="6"
+                  >
+                    <v-autocomplete
+                        variant="outlined"
+                        :items="props.services?.values() as []"
+                        item-title="title"
+                        item-value="id"
+                        label="درخواست مورد نظر"
+                        multiple
+                    ></v-autocomplete>
+                  </v-col>
+                  <v-col
+                      cols="12"
+
+                  >
+                    <v-textarea
+                        variant="outlined"
+                        required
+                        label="توضیحات"
+                    ></v-textarea>
+
+                  </v-col>
+                </template>
+
+                <template #actionButtons>
+                  <v-btn
+                      class="px-6 py-0"
+                      color="green"
+                      variant="text"
+                      text="ذخیره"
+                      @click="state.showReserveDialog = false"
+                  />
+
+                  <v-btn
+                      class="px-6 py-0"
+                      color="red-dark"
+                      variant="text"
+                      text="بستن"
+                      @click="state.showReserveDialog = false"
+                  />
+
+                </template>
+              </Dialog>
 <!--              <Dialog :form-title="'خوش آمدید'" v-model="state.showLoginModal"  >-->
 <!--                <template v-slot:button="props">-->
 <!--                  <v-btn-->
@@ -240,10 +352,10 @@ $bus.$on("loginDialogOpen" , (value) => {
 <!--                  </v-col>-->
 <!--                </template>-->
 <!--              </Dialog>-->
-<!--            </v-col>-->
-<!--          </v-row>-->
+            </v-col>
+          </v-row>
 
-<!--        </v-col>-->
+        </v-col>
 
 
       </div>

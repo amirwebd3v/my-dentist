@@ -26,7 +26,7 @@ type SlideBanner = {
     updated_at: string;
 }
 
-type Service = {
+type Services = {
     id: number;
     title: string;
     content: string;
@@ -274,7 +274,7 @@ export {
     HeaderItems,
     FooterSettings,
     HeaderSettings,
-    Service,
+    Services,
     Post,
     Comment,
     Testimonial,

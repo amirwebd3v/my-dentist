@@ -3,6 +3,7 @@
 
 import {storeToRefs} from "pinia";
 import {useSettingStore} from "~/store/setting";
+import {useServiceStore} from "~/store/service";
 
 
 const title = ref(" دکتر سمیرا رونقی - دندانپزشک و جراح");
@@ -79,13 +80,21 @@ provide('testimonialSettings',testimonialSettings.value)
 provide('contactusSettings',contactusSettings.value)
 
 
+/***************************************************************/
+const {services} = storeToRefs(useServiceStore())
+
+onBeforeMount(async ()=>{
+  await useServiceStore().fetch()
+})
+
+provide('services',services)
 </script>
 
 <template>
   <v-app>
     <v-locale-provider rtl>
       <v-main>
-        <LcHeader :header-settings="headerSettings"/>
+        <LcHeader :header-settings="headerSettings" :services="services"/>
         <div class="pa-0 d-flex flex-column" style="min-height: 100vh">
           <v-row class="flex-grow-1 ma-0 pa-0">
             <v-col cols="12" class="pa-0">

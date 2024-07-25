@@ -1,17 +1,15 @@
 <script setup lang="ts">
-import {useServiceStore} from "~/store/service";
-import {storeToRefs} from "pinia";
+import type {PropType} from "@vue/runtime-core";
+import type {Services} from "~/utils/types";
+import {services} from "~/data/CustomComponents";
 
-
-
-const {services} = storeToRefs(useServiceStore())
-
-onBeforeMount(async ()=>{
-  await useServiceStore().fetch()
+const props = defineProps({
+  services: {
+    type: Map as PropType<Map<number, Services>>,
+    required: true,
+    default: services[0],
+  }
 })
-
-
-
 
 </script>
 <template>
@@ -42,7 +40,7 @@ onBeforeMount(async ()=>{
       <v-row justify="space-around">
         <v-col
             class="v-col-sm-2 v-col-md-2 mt-5 mx-5 px-0 mb-16"
-            v-for="card in services.values()"
+            v-for="card in props.services?.values()"
             :key="card.id"
         >
 <!--                    <v-card elevation="4" class="rounded-shaped" :style=card.config.contextColor>-->

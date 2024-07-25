@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {header} from "~/data/CustomComponents";
+import {header, services} from "~/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
-import type {HeaderSettings} from "~/utils/types";
+import type {HeaderSettings, Services} from "~/utils/types";
 /********************************************************/
 
 const props = defineProps({
@@ -13,15 +13,20 @@ const props = defineProps({
       headerLogo: '/images/logos/Sami-logo-black.png',
       headerItems: header
     },
+  },
+  services: {
+    type: Map as PropType<Map<number, Services>>,
+    required: true,
+    default: services[0],
   }
 })
 /********************************************************/
 const showReserveDialog = ref(false)
 const drawer = ref<boolean>(false);
-const {$bus} = useNuxtApp()
-const openLoginDialog = () => {
-  $bus.$emit('loginDialogOpen', [true, 0])
-}
+// const {$bus} = useNuxtApp()
+// const openLoginDialog = () => {
+//   $bus.$emit('loginDialogOpen', [true, 0])
+// }
 /********************************************************/
 const {activeSection} = useActiveSection(props.headerSettings?.headerItems || header)
 
@@ -103,7 +108,9 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
             >
               <v-autocomplete
                   variant="outlined"
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
+                  :items="props.services?.values() as []"
+                  item-title="title"
+                  item-value="id"
                   label="درخواست مورد نظر"
                   multiple
               ></v-autocomplete>
@@ -149,28 +156,28 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
             temporary
         />
         <v-row align="center" class="my-0">
-        <div
-            class="navigation"
-        >
-          <ul class="navbar-nav d-flex">
-            <li
-                class="nav-item"
-                v-for="nav in props.headerSettings?.headerItems"
-                :key="[]"
-                :class="{ active: activeSection === nav.key }"
-            >
-              <NuxtLink :to="{path: '/', hash: `#${nav.key}`}" class="nav-link">
-                {{ nav.label }}
-              </NuxtLink>
-            </li>
-          </ul>
-        </div>
-        <!--         Logo-->
-        <div class="logo mr-auto pr-5">
-          <NuxtLink to="/" class="logo d-flex">
-            <img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="logo"/>
-          </NuxtLink>
-        </div>
+          <div
+              class="navigation"
+          >
+            <ul class="navbar-nav d-flex">
+              <li
+                  class="nav-item"
+                  v-for="nav in props.headerSettings?.headerItems"
+                  :key="[]"
+                  :class="{ active: activeSection === nav.key }"
+              >
+                <NuxtLink :to="{path: '/', hash: `#${nav.key}`}" class="nav-link">
+                  {{ nav.label }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </div>
+          <!--         Logo-->
+          <div class="logo mr-auto pr-5">
+            <NuxtLink to="/" class="logo d-flex">
+              <img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="logo"/>
+            </NuxtLink>
+          </div>
         </v-row>
       </v-toolbar>
     </v-container>
@@ -194,41 +201,26 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
               {{ nav.label }}
             </NuxtLink>
           </li>
-          <v-divider></v-divider>
+          <v-divider class="mb-3"/>
           <li class="nav-item">
             <v-list-item
-                prepend-icon="mdi mdi-calendar-check-outline"
-                variant="plain"
-                color="primary"
+                variant="text"
+                style="color: #03192C;"
+                :ripple="false"
                 title="رزرو نوبت"
-                link
                 @click="showReserveDialog = true"
 
             >
-
+              <template #prepend>
+                <v-icon color="primary" class="opacity-100">mdi-calendar-check</v-icon>
+              </template>
             </v-list-item>
+            <!--            <NuxtLink  class="nav-link pr-5 my-3">-->
+            <!--              رزرو نوبت-->
+            <!--            </NuxtLink>-->
           </li>
-          <li class="nav-item">
-            <v-list-item
-                prepend-icon="mdi mdi-login"
-                variant="plain"
-                color="primary"
-                title="ورود"
-                @click="openLoginDialog"
-            >
-
-            </v-list-item>
-          </li>
-
         </ul>
       </div>
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn block variant="plain" color="red-light" prepend-icon="mdi mdi-logout">
-            خروج
-          </v-btn>
-        </div>
-      </template>
     </v-navigation-drawer>
   </div>
 </template>
