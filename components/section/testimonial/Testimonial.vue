@@ -81,7 +81,6 @@ onBeforeMount(async () => {
 .scroll {
     position: relative;
     overflow: hidden;
-
 }
 
 .scroll div.v-row{

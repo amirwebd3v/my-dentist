@@ -55,7 +55,6 @@ type Post = {
 }
 
 
-
 type Comment = {
     id: number;
     comment: string;
@@ -89,8 +88,6 @@ type Setting = {
     created_at: number
     updated_at: number
 }
-
-
 
 
 type CarouselSettings = {
@@ -165,7 +162,7 @@ type ContactusSettings = {
 }
 
 type FaqSettings = {
-    title : string,
+    title: string,
     subtitle: string,
     cardBgColor: string,
     titleColor: string,
@@ -174,10 +171,10 @@ type FaqSettings = {
     mainImage: string,
     rightSideImage: string | null,
     leftSideImage: string | null,
+    items: FaqItems[]
 }
 
-type FaqItem = {
-    id : string,
+type FaqItems = {
     question: string,
     answer: string,
 }
@@ -289,7 +286,7 @@ export {
     VideoSettings,
     TestimonialSettings,
     FaqSettings,
-    FaqItem,
+    FaqItems,
     ContactusSettings,
     HeaderItems,
     FooterSettings,

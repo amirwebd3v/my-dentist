@@ -70,7 +70,7 @@ await getSettingsByGroup.value('about').then(res => aboutSettings.value = res)
 await getSettingsByGroup.value('gallery').then(res => gallerySettings.value = res)
 await getSettingsByGroup.value('video').then(res => videoSettings.value = res)
 await getSettingsByGroup.value('testimonial').then(res => testimonialSettings.value = res)
-await getSettingsByGroup.value('faq').then(res => testimonialSettings.value = res)
+await getSettingsByGroup.value('faq').then(res => faqSettings.value = res)
 await getSettingsByGroup.value('contact-us').then(res => contactusSettings.value = res)
 
 
