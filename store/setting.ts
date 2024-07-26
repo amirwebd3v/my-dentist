@@ -8,6 +8,7 @@ type SettingGroup =
     | 'slider-banner'
     | 'gallery'
     | 'video'
+    | 'faq'
     | 'contact-us'
     | 'footer';
 

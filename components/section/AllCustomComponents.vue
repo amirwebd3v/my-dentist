@@ -21,7 +21,9 @@ import type {
   GallerySettings,
   TestimonialSettings,
   ContactusSettings,
-  VideoSettings, Services
+  VideoSettings,
+  FaqSettings,
+  Services
 } from "~/utils/types";
 
 
@@ -42,6 +44,8 @@ const videoSettings =
     inject('videoSettings') as VideoSettings
 const testimonialSettings =
     inject('testimonialSettings') as TestimonialSettings
+const faqSettings =
+    inject('faqSettings') as FaqSettings
 const contactusSettings =
     inject('contactusSettings') as ContactusSettings
 /*******************************************************/
@@ -80,7 +84,7 @@ const services =
   </div>
 
   <div id="faq">
-    <FAQ/>
+    <FAQ :faq-settings="faqSettings"/>
   </div>
 
   <div id="contact-us">

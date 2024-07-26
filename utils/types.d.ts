@@ -164,6 +164,24 @@ type ContactusSettings = {
     };
 }
 
+type FaqSettings = {
+    title : string,
+    subtitle: string,
+    cardBgColor: string,
+    titleColor: string,
+    contextColor: string,
+    contextBgColor: string,
+    mainImage: string,
+    rightSideImage: string | null,
+    leftSideImage: string | null,
+}
+
+type FaqItem = {
+    id : string,
+    question: string,
+    answer: string,
+}
+
 type HeaderSettings = {
     headerLogo: string,
     headerItems: HeaderItems[]
@@ -270,6 +288,8 @@ export {
     GallerySettings,
     VideoSettings,
     TestimonialSettings,
+    FaqSettings,
+    FaqItem,
     ContactusSettings,
     HeaderItems,
     FooterSettings,
