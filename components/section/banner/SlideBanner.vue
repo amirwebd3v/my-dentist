@@ -36,17 +36,18 @@ onBeforeMount(async ()=>{
         v-if="props.carouselSettings"
         :vertical-delimiters="props.carouselSettings.verticalDelimiters"
         :hide-delimiter-background="true"
-        :hide-delimiters="props.carouselSettings.hideDelimiters"
+        :hide-delimiters="!props.carouselSettings.hideDelimiters"
         :show-arrows="false"
         :color="props.carouselSettings.delimitersColor"
         :cycle="props.carouselSettings.cycle"
         :interval="props.carouselSettings.intervalTime"
         delimiter-icon="mdi mdi-circle-medium"
         class="sliderBanner"
+        :model-value="1"
     >
       <v-carousel-item
-          v-for="item in slideBanners.values()"
-          :key="item.order"
+          v-for="item in Array.from(slideBanners.values()).sort((a, b) => a.order - b.order)"
+          :value="item.order"
           :src="`${useAppConfig().api.baseUrl +'/storage/'+item.image}`"
           cover
       >
