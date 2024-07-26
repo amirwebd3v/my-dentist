@@ -12,13 +12,11 @@ const props = defineProps({
   }
 })
 
-
-
 </script>
 
 <template>
 
-  <v-container v-if="props.videoSettings?.hidden === ''">
+  <v-container v-if="!props.videoSettings?.hidden">
 <!--    <div v-if="!props.videoSettings.link" :class="`videoWrapper ${props.videoSettings.hidden}`">-->
 <!--      <video  playsinline autoplay loop :style="`border-color: ${props.videoSettings.cardBorderColor} !important;-->
 <!--      background-color: ${props.videoSettings.cardBackColor}; `"-->
@@ -32,8 +30,8 @@ const props = defineProps({
     <div class="iframeWrapper">
       <iframe
           :class="['rounded-lg']"
-          :style="`border-color: ${props.videoSettings.cardBorderColor} !important;`"
-          :src="`https://www.aparat.com/video/video/embed/videohash/${props.videoSettings?.link.split('/').pop()}/vt/frame`"
+          :style="`border-color: ${props.videoSettings?.cardBorderColor} !important;`"
+          :src="`https://www.aparat.com/video/video/embed/videohash/${(props.videoSettings?.link as string).split('/').pop()}/vt/frame`"
       />
     </div>
   </v-container>
