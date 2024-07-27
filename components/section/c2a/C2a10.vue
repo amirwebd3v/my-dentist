@@ -161,8 +161,8 @@ const props = defineProps({
               <Dialog :form-title="'رزرو نوبت'" v-model="state.showReserveDialog">
                 <template v-slot:button="props">
                   <v-btn
-                      class="px-6 py-0 bg-primary ml-2 reserve-btn"
-                      variant="outlined"
+                      class="px-6 bg-white reserve-btn"
+                      variant="flat"
                       text="رزرو نوبت"
                       v-bind="props"
                   >
