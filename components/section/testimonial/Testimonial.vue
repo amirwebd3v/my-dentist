@@ -42,7 +42,7 @@ onBeforeMount(async () => {
       </v-row>
 
       <!-- Testimonial Carousel -->
-      <v-sheet class="scroll" :style="`--time:${40}s;--card-count:${cardCount}`">
+      <v-sheet class="scroll" :style="`--time:${60}s;--card-count:${cardCount}`">
         <v-row class="my-12"  >
           <v-col v-for="card in testimonials.values()"  :key="card.id">
             <v-card :style="`
