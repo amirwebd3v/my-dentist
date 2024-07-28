@@ -36,7 +36,7 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
   <!-- -----------------------------------------------
         Start Header
   ----------------------------------------------- -->
-  <v-app-bar class="app-header header bg-white">
+  <v-app-bar class="app-header header">
     <v-container class="fill-height">
       <v-toolbar v-if="props.headerSettings">
         <v-app-bar-nav-icon
