@@ -1,12 +1,7 @@
+import type {FilterSearchItem, FilterSortItem, QueryParams} from 'l5-client'
 import {L5Client, type Paginator} from 'l5-client';
 import {FetchOptions, FetchResponse, ResponseType} from "ofetch";
 import {useValidationStore} from "~/store/validation";
-
-
-
-
-const appConfig: AppConfig = useAppConfig()
-const client = new L5Client(appConfig.api.baseUrl, {headers: appConfig.api.headers})
 
 
 
@@ -45,34 +40,48 @@ export default function useApi() {
     //
 
     const paginate = <T>(route: string, queryParams: QueryParams): Promise<Paginator<T>> => {
-        const params = client.buildQueryParams(queryParams)
-        return client.paginate(route, prepareQueryParams(params))
-        // return client.paginate<T>(route, queryParams)
+        // const params = client.buildQueryParams(queryParams)
+        // return client.paginate(route, prepareQueryParams(params))
+        return client.paginate<T>(route, queryParams)
     }
     //
-    const all = <T>(route: string, queryParams: Omit<QueryParams, "pagination">): Promise<T[]> => {
-        const params = client.buildQueryParams(queryParams)
-    //     return useSanctumClient()(route, {params, method: 'GET', onResponseError, parseResponse: JSON.parse})
+    const all = <T>(route: string, queryParams: QueryParams): Promise<T[]> => {
+        // const params = client.buildQueryParams(queryParams)
+        // console.log(params)
+        // console.log(prepareQueryParams(params))
+        //     return useSanctumClient()(route, {params, method: 'GET', onResponseError, parseResponse: JSON.parse})
         return client.all<T>(route, queryParams)
     }
 
     const prepareQueryParams = ({
                                     page = 1,
                                     itemsPerPage = 10,
-                                    sortBy = []
-                                }, search: FilterSearchItem[] = []): QueryParams => {
+                                    sortBy =[]
+                                }={} , search: FilterSearchItem[] = []): QueryParams => {
+        // console.log('Input values:', { page, itemsPerPage, sortBy });
         let sort: FilterSortItem = {}
+        // console.log(sort,sortBy)
+        const sortState = reactive({})
 
         if (sortBy.length > 0) {
-            sortBy.forEach(({key, order}) => sort[key] = order)
+            sortBy.forEach(({key, order}) => {
+                sort[key] = order
+                sortState[key] = order
+            })
+        } else {
+            sort = sortState
         }
-
+        const result = {pagination: {page: page, perPage: itemsPerPage}}
+        // console.log('Output result:', result );
         return {
-            pagination: {page: page || 1, perPage: itemsPerPage || 10}, sort, search
+            pagination: {page: page, perPage: itemsPerPage}, sort, search
         }
     }
 
 
+
+
+
     // return {paginate, all, get, post, put, destroy, prepareQueryParams}
-    return { paginate, prepareQueryParams, all, get}
+    return {prepareQueryParams,paginate, all, get}
 }
