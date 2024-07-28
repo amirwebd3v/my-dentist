@@ -56,7 +56,7 @@ const load = async (newPage: number = meta.value.current_page, itemsPerPage: num
 
 
   loading.value = true
-  const params = useApi().prepareQueryParams({
+  const params = useNuxtApp().$api.prepareQueryParams({
     page: newPage,
     itemsPerPage: itemsPerPage
   })
