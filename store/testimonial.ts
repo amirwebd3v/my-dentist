@@ -7,7 +7,7 @@ export const useTestimonialStore = defineStore('testimonial', {
     }),
     actions: {
         async fetch() {
-            const response = await useApi().all<Testimonial>('/api/testimonial', {
+            const response = await useNuxtApp().$api.all<Testimonial>('/api/testimonial', {
                 sort: { created_at: 'desc' },
                 pagination: { page: 1, perPage: -1 }
             });

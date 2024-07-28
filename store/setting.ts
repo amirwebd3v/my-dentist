@@ -33,7 +33,7 @@ export const useSettingStore = defineStore('setting', {
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Setting>('/api/setting', {
+            const response = await useNuxtApp().$api.all<Setting>('/api/setting', {
                 pagination: {page: 1, perPage: -1}
             });
 

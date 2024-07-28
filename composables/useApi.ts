@@ -1,7 +1,5 @@
 import {L5Client, type Paginator} from 'l5-client';
-import type {FilterSearchItem, FilterSortItem, QueryParams} from 'l5-client'
 import {FetchOptions, FetchResponse, ResponseType} from "ofetch";
-import type {AppConfig} from "@nuxt/schema";
 import {useValidationStore} from "~/store/validation";
 
 
@@ -11,19 +9,23 @@ const appConfig: AppConfig = useAppConfig()
 const client = new L5Client(appConfig.api.baseUrl, {headers: appConfig.api.headers})
 
 
-const onResponseError = async ({request, response, options}) => {
-    useValidationStore().setResponse(response)
-    switch (response.status) {
-        case 401:
-            // await useSanctumAuth().logout()
-            break
-        default:
-            break
-    }
-}
+
 
 export default function useApi() {
+    const appConfig = useAppConfig().api
+    const client = new L5Client(appConfig.baseUrl, {headers: appConfig.headers})
+    const onResponseError = async ({request, response, options}) => {
+        useValidationStore().setResponse(response)
+        switch (response.status) {
+            case 401:
+                // await useSanctumAuth().logout()
+                break
+            default:
+                break
+        }
+    }
 
+    /************************************************************/
 
     const get = <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
         return fetch(route, {...option, method: 'GET', onResponseError, parseResponse: JSON.parse,});

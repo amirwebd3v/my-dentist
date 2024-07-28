@@ -12,7 +12,7 @@ export const usePostStore = defineStore('post', {
     actions: {
         async paginate(queryParam: QueryParams) {
 
-                const { data, meta } = await useApi().paginate<Post>(
+                const { data, meta } = await useNuxtApp().$api.paginate<Post>(
                     '/api/post',
                     queryParam
                 );

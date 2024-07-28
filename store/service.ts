@@ -9,7 +9,7 @@ export const useServiceStore = defineStore('service', {
 
     actions: {
         async fetch() {
-            const response = await useApi().all<Services>('/api/service', {
+            const response = await useNuxtApp().$api.all<Services>('/api/service', {
                     sort: {created_at: 'desc'}
                 });
 

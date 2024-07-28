@@ -9,7 +9,7 @@
 //
 //     actions: {
 //         async post() {
-//             const response = await useApi().post<ContactUs>('/api/testimonial', {
+//             const response = await useNuxtApp().$api.post<ContactUs>('/api/testimonial', {
 //                 sort: {created_at: 'desc'}
 //             });
 //

@@ -8,7 +8,7 @@ interface PostCommentState {
 }
 
 export const useCommentStore = defineStore('comment', () => {
-    const { paginate, prepareQueryParams } = useApi()
+    const { paginate, prepareQueryParams } = useNuxtApp().$api
 
 
     const comments = reactive(new Map<number, PostCommentState>())

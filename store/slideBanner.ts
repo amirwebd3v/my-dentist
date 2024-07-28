@@ -2,14 +2,14 @@ import {defineStore} from "pinia";
 import type {SlideBanner} from "~/utils/types";
 
 
-export const useslideBannerStore = defineStore('slideBanner', {
+export const useSlideBannerStore = defineStore('slideBanner', {
     state: () => ({
         slideBanners: new Map<number, SlideBanner>(),
     }),
 
     actions: {
         async fetch() {
-            const response = await useApi().all<SlideBanner>('/api/slider-banner', {
+            const response = await useNuxtApp().$api.all<SlideBanner>('/api/slider-banner', {
                     sort: {created_at: 'desc'}
                 });
 

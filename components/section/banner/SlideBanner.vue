@@ -3,7 +3,7 @@ import {slideBannerSettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
-import {useslideBannerStore} from "~/store/slideBanner";
+import {useSlideBannerStore} from "~/store/slideBanner";
 
 
 const props = defineProps({
@@ -20,10 +20,10 @@ const props = defineProps({
   }
 })
 
-const {slideBanners} = storeToRefs(useslideBannerStore())
+const {slideBanners} = storeToRefs(useSlideBannerStore())
 
 onBeforeMount(async ()=>{
-  await useslideBannerStore().fetch()
+  await useSlideBannerStore().fetch()
 })
 
 
