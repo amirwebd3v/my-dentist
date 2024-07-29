@@ -72,7 +72,7 @@ export function useFormValidation() {
     })
 
     const clearErrors = () => {
-        resetForm({ errors: {} })
+        resetForm({ errors: {},values: {} })
     }
 
     return {
