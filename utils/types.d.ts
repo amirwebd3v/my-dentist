@@ -275,6 +275,24 @@ type ValidationRules = {
     [key: string]: ValidationRule
 }
 
+/*********************************************************/
+type ContactUsStoreRequest = {
+    first_name: string,
+    last_name: string,
+    email: string,
+    phone: number | null
+    message: string
+}
+type ReserveStoreRequest = {
+    first_name: string,
+    last_name: string,
+    email: string,
+    phone: number,
+    age: number,
+    service: Services['title']
+    description: string,
+}
+/*********************************************************/
 export {
     Error,
     Setting,
@@ -301,4 +319,6 @@ export {
     Media,
     Category,
     ValidationRules,
+    ContactUsStoreRequest,
+    ReserveStoreRequest,
 }
