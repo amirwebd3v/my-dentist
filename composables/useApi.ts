@@ -26,9 +26,9 @@ export default function useApi() {
         return fetch(route, {...option, method: 'GET', onResponseError, parseResponse: JSON.parse,});
     };
 
-    // const post = async <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
-    //     return await useSanctumClient()(route, {...option, method: 'POST', onResponseError, parseResponse: JSON.parse})
-    // }
+    const post = async <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
+        return await client.post(route, {...option, method: 'POST', onResponseError, parseResponse: JSON.parse})
+    }
     //
     // const put = <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
     //     return useSanctumClient()(route, {...option, method: 'PUT', onResponseError, parseResponse: JSON.parse})
@@ -83,5 +83,5 @@ export default function useApi() {
 
 
     // return {paginate, all, get, post, put, destroy, prepareQueryParams}
-    return {prepareQueryParams,paginate, all, get}
+    return {prepareQueryParams,paginate, all, get,post}
 }
