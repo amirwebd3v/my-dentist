@@ -289,7 +289,7 @@ type ReserveStoreRequest = {
     email: string,
     phone: number,
     age: number,
-    service: Services['title']
+    service: [Services['title']]
     description: string,
 }
 /*********************************************************/
