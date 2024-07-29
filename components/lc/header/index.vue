@@ -1,4 +1,5 @@
-<script setup lang="ts">
+<script setup lang="ts" xmlns="http://www.w3.org/1999/html">
+import {useFormValidation} from '~/composables/useFormValidation'
 import {header, services} from "~/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
@@ -15,7 +16,7 @@ const props = defineProps({
     },
   },
   services: {
-    type: Map as PropType<Map<number, Services>>,
+    type: Map<string | number, { id: string | number, title: string }>,
     required: true,
     default: services[0],
   }
@@ -30,7 +31,24 @@ const drawer = ref<boolean>(false);
 /********************************************************/
 const {activeSection} = useActiveSection(props.headerSettings?.headerItems || header)
 
+const {
+  clearErrors,
+  errors,
+  onSubmit,
+  first_name,
+  last_name,
+  reserveMobile,
+  reserveEmail,
+  age,
+  service,
+  description
+} = useFormValidation()
 
+watch(showReserveDialog, (newValue, oldValue) => {
+  if (newValue === false && oldValue === true) {
+    clearErrors()
+  }
+})
 </script>
 <template>
   <!-- -----------------------------------------------
@@ -56,96 +74,109 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
             >
             </v-btn>
           </template>
-          <template #body>
-            <v-col
-                cols="12"
-                sm="6"
-            >
-              <v-text-field
-                  variant="outlined"
-                  label="نام"
-                  required
-              ></v-text-field>
-            </v-col>
-            <v-col
-                cols="12"
-                sm="6"
-            >
-              <v-text-field
-                  variant="outlined"
-                  label="نام خانوادگی"
-              ></v-text-field>
-            </v-col>
+            <template #body="{onSubmit}">
+          <v-row justify="center">
+              <v-col
+                  cols="12"
+                  sm="6"
+              >
+                <v-text-field
+                    v-model="first_name"
+                    :error-messages="<string>errors.first_name"
+                    variant="outlined"
+                    label="نام"
+                    required
+                ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+              >
+                <v-text-field
+                    v-model="last_name"
+                    :error-messages="<string>errors.last_name"
+                    variant="outlined"
+                    label="نام خانوادگی"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                    v-model="reserveMobile"
+                    :error-messages="<string>errors.reserveMobile"
+                    variant="outlined"
+                    label="شماره تلفن همراه"
+                    required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="6">
+                <v-text-field
+                    v-model="reserveEmail"
+                    :error-messages="<string>errors.reserveEmail"
+                    variant="outlined"
+                    label="ایمیل"
+                    required
+                ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+              >
+                <v-text-field
+                    v-model="age"
+                    :error-messages="<string>errors.age"
+                    variant="outlined"
+                    required
+                    label="سن"
+                ></v-text-field>
 
-            <v-col cols="12" sm="6">
-              <v-text-field
-                  variant="outlined"
-                  label="شماره تلفن همراه"
-                  required
-              ></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="6">
-              <v-text-field
-                  variant="outlined"
-                  label="ایمیل"
-                  required
-              ></v-text-field>
-            </v-col>
-            <v-col
-                cols="12"
-                sm="6"
-            >
-              <v-text-field
-                  variant="outlined"
-                  required
-                  label="سن"
-              ></v-text-field>
+              </v-col>
+              <v-col
+                  cols="12"
+                  sm="6"
+              >
+                <v-autocomplete
+                    v-model="service"
+                    :error-messages="<string>errors.service"
+                    variant="outlined"
+                    :items="Array.from(props.services?.values() ?? [])"
+                    item-title="title"
+                    item-value="id"
+                    label="درخواست مورد نظر"
+                    multiple
+                ></v-autocomplete>
+              </v-col>
+              <v-col
+                  cols="12"
+              >
+                <v-textarea
+                    v-model="description"
+                    :error-messages="<string>errors.description"
+                    variant="outlined"
+                    required
+                    label="توضیحات"
+                ></v-textarea>
 
-            </v-col>
-            <v-col
-                cols="12"
-                sm="6"
-            >
-              <v-autocomplete
-                  variant="outlined"
-                  :items="props.services?.values() as []"
-                  item-title="title"
-                  item-value="id"
-                  label="درخواست مورد نظر"
-                  multiple
-              ></v-autocomplete>
-            </v-col>
-            <v-col
-                cols="12"
+              </v-col>
+          </v-row>
+              <v-card-actions class="justify-space-around mt-0 pt-0">
+                <v-btn
+                    class="px-6 py-0"
+                    color="green"
+                    variant="text"
+                    text="ذخیره"
+                    type="submit"
+                    @click="showReserveDialog = false"
+                />
 
-            >
-              <v-textarea
-                  variant="outlined"
-                  required
-                  label="توضیحات"
-              ></v-textarea>
-
-            </v-col>
-          </template>
-
-          <template #actionButtons>
-            <v-btn
-                class="px-6 py-0"
-                color="green"
-                variant="text"
-                text="ذخیره"
-                @click="showReserveDialog = false"
-            />
-
-            <v-btn
-                class="px-6 py-0"
-                color="red-dark"
-                variant="text"
-                text="بستن"
-                @click="showReserveDialog = false"
-            />
-
-          </template>
+                <v-btn
+                    class="px-6 py-0"
+                    color="red-dark"
+                    variant="text"
+                    text="بستن"
+                    @click="showReserveDialog = false;clearErrors()"
+                />
+              </v-card-actions>
+            </template>
         </Dialog>
 
 
@@ -209,7 +240,6 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
                 :ripple="false"
                 title="رزرو نوبت"
                 @click="showReserveDialog = true"
-
             >
               <template #prepend>
                 <v-icon color="primary" class="opacity-100">mdi-calendar-check</v-icon>
