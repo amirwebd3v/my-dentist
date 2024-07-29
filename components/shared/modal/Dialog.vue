@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFormValidation } from '~/composables/useFormValidation'
 
 defineProps({
   formTitle: {
@@ -7,6 +8,11 @@ defineProps({
   },
 })
 
+const { onSubmit } = useFormValidation()
+
+const handleSubmit = () => {
+  onSubmit()
+}
 
 </script>
 
@@ -24,15 +30,13 @@ defineProps({
 
       <v-card-text class="py-0">
         <v-container>
-          <v-row justify="center">
-            <slot name="body"/>
-          </v-row>
+            <form @submit.prevent="handleSubmit">
+              <slot name="body" :on-submit="handleSubmit" />
+            </form>
         </v-container>
       </v-card-text>
 
-      <v-card-actions class="justify-space-around mt-0 pt-0">
-        <slot name="actionButtons"/>
-      </v-card-actions>
+
     </v-card>
   </v-dialog>
 </template>
