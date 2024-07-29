@@ -21,7 +21,7 @@ export function useFormValidation() {
             .email('ایمیل نامعتبر است'),
         message: yup.string()
             .required('متن پیام الزامی است')
-            .matches(/^.{0,10}$/, 'متن پیام نباید کمتر از 10 حرف باشد'),
+            .matches(/^.{10,}$/, 'متن پیام نباید کمتر از 10 حرف باشد'),
         first_name: yup.string()
             .required('نام الزامی است'),
         last_name: yup.string()
@@ -72,7 +72,7 @@ export function useFormValidation() {
     })
 
     const clearErrors = () => {
-        resetForm({ errors: {},values: {} })
+        resetForm({ errors: {} })
     }
 
     return {
