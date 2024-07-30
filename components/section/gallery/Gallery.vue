@@ -28,7 +28,7 @@ const showStates = reactive({})
 
 const show = (id) => {
   if (!(id in showStates)) {
-    showStates[id] = width.value > 850;
+    showStates[id] = true;
   }
   return showStates[id]
 }
@@ -143,7 +143,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
             <v-row justify="space-around">
               <v-col v-for="post in posts.values()" :key="post.id" cols="12" :lg="xlAndUp || md ? 3 : 4" md="6" sm="12">
 
-                <v-card v-if="!!props.gallerySettings" class="mx-auto border-left border-top" max-width="360"
+                <v-card v-if="!!props.gallerySettings" class="mx-auto border-left border-top" max-width="360" max-height="570"
                         :color="props.gallerySettings.cardBorderColor"
                         :elevation="props.gallerySettings.cardElevation"
                         :variant="props.gallerySettings.cardVariant"
@@ -194,7 +194,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
                   <v-expand-transition v-if="!!props.gallerySettings">
                     <div v-show="show(post.id)">
                       <v-card-subtitle class="pb-2 text-wrap"
-                                       :style="`color: ${props.gallerySettings.cardTitleColor};`">
+                                       :style="`color: ${props.gallerySettings.cardTitleColor};height: 4.5em;line-height: 1.5em;`">
                         {{ post.subtitle }}
                       </v-card-subtitle>
 
