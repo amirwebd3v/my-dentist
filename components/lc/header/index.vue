@@ -3,7 +3,8 @@ import {useFormValidation} from '~/composables/useFormValidation'
 import {header, services} from "~/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
-import type {HeaderSettings, Services} from "~/utils/types";
+import type {HeaderSettings} from "~/utils/types";
+
 /********************************************************/
 
 const props = defineProps({
@@ -32,6 +33,8 @@ const drawer = ref<boolean>(false);
 const {activeSection} = useActiveSection(props.headerSettings?.headerItems || header)
 
 const {
+  hasValues,
+  hasErrors,
   clearErrors,
   errors,
   onSubmit,
@@ -42,13 +45,14 @@ const {
   age,
   service,
   description
-} = useFormValidation()
+} = useFormValidation([ 'first_name', 'last_name', 'reserveMobile', 'age', 'service'])
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
     clearErrors()
   }
 })
+
 </script>
 <template>
   <!-- -----------------------------------------------
@@ -160,6 +164,7 @@ watch(showReserveDialog, (newValue, oldValue) => {
           </v-row>
               <v-card-actions class="justify-space-around mt-0 pt-0">
                 <v-btn
+                    :disabled="!(hasValues && !hasErrors)"
                     class="px-6 py-0"
                     color="green"
                     variant="text"
