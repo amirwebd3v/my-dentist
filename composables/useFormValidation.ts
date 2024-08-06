@@ -1,17 +1,18 @@
-// composables/useFormValidation.ts
-
 import {useField, useForm} from 'vee-validate'
 import * as yup from 'yup'
 
 
-export function useFormValidation(requiredFields: string[]) {
+export function useFormValidation(requiredFields: string[] = []) {
     const schema = yup.object({
         mobile: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('mobile-format', 'شماره موبایل نامعتبر است', val => {
-                if (val === null || val === undefined) return true;
-                return /^09\d{9}$/.test(val);
+            .test('reserve-mobile', 'شماره تلفن همراه نامعتبر است', val => {
+                if (val === null || val === undefined) {
+                    return true;
+                }
+                const cleanedVal = val.replace(/-/g, '');
+                return /^۰۹[۰-۹]{9}$/.test(cleanedVal);
             })
             .optional(),
         reserveEmail: yup.string()
@@ -27,41 +28,71 @@ export function useFormValidation(requiredFields: string[]) {
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
             .test('len', 'متن توضیحات نباید کمتر از ۱۰ حرف باشد', val =>
-                val === null || val === undefined || val.length >= 10)
+                val === null || val === undefined || val.length >= 10 || val.length <= 500)
             .optional(),
         /**************************************/
         full_name: yup.string()
-            .required('نام و نام خانوادگی الزامی است')
-            .min(6, 'نام و نام خانوادگی باید حداقل ۶ حرف باشد')
-            .trim(),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('full-name', 'نام و نام خانوادگی باید حداقل ۶ حرف باشد', val =>
+                val === null || val === undefined || (val.trim().length >= 6)
+            ),
+
         email: yup.string()
-            .matches(
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                'ایمیل نامعتبر است')
-            .required('ایمیل الزامی است')
-            .email('ایمیل نامعتبر است'),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('email-format', 'ایمیل نامعتبر است', val => {
+                if (val === null || val === undefined) return true;
+                const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return emailRegex.test(val);
+            }),
+
         message: yup.string()
-            .required('متن پیام الزامی است')
-            .matches(/^.{10,}$/, 'متن پیام نباید کمتر از ۱۰ حرف باشد'),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('message-length', 'متن پیام نباید کمتر از ۱۰ حرف باشد', val =>
+                val === null || val === undefined || val.length >= 10
+            ),
+
         first_name: yup.string()
-            .required('نام الزامی است')
-            .min(3, 'نام باید حداقل ۳ حرف باشد')
-            .trim(),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('first-name', 'نام باید حداقل ۳ حرف باشد', val =>
+                val === null || val === undefined || (val.trim().length >= 3)
+            ),
+
         last_name: yup.string()
-            .required('نام خانوادگی الزامی است')
-            .min(3, 'نام خانوادگی باید حداقل ۳ حرف باشد')
-            .trim(),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('last-name', 'نام خانوادگی باید حداقل ۳ حرف باشد', val =>
+                val === null || val === undefined || (val.trim().length >= 3)
+            ),
+
         reserveMobile: yup.string()
-            .required('شماره تلفن همراه الزامی است')
-            .matches(/^09\d{9}$/, 'شماره تلفن همراه نامعتبر است'),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('reserve-mobile', 'شماره تلفن همراه نامعتبر است', val => {
+                if (val === null || val === undefined) {
+                    return true;
+                }
+                const cleanedVal = val.replace(/-/g, '');
+                return /^۰۹[۰-۹]{9}$/.test(cleanedVal);
+            }),
+
         age: yup.string()
-            .required('سن الزامی است')
-            .matches(/^([1-9][0-9]|10[0-9]|110)$/, 'عدد سن نامعتبر است'),
+            .nullable()
+            .transform((value, originalValue) => originalValue === "" ? null : value)
+            .test('age', 'عدد سن حداقل ۱۰ و حداکثر ۱۱۰ میتواند باشد', val =>
+                val === null || val === undefined || /^([۱-۹][۰-۹]|۱۰[۰-۹]|۱۱۰)$/.test(val)
+            ),
+
         service: yup.array()
-            .of(yup.string())
-            .required('انتخاب حداقل یک سرویس الزامی است')
-            .min(1, 'حداقل یک سرویس باید انتخاب شود')
-            .max(2, 'حداکثر دو سرویس باید انتخاب شود'),
+            .nullable()
+            .transform((value, originalValue) => originalValue && originalValue.length === 0 ? null : value)
+            .test('service', 'انتخاب حداقل یک و حداکثر دو سرویس الزامی است', val =>
+                val === null || val === undefined || (val.length >= 1 && val.length <= 2)
+            ),
+
     })
 
     type FormSchema = yup.InferType<typeof schema>

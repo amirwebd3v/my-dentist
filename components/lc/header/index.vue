@@ -23,6 +23,7 @@ const props = defineProps({
   }
 })
 /********************************************************/
+const masks = usePersianMask()
 const showReserveDialog = ref(false)
 const drawer = ref<boolean>(false);
 // const {$bus} = useNuxtApp()
@@ -52,6 +53,7 @@ watch(showReserveDialog, (newValue, oldValue) => {
     clearErrors()
   }
 })
+
 
 </script>
 <template>
@@ -85,6 +87,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                   sm="6"
               >
                 <v-text-field
+                    maxlength="30"
+                    v-maska="masks.persianLettersMask"
                     v-model="first_name"
                     :error-messages="<string>errors.first_name"
                     variant="outlined"
@@ -97,6 +101,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                   sm="6"
               >
                 <v-text-field
+                    maxlength="30"
+                    v-maska="masks.persianLettersMask"
                     v-model="last_name"
                     :error-messages="<string>errors.last_name"
                     variant="outlined"
@@ -105,19 +111,25 @@ watch(showReserveDialog, (newValue, oldValue) => {
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                    maxlength="13"
+                    v-maska="masks.mobilePersianNumberMask"
                     v-model="reserveMobile"
                     :error-messages="<string>errors.reserveMobile"
                     variant="outlined"
                     label="شماره تلفن همراه"
+                    placeholder="مثال: ****-***-**۰۹ "
                     required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
+                    maxlength="40"
+                    v-maska="masks.englishAlphanumericMask"
                     v-model="reserveEmail"
                     :error-messages="<string>errors.reserveEmail"
                     variant="outlined"
                     label="ایمیل"
+                    placeholder="example@gmail.com"
                     required
                 ></v-text-field>
               </v-col>
@@ -126,6 +138,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                   sm="6"
               >
                 <v-text-field
+                    maxlength="3"
+                    v-maska="masks.persianNumbersMask"
                     v-model="age"
                     :error-messages="<string>errors.age"
                     variant="outlined"
@@ -153,13 +167,13 @@ watch(showReserveDialog, (newValue, oldValue) => {
                   cols="12"
               >
                 <v-textarea
+                    maxlength="500"
+                    v-maska="masks.persianAlphanumericMask"
                     v-model="description"
                     :error-messages="<string>errors.description"
                     variant="outlined"
-                    required
                     label="توضیحات"
-                ></v-textarea>
-
+                />
               </v-col>
           </v-row>
               <v-card-actions class="justify-space-around mt-0 pt-0">
@@ -262,25 +276,28 @@ watch(showReserveDialog, (newValue, oldValue) => {
 
 <style scoped lang="scss">
 .drawer-icon {
-  display: none;
+  display: none !important;
 }
 
 .reserve-btn {
-  display: inline;
+  display: inline !important;
 }
+
+
+
 
 @media (max-width: 855px) {
   .drawer-icon {
-    display: inline;
+    display: inline !important;
   }
 
   .reserve-btn {
-    display: none;
+    display: none !important;
   }
 
   .app-header {
     .navigation {
-      display: none;
+      display: none !important;
     }
   }
 }

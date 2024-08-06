@@ -122,7 +122,7 @@ const currentDateTimeAny = computed(() => state.currentDateTime as any);
 //   step(value[1])
 // })
 
-
+const masks = usePersianMask()
 const showReserveDialog = ref(false)
 
 const props = defineProps({
@@ -175,7 +175,7 @@ watch(showReserveDialog, (newValue, oldValue) => {
           </p>
         </v-col>
 
-        <v-col cols="auto" v-if="useDisplay().width.value < 856">
+        <v-col cols="auto" v-show="useDisplay().width.value < 856 && useDisplay().width.value > 0">
           <span
               class="font-12 ">* لطفاْ برای ثبت نوبت جدید بروی دکمه پایین بزنید.
           </span>
@@ -198,6 +198,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                         sm="6"
                     >
                       <v-text-field
+                          maxlength="30"
+                          v-maska="masks.persianLettersMask"
                           v-model="first_name"
                           :error-messages="<string>errors.first_name"
                           variant="outlined"
@@ -210,6 +212,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                         sm="6"
                     >
                       <v-text-field
+                          maxlength="30"
+                          v-maska="masks.persianLettersMask"
                           v-model="last_name"
                           :error-messages="<string>errors.last_name"
                           variant="outlined"
@@ -218,19 +222,25 @@ watch(showReserveDialog, (newValue, oldValue) => {
                     </v-col>
                     <v-col cols="12" sm="6">
                       <v-text-field
+                          maxlength="13"
+                          v-maska="masks.mobilePersianNumberMask"
                           v-model="reserveMobile"
                           :error-messages="<string>errors.reserveMobile"
                           variant="outlined"
                           label="شماره تلفن همراه"
+                          placeholder="مثال: ****-***-**۰۹ "
                           required
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6">
                       <v-text-field
+                          maxlength="40"
+                          v-maska="masks.englishAlphanumericMask"
                           v-model="reserveEmail"
                           :error-messages="<string>errors.reserveEmail"
                           variant="outlined"
                           label="ایمیل"
+                          placeholder="example@gmail.com"
                           required
                       ></v-text-field>
                     </v-col>
@@ -239,6 +249,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
                         sm="6"
                     >
                       <v-text-field
+                          maxlength="3"
+                          v-maska="masks.persianNumbersMask"
                           v-model="age"
                           :error-messages="<string>errors.age"
                           variant="outlined"
@@ -266,13 +278,13 @@ watch(showReserveDialog, (newValue, oldValue) => {
                         cols="12"
                     >
                       <v-textarea
+                          maxlength="500"
+                          v-maska="masks.persianAlphanumericMask"
                           v-model="description"
                           :error-messages="<string>errors.description"
                           variant="outlined"
-                          required
                           label="توضیحات"
-                      ></v-textarea>
-
+                      />
                     </v-col>
                   </v-row>
                   <v-card-actions class="justify-space-around mt-0 pt-0">

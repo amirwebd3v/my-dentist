@@ -4,6 +4,7 @@ import type {PropType} from "@vue/runtime-core";
 import type {ContactusSettings} from "~/utils/types";
 import {contactusSettings} from "~/data/CustomComponents";
 import {useFormValidation} from '~/composables/useFormValidation'
+import {usePersianMask} from "~/composables/usePersianMask";
 
 
 const props = defineProps({
@@ -29,7 +30,7 @@ const {
   clearErrors
 } = useFormValidation(['full_name', 'email', 'message'])
 
-
+const masks = usePersianMask()
 </script>
 
 <template>
@@ -50,6 +51,7 @@ const {
                 <v-row class="mt-7">
                   <v-col cols="12" md="4" class="pt-0">
                     <v-text-field
+                        v-maska="masks.persianLettersMask"
                         v-model="full_name"
                         :error-messages="<string>errors.full_name"
                         label="نام و نام خانوادگی"
@@ -59,16 +61,18 @@ const {
                   </v-col>
                   <v-col cols="12" md="4" class="pt-0">
                     <v-text-field
+                        v-maska="masks.mobilePersianNumberMask"
                         v-model="mobile"
                         :error-messages="<string>errors.mobile"
                         label="شماره موبایل"
                         variant="outlined"
                         color="primary"
-                        placeholder="*********۰۹"
+                        placeholder="مثال: ****-***-**۰۹ "
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" class="pt-0">
                     <v-text-field
+                        v-maska="masks.englishAlphanumericMask"
                         v-model="email"
                         :error-messages="<string>errors.email"
                         label="ایمیل"
@@ -80,6 +84,7 @@ const {
                   </v-col>
                   <v-col cols="12" class="py-0">
                     <v-textarea
+                        v-maska="masks.persianAlphanumericMask"
                         v-model="message"
                         :error-messages="<string>errors.message"
                         name="message"

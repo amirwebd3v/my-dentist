@@ -25,6 +25,7 @@
     "@vee-validate/yup": "^4.13.2",
     "l5-client": "^1.5.1",
     "luxon": "^3.3.0",
+    "maska": "^3.0.0",
     "mitt": "^3.0.1",
     "nuxi": "^3.6.5",
     "nuxt-auth-sanctum": "^0.3.14",

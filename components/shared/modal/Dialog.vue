@@ -8,7 +8,7 @@ defineProps({
   },
 })
 
-const { onSubmit } = useFormValidation()
+const { onSubmit } = useFormValidation([])
 
 const handleSubmit = () => {
   onSubmit()
@@ -24,11 +24,16 @@ const handleSubmit = () => {
       <slot name="button" v-bind="props"/>
     </template>
     <v-card>
-      <v-card-title class="mt-2">
+      <v-card-title class="mt-2 mr-2">
           {{ formTitle }}
       </v-card-title>
 
-      <v-card-text class="py-0">
+      <v-card-subtitle class="mr-2 mb-1">
+        صفحه کلید خود را بروی زبان فارسی تنظیم کرده و فرم زیر را پر کنید.
+      </v-card-subtitle>
+
+
+      <v-card-text class="pb-0 pt-3">
         <v-container>
             <form @submit.prevent="handleSubmit">
               <slot name="body" :on-submit="handleSubmit" />
