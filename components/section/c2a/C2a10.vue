@@ -12,7 +12,6 @@ interface State {
   // phoneInput: boolean;
   // phoneInputText: string | null;
   // showRegModal: boolean;
-  loading: boolean;
   // verificationInput: boolean;
   // btnText: any;
   // timer: number;
@@ -26,7 +25,6 @@ const state = reactive<State>({
   // phoneInput: true,
   // phoneInputText: null,
   // showRegModal: false,
-  loading: false,
   // verificationInput: false,
   // btnText: null,
   // timer: 10,
@@ -34,15 +32,15 @@ const state = reactive<State>({
   // resendCodeBtn: true
 })
 
-const loading = computed(() => {
-  if (!state.loading) return false;
-
-  setTimeout(() => {
-    state.loading = false;
-  }, 2000);
-
-  return true;
-});
+// const loading = computed(() => {
+//   if (!state.loading) return false;
+//
+//   setTimeout(() => {
+//     state.loading = false;
+//   }, 6000);
+//
+//   return true;
+// });
 
 onMounted(() => {
   setInterval(() => {
@@ -136,6 +134,8 @@ const props = defineProps({
 const {
   hasValues,
   hasErrors,
+  loading,
+  isSucceeded,
   clearErrors,
   errors,
   onSubmit,
@@ -154,6 +154,44 @@ watch(showReserveDialog, (newValue, oldValue) => {
   }
 })
 
+// let loadingTimer: number | null = null;
+//
+// watch(() => state.loading, (newValue: boolean) => {
+//   if (newValue) {
+//     // Clear any existing timer
+//     if (loadingTimer !== null) {
+//       clearTimeout(loadingTimer);
+//     }
+//
+//     // Set a new timer
+//     loadingTimer = window.setTimeout(() => {
+//       state.loading = false;
+//     }, 2000);
+//   } else {
+//     // Clear the timer if loading becomes false
+//     if (loadingTimer !== null) {
+//       clearTimeout(loadingTimer);
+//       loadingTimer = null;
+//     }
+//   }
+// });
+
+
+
+const saveBtn = async (): Promise<void> => {
+  try {
+    // Call the existing onSubmit function
+    await onSubmit();
+
+  } catch (error) {
+    console.error('An error occurred during form submission:', error);
+  }
+};
+
+useListen('closeModal', (value: boolean) => {
+  showReserveDialog.value = value
+  isSucceeded.value = value
+})
 </script>
 
 
@@ -181,7 +219,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
           </span>
           <v-row class="d-flex flex-row pt-1">
             <v-col cols="6">
-              <Dialog :form-title="'رزرو نوبت'" v-model="showReserveDialog">
+              <Dialog :form-title="'رزرو نوبت'" :is-succeeded="isSucceeded" :loading="loading"
+                      v-model="showReserveDialog">
                 <template v-slot:button="props">
                   <v-btn
                       class="px-6 bg-white reserve-btn"
@@ -295,7 +334,7 @@ watch(showReserveDialog, (newValue, oldValue) => {
                         variant="text"
                         text="ذخیره"
                         type="submit"
-                        @click="showReserveDialog = false"
+                        @click="saveBtn"
                     />
 
                     <v-btn

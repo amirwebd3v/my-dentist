@@ -36,6 +36,8 @@ const {activeSection} = useActiveSection(props.headerSettings?.headerItems || he
 const {
   hasValues,
   hasErrors,
+  loading,
+  isSucceeded,
   clearErrors,
   errors,
   onSubmit,
@@ -54,7 +56,20 @@ watch(showReserveDialog, (newValue, oldValue) => {
   }
 })
 
+const saveBtn = async (): Promise<void> => {
+  try {
+    // Call the existing onSubmit function
+    await onSubmit();
 
+  } catch (error) {
+    console.error('An error occurred during form submission:', error);
+  }
+};
+
+useListen('closeModal', (value: boolean) => {
+  showReserveDialog.value = value
+  isSucceeded.value = value
+})
 </script>
 <template>
   <!-- -----------------------------------------------
@@ -69,7 +84,8 @@ watch(showReserveDialog, (newValue, oldValue) => {
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
-        <Dialog :form-title="'رزرو نوبت'" v-model="showReserveDialog">
+        <Dialog :form-title="'رزرو نوبت'" :is-succeeded="isSucceeded" :loading="loading"
+                v-model="showReserveDialog">
           <template v-slot:button="props">
             <v-btn
                 class="px-6 py-0 bg-primary ml-2 reserve-btn"
@@ -184,7 +200,7 @@ watch(showReserveDialog, (newValue, oldValue) => {
                     variant="text"
                     text="ذخیره"
                     type="submit"
-                    @click="showReserveDialog = false"
+                    @click="saveBtn"
                 />
 
                 <v-btn

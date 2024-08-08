@@ -1,5 +1,6 @@
 import {useField, useForm} from 'vee-validate'
 import * as yup from 'yup'
+import type {Ref} from "vue";
 
 
 export function useFormValidation(requiredFields: string[] = []) {
@@ -116,11 +117,27 @@ export function useFormValidation(requiredFields: string[] = []) {
         description: useField<string>('description')
     }
 
+    const loading: Ref<Boolean> = ref(false)
+    const isSucceeded: Ref<Boolean> = ref(false)
 
-    const onSubmit = handleSubmit((values: object) => {
-        // Handle form submission
-        console.log(values)
-    })
+    const onSubmit = handleSubmit((values) => {
+        isSucceeded.value = false;
+        loading.value = true;
+
+        const nonEmptyValues = Object.fromEntries(
+            Object.entries(values).filter(([_, value]) => {
+                if (value === null || value === undefined) return false;
+                if (typeof value === 'string' && value.trim() === '') return false;
+                if (Array.isArray(value) && value.length === 0) return false;
+                return !(typeof value === 'object' && Object.keys(value).length === 0);
+
+            })
+        );
+
+        console.log(nonEmptyValues);
+        loading.value = false;
+        isSucceeded.value = true
+    });
 
     const clearErrors = () => {
         resetForm({errors: {}, values: {}})
@@ -142,6 +159,8 @@ export function useFormValidation(requiredFields: string[] = []) {
         hasErrors,
         hasValues,
         onSubmit,
+        loading,
+        isSucceeded,
         clearErrors,
         errors,
         ...Object.fromEntries(Object.entries(fields).map(([key, field]) => [key, field.value]))

@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import {useFormValidation} from '~/composables/useFormValidation'
 
-defineProps({
+
+
+const props = defineProps({
   formTitle: {
     type: String,
   },
@@ -14,7 +16,7 @@ defineProps({
     type: Boolean,
     required: true,
     default: false
-  }
+  },
 })
 
 const {onSubmit} = useFormValidation([])
@@ -22,6 +24,7 @@ const {onSubmit} = useFormValidation([])
 const handleSubmit = () => {
   onSubmit()
 }
+
 
 </script>
 
@@ -34,7 +37,7 @@ const handleSubmit = () => {
     </template>
         <v-card v-show="!isSucceeded">
           <v-card-title class="mt-2 mr-2">
-              {{ formTitle }}
+              {{ props.formTitle }}
           </v-card-title>
 
           <v-card-subtitle class="mr-2 mb-1">
@@ -53,18 +56,16 @@ const handleSubmit = () => {
 
         </v-card>
 
-    <v-card v-show="isSucceeded" height="570">
-       <v-icon icon="mdi mdi-close-circle mx-auto mt-3" v-if="!loading"/>
+    <v-card v-show="props.isSucceeded" height="570">
+       <v-icon icon="mdi mdi-close-circle mx-auto mt-3" class="cursor-pointer" v-if="!props.loading" @click="useEvent('closeModal', false)"/>
         <v-progress-circular
-            v-if="loading"
+            v-if="props.loading"
             :size="50"
             color="primary"
             indeterminate
             class="mx-auto my-auto"
         />
-
-
-      <v-container v-if="!loading" class="pt-0">
+      <v-container v-if="!props.loading" class="pt-0">
         <v-row justify="center" align="start" class="mx-1 pt-6">
         <v-img :src="`images/reserve/successful-reserve.jpeg`"
                cover rounded
