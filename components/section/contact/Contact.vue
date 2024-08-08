@@ -61,7 +61,6 @@ const sendBtn = async (): Promise<void> => {
             <div>
               <v-alert
                   type="success"
-                  border="start"
                   variant="tonal"
                   title="ارسال موفق"
                   density="compact"

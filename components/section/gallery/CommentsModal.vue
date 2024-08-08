@@ -33,6 +33,7 @@ const properties = defineProps({
 })
 
 const showCommentsModal = ref<boolean>(false)
+const showSuccessMessage = ref<boolean>(false)
 
 const {loading, error} = storeToRefs(useCommentStore())
 const comments = computed<Comment[]>(() => useCommentStore().getCommentsForPost(<number>properties.postId))
@@ -68,7 +69,8 @@ onMounted(() => {
   >
     <template v-slot:activator="{ props }" v-if="!!properties.settings">
       <v-btn class="text-none px-0 py-0" size="small" v-bind="props">
-        <v-badge :content="usePersianNumber().formattedNumber(<number>properties.commentsCount)" :color="properties.settings.iconColor"
+        <v-badge :content="usePersianNumber().formattedNumber(<number>properties.commentsCount)"
+                 :color="properties.settings.iconColor"
                  :text-color="properties.settings.iconBadgeTextColor" v-if="properties.commentsCount !== 0">
           <v-icon class="mdi mdi-comment-multiple-outline ml-1"
                   :style="`color: ${properties.settings.iconColor}`"></v-icon>
@@ -96,7 +98,7 @@ onMounted(() => {
         <v-infinite-scroll :items="comments" :onLoad="load">
           <template v-for="item in comments" :key="item.id">
             <!-- Render Comment -->
-            <v-list >
+            <v-list>
               <v-list-item-title>
                 <v-avatar>
                   <v-img :alt="<string>item.commentator?.name"
@@ -137,16 +139,44 @@ onMounted(() => {
 
       <v-textarea rounded="0" auto-grow rows="1" variant="plain" label="در اینجا نظر خود را بنویسید... "
                   class="border-none px-4 m-0 pb-4" hide-details/>
-        <v-btn
-            flat
-            color="blue-darken-1 pt-1 mb-0"
-            variant="tonal"
-            rounded="0"
-            @click="showCommentsModal = false"
-            text="ثبت"
-        />
+      <v-btn
+          flat
+          color="blue-darken-1 pt-1 mb-0"
+          variant="tonal"
+          rounded="0"
+          @click="showSuccessMessage = true"
+          text="ثبت"
+      />
     </v-card>
 
   </v-dialog>
+
+  <v-dialog
+      v-model="showSuccessMessage"
+      width="auto"
+      height="auto"
+  >
+    <v-card  max-width="300" >
+    <v-alert
+        type="success"
+        icon="mdi-message-check"
+        variant="tonal"
+        title="ثبت موفق"
+        elevation="1"
+        rounded
+    >
+      <template #close>
+        <v-icon icon="mdi mdi-close" size="small" class="cursor-pointer pt-2"
+                @click="showSuccessMessage = false;showCommentsModal = true"/>
+      </template>
+      <template #text>
+        <div class="mt-3 text-justify">
+          با تشکر؛ نظر شما با موفقیت ثبت شد و پس از تایید، قابل نمایش خواهد بود.
+        </div>
+      </template>
+    </v-alert>
+    </v-card>
+  </v-dialog>
+
 </template>
 
