@@ -68,7 +68,7 @@ const {formattedPhoneNumber} = usePersianNumber()
       ----------------------------------------------- -->
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18">شبکه های اجتماعی</h4>
-          <div class="social-icons mt-5">
+          <v-row class="social-icons mt-5 mx-1">
             <a :href="props.footerSettings.footerFacebook" v-if="!!props.footerSettings.footerFacebook"
                :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
                 background: ${props.footerSettings.footerTextColor}`"
@@ -87,7 +87,7 @@ const {formattedPhoneNumber} = usePersianNumber()
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
                $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-linkedin"/>
+              <v-icon size="x-small" icon="mdi-linkedin"/>
             </a>
             <a :href="props.footerSettings.footerYoutube" v-if="!!props.footerSettings.footerYoutube"
                :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
@@ -97,7 +97,7 @@ const {formattedPhoneNumber} = usePersianNumber()
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
                $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-youtube"/>
+              <v-icon size="x-small" icon="mdi-youtube"/>
             </a>
             <a :href="props.footerSettings.footerInstagram" v-if="!!props.footerSettings.footerInstagram"
                :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
@@ -107,9 +107,21 @@ const {formattedPhoneNumber} = usePersianNumber()
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
                $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-instagram"/>
+              <v-icon size="x-small" icon="mdi-instagram"/>
             </a>
-          </div>
+            <a :href="props.footerSettings.footerAparat" v-if="!!props.footerSettings.footerAparat"
+               :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
+                background: ${props.footerSettings.footerTextColor}`"
+               @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
+               $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
+               @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
+               $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
+            >
+              <div class="justify-center align-center mx-auto" style="width: 70%;">
+              <v-img size="x-small" :src="'images/icons/aparat-icon.png'" class="pt-2"/>
+              </div>
+            </a>
+          </v-row>
         </v-col>
       </v-row>
       <v-col class="text-center mt-4">
