@@ -29,7 +29,7 @@ export function useFormValidation(requiredFields: string[] = []) {
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
             .test('len', 'متن توضیحات نباید کمتر از ۱۰ حرف باشد', val =>
-                val === null || val === undefined || val.length >= 10 || val.length <= 500)
+                val === null || val === undefined || val.length >= 10)
             .optional(),
         /**************************************/
         full_name: yup.string()
@@ -136,6 +136,7 @@ export function useFormValidation(requiredFields: string[] = []) {
 
         console.log(nonEmptyValues);
         loading.value = false;
+        clearErrors()
         isSucceeded.value = true
     });
 

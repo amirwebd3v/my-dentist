@@ -17,6 +17,7 @@ const props = defineProps({
   }
 })
 
+const masks = usePersianMask()
 
 const {
   full_name,
@@ -27,10 +28,24 @@ const {
   onSubmit,
   hasValues,
   hasErrors,
-  clearErrors
+  loading,
+  isSucceeded,
 } = useFormValidation(['full_name', 'email', 'message'])
 
-const masks = usePersianMask()
+
+
+const sendBtn = async (): Promise<void> => {
+  try {
+    // Call the existing onSubmit function
+    await onSubmit();
+
+  } catch (error) {
+    console.error('An error occurred during form submission:', error);
+  }
+};
+
+
+
 </script>
 
 <template>
@@ -42,7 +57,37 @@ const masks = usePersianMask()
             Start Contact Form
         ----------------------------------------------- -->
         <v-row justify="center" class="mt-16 mb-16">
-          <v-col cols="12" md="8">
+          <v-col cols="12" md="8" v-if="isSucceeded">
+            <div>
+              <v-alert
+                  type="success"
+                  border="start"
+                  variant="tonal"
+                  title="ارسال موفق"
+                  density="compact"
+                  elevation="0"
+                  rounded
+              >
+                <template #close>
+                  <v-icon icon="mdi mdi-close" size="small" class="cursor-pointer pt-2" @click="isSucceeded = false"/>
+                </template>
+                <template #text>
+                  <div class="mt-3">
+                  <span >
+                  پیام شما با موفقیت ارسال شد.
+                  </span>
+                    <p class="pt-2">
+                    با تشکر، همواره پذیرای انتقادات و پیشنهادات سازنده شما هستیم.
+                    </p>
+                    <p class="text-center pt-5">
+                      «مطب دندانپزشکی دکتر سمیرا رونقی»
+                    </p>
+                  </div>
+                </template>
+              </v-alert>
+            </div>
+          </v-col>
+          <v-col cols="12" md="8" v-if="!isSucceeded">
             <div>
               <h4 class="font-weight-medium contact-title mt-0">
                 تماس با ما
@@ -104,6 +149,7 @@ const masks = usePersianMask()
                     flat
                     text="ارسال"
                     :color="props.contactusSettings.sendBtnColor"
+                    @click="sendBtn"
                 >
                 </v-btn>
               </form>
