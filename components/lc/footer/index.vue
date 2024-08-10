@@ -77,7 +77,7 @@ const {formattedPhoneNumber} = usePersianNumber()
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
                $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <i class="mdi mdi-facebook"/>
+              <v-icon size="x-small" icon="mdi-facebook"/>
             </a>
             <a :href="props.footerSettings.footerLinkedin" v-if="!!props.footerSettings.footerLinkedin"
                :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
@@ -101,7 +101,7 @@ const {formattedPhoneNumber} = usePersianNumber()
             </a>
             <a :href="props.footerSettings.footerInstagram" v-if="!!props.footerSettings.footerInstagram"
                :style="`color: ${props.footerSettings.footerSocialMediaIconsColor};
-                background: ${props.footerSettings.footerTextColor}`"
+                background: ${props.footerSettings.footerTextColor};`"
                @mouseover="$event.currentTarget.style.color = props.footerSettings.footerTextColor;
                $event.currentTarget.style.background = props.footerSettings.footerHoverColor;"
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
@@ -117,8 +117,8 @@ const {formattedPhoneNumber} = usePersianNumber()
                @mouseout="$event.currentTarget.style.background= props.footerSettings.footerTextColor;
                $event.currentTarget.style.color= props.footerSettings.footerSocialMediaIconsColor;"
             >
-              <div class="justify-center align-center mx-auto" style="width: 70%;">
-              <v-img size="x-small" :src="'images/icons/aparat-icon.png'" class="pt-2"/>
+              <div class="justify-center align-center mx-auto" style="width: 60%;">
+              <v-img :src="'images/icons/aparat-icon.png'" class="pt-3"/>
               </div>
             </a>
           </v-row>
