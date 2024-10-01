@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {videoSettings} from "~/data/CustomComponents";
+
 import type {PropType} from "@vue/runtime-core";
 import type {VideoSettings} from "~/utils/types";
 
@@ -8,7 +8,6 @@ const props = defineProps({
   videoSettings: {
     type: Object as PropType<VideoSettings>,
     required: true,
-    default: videoSettings[0],
   }
 })
 

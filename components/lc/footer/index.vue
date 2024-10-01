@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {PropType} from "@vue/runtime-core";
-import {footer} from "~/data/CustomComponents";
 import type {FooterSettings} from "~/utils/types";
 
 
@@ -10,9 +9,6 @@ const props = defineProps({
   footerSettings: {
     type: Object as PropType<FooterSettings>,
     required: true,
-    default: {
-      footerSettings: footer[0]
-    },
   }
 })
 

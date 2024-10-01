@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {slideBannerSettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
@@ -10,13 +9,6 @@ const props = defineProps({
   carouselSettings: {
     type: Object as PropType<CarouselSettings>,
     required: true,
-    default: {
-      verticalDelimiters: slideBannerSettings[0].verticalDelimiters,
-      hideDelimiters: slideBannerSettings[0].hideDelimiters,
-      delimitersColor: slideBannerSettings[0].delimitersColor,
-      cycle: slideBannerSettings[0].cycle,
-      intervalTime: slideBannerSettings[0].intervalTime,
-    },
   }
 })
 

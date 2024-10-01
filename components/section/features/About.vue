@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {about} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {AboutSettings} from "~/utils/types";
 
@@ -10,10 +9,6 @@ const props = defineProps({
   aboutSettings: {
     type: Object as PropType<AboutSettings>,
     required: true,
-    default: {
-      image: 'images/team/t3.jpg',
-      items: about
-    },
   }
 })
 

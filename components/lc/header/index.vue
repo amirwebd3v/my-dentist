@@ -1,6 +1,5 @@
 <script setup lang="ts" xmlns="http://www.w3.org/1999/html">
 import {useFormValidation} from '~/composables/useFormValidation'
-import {header, services} from "~/data/CustomComponents";
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
 import type {HeaderSettings} from "~/utils/types";
@@ -11,15 +10,10 @@ const props = defineProps({
   headerSettings: {
     type: Object as PropType<HeaderSettings>,
     required: true,
-    default: {
-      headerLogo: '/images/logos/Sami-logo-black.png',
-      headerItems: header
-    },
   },
   services: {
     type: Map<string | number, { id: string | number, title: string }>,
     required: true,
-    default: services[0],
   }
 })
 /********************************************************/

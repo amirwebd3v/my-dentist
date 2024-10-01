@@ -4,7 +4,6 @@ import Dialog from "~/components/shared/modal/Dialog.vue";
 import {useDisplay} from "vuetify";
 import type {PropType} from "@vue/runtime-core";
 import type {Services} from "~/utils/types";
-import {services} from "~/data/CustomComponents";
 import {useFormValidation} from "~/composables/useFormValidation";
 
 interface State {
@@ -127,7 +126,6 @@ const props = defineProps({
   services: {
     type: Map as PropType<Map<number, Services>>,
     required: true,
-    default: services[0],
   }
 })
 

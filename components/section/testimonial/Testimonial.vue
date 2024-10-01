@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import {testimonialSettings} from '@/data/CustomComponents';
 import type {PropType} from "@vue/runtime-core";
 import type {TestimonialSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
@@ -11,9 +10,6 @@ const props = defineProps({
   testimonialSettings: {
     type: Object as PropType<TestimonialSettings>,
     required: true,
-    default: {
-      items: testimonialSettings,
-    },
   }
 })
 

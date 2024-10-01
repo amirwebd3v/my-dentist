@@ -2,7 +2,6 @@
 
 import type {PropType} from "@vue/runtime-core";
 import type {ContactusSettings} from "~/utils/types";
-import {contactusSettings} from "~/data/CustomComponents";
 import {useFormValidation} from '~/composables/useFormValidation'
 import {usePersianMask} from "~/composables/usePersianMask";
 
@@ -11,9 +10,6 @@ const props = defineProps({
   contactusSettings: {
     type: Object as PropType<ContactusSettings>,
     required: true,
-    default: {
-      items: contactusSettings,
-    },
   }
 })
 

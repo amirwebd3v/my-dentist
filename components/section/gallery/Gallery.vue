@@ -2,7 +2,6 @@
 
 
 import CommentsModal from "~/components/section/gallery/CommentsModal.vue";
-import {gallerySettings} from "~/data/CustomComponents";
 import type {PropType} from "@vue/runtime-core";
 import type {GallerySettings} from "~/utils/types";
 import {useServiceStore} from "~/store/service";
@@ -44,7 +43,6 @@ const props = defineProps({
   gallerySettings: {
     type: Object as PropType<GallerySettings>,
     required: true,
-    default: gallerySettings[0],
   }
 })
 

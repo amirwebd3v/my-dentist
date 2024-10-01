@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type {PropType} from "@vue/runtime-core";
 import type {Services} from "~/utils/types";
-import {services} from "~/data/CustomComponents";
+
 
 const props = defineProps({
   services: {
     type: Map as PropType<Map<number, Services>>,
     required: true,
-    default: services[0],
   }
 })
 
