@@ -47,6 +47,7 @@ type Post = {
     videos: string[]
     images: string[]
     tags: string[]
+    services: Services[]
     views_count: number,
     likes_count: number,
     comments_count: number,
@@ -277,10 +278,9 @@ type ValidationRules = {
 
 /*********************************************************/
 type ContactUsStoreRequest = {
-    first_name: string,
-    last_name: string,
-    email: string,
-    phone: number | null
+    full_name: string,
+    email: string ,
+    mobile?: string,
     message: string
 }
 type ReserveStoreRequest = {

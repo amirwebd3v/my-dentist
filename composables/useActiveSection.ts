@@ -38,11 +38,13 @@ export function useActiveSection(headerItems: HeaderSettings['headerItems'] | un
     }
 
     const observeElements = (observer: IntersectionObserver) => {
-        const sectionIds = [...headerItems.map(item => item.key), 'header']
-        sectionIds.forEach(id => {
-            const element = document.getElementById(id)
-            if (element) observer.observe(element)
-        })
+        if(headerItems) {
+            const sectionIds = [...headerItems.map(item => item.key), 'header']
+            sectionIds.forEach(id => {
+                const element = document.getElementById(id)
+                if (element) observer.observe(element)
+            })
+        }
     }
 
     onMounted(async () => {
