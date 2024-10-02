@@ -95,7 +95,8 @@ onBeforeMount(async ()=>{
 <style scoped lang="scss">
 .sliderBanner {
   width: 100%;
-  height: 900px !important;
+  height: 600px !important;
+
 
 
   :deep(.v-carousel-item) {
@@ -121,11 +122,11 @@ onBeforeMount(async ()=>{
 
 
   @media screen and (max-width: 767px) {
-    height: 724px !important;
+    height: 756px !important;
     :deep(.v-carousel-item) {
       .v-img {
         .v-img__img--cover {
-          object-position: 80% top !important;
+          object-position: 95% center !important;
         }
       }
     }
