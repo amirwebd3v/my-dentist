@@ -2,7 +2,8 @@
 import {useFormValidation} from '~/composables/useFormValidation'
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
-import type {HeaderSettings} from "~/utils/types";
+import type {HeaderSettings,ReserveStoreRequest} from "~/utils/types";
+import {useReserveStore} from "~/store/reserve";
 
 /********************************************************/
 
@@ -42,7 +43,7 @@ const {
   age,
   service,
   description
-} = useFormValidation([ 'first_name', 'last_name', 'reserveMobile', 'age', 'service'])
+} = useFormValidation([ 'first_name', 'last_name', 'reserveMobile', 'age', 'service'],useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -78,8 +79,8 @@ useListen('closeModal', (value: boolean) => {
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
-        <Dialog :form-title="'رزرو نوبت'" :is-succeeded="isSucceeded" :loading="loading"
-                v-model="showReserveDialog">
+        <Dialog :form-title="'رزرو نوبت'" v-model:is-succeeded="isSucceeded"  v-model:loading="loading"
+                v-model="showReserveDialog" :on-submit="onSubmit">
           <template v-slot:button="props">
             <v-btn
                 class="px-6 py-0 bg-primary ml-2 reserve-btn"
@@ -90,7 +91,7 @@ useListen('closeModal', (value: boolean) => {
             >
             </v-btn>
           </template>
-            <template #body="{onSubmit}">
+            <template #body>
           <v-row justify="center">
               <v-col
                   cols="12"

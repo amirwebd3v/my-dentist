@@ -5,6 +5,7 @@ import {useDisplay} from "vuetify";
 import type {PropType} from "@vue/runtime-core";
 import type {Services} from "~/utils/types";
 import {useFormValidation} from "~/composables/useFormValidation";
+import {useReserveStore} from "~/store/reserve";
 
 interface State {
   currentDateTime: any;
@@ -144,7 +145,7 @@ const {
   age,
   service,
   description
-} = useFormValidation(['first_name', 'last_name', 'reserveMobile', 'age', 'service'])
+} = useFormValidation(['first_name', 'last_name', 'reserveMobile', 'age', 'service'],useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -217,8 +218,8 @@ useListen('closeModal', (value: boolean) => {
           </span>
           <v-row class="d-flex flex-row pt-1">
             <v-col cols="6">
-              <Dialog :form-title="'رزرو نوبت'" :is-succeeded="isSucceeded" :loading="loading"
-                      v-model="showReserveDialog">
+              <Dialog :form-title="'رزرو نوبت'" v-model:is-succeeded="isSucceeded"  v-model:loading="loading"
+                      v-model="showReserveDialog" :on-submit="onSubmit">
                 <template v-slot:button="props">
                   <v-btn
                       class="px-6 bg-white reserve-btn"
