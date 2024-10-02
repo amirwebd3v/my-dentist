@@ -28,7 +28,7 @@ const {formattedPhoneNumber} = usePersianNumber()
         First Column
       ----------------------------------------------- -->
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
-          <h4 class="font-weight-regular font-18 ">آدرس مطب</h4>
+          <h4 class="font-weight-regular font-18 ">آدرس کلینیک</h4>
           <p class="mt-5">{{ props.footerSettings.footerFirstAddress }}</p>
         </v-col>
         <!-- -----------------------------------------------
@@ -45,7 +45,7 @@ const {formattedPhoneNumber} = usePersianNumber()
         <v-col cols="12" md="3" sm="6" class="px-xs-0">
           <h4 class="font-weight-regular font-18 ">پست الکترونیک</h4>
           <p class="mt-5 ">
-            <span class="text-white">مطب : </span>
+            <span class="text-white">کلینیک : </span>
             <a class="text-decoration-none" :style="`color: ${props.footerSettings.footerTextColor} !important;`"
                href="/" @mouseover="$event.target.style.color = props.footerSettings.footerHoverColor"
                @mouseout="$event.target.style.color = props.footerSettings.footerTextColor">
