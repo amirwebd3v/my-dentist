@@ -17,11 +17,9 @@
     &:hover,
     &.active {
       > .nav-link {
-        opacity: 0.5;
+        opacity: 1;
+        color: #03192c;
       }
-    }
-    > .router-link-exact-active {
-      opacity: 1;
     }
   }
 }

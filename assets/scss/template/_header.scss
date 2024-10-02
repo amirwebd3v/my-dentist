@@ -1,6 +1,9 @@
 
 .app-header {
-  background-color: white !important;
+  background: linear-gradient(to left, rgb(236, 247, 249,0.2)5%, rgb(3, 25, 44)85%) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
   height: 100% !important;
   .navbar-nav {
     align-items: center;
