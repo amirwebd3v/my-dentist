@@ -2,7 +2,7 @@
 import {useFormValidation} from '~/composables/useFormValidation'
 import Dialog from "~/components/shared/modal/Dialog.vue";
 import type {PropType} from "@vue/runtime-core";
-import type {HeaderSettings,ReserveStoreRequest} from "~/utils/types";
+import type {HeaderSettings} from "~/utils/types";
 import {useReserveStore} from "~/store/reserve";
 
 /********************************************************/
@@ -53,7 +53,6 @@ watch(showReserveDialog, (newValue, oldValue) => {
 
 const saveBtn = async (): Promise<void> => {
   try {
-    // Call the existing onSubmit function
     await onSubmit();
 
   } catch (error) {
@@ -83,9 +82,8 @@ useListen('closeModal', (value: boolean) => {
                 v-model="showReserveDialog" :on-submit="onSubmit">
           <template v-slot:button="props">
             <v-btn
-                class="px-6 py-0 bg-primary ml-2 reserve-btn"
+                class="px-5 py-0 bg-primary ml-5 reserve-btn"
                 flat
-                size="large"
                 text="رزرو نوبت"
                 v-bind="props"
             >
@@ -236,7 +234,7 @@ useListen('closeModal', (value: boolean) => {
           <!--         Logo-->
           <div class="logo mr-auto pr-5">
             <NuxtLink to="/" class="logo d-flex">
-              <img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="logo"/>
+              <v-img  :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="drsamiraronaghi-logo" />
             </NuxtLink>
           </div>
         </v-row>
@@ -262,22 +260,19 @@ useListen('closeModal', (value: boolean) => {
               {{ nav.label }}
             </NuxtLink>
           </li>
-          <v-divider class="mb-3"/>
+          <v-divider class="my-3" style="border-color: #ffffff !important;"/>
           <li class="nav-item">
             <v-list-item
                 variant="text"
-                style="color: #03192C;"
+                style="color: #ffffff;"
                 :ripple="false"
                 title="رزرو نوبت"
                 @click="showReserveDialog = true"
             >
               <template #prepend>
-                <v-icon color="primary" class="opacity-100">mdi-calendar-check</v-icon>
+                <v-icon color="white" class="opacity-100">mdi-calendar-check</v-icon>
               </template>
             </v-list-item>
-            <!--            <NuxtLink  class="nav-link pr-5 my-3">-->
-            <!--              رزرو نوبت-->
-            <!--            </NuxtLink>-->
           </li>
         </ul>
       </div>
@@ -294,6 +289,9 @@ useListen('closeModal', (value: boolean) => {
   display: inline !important;
 }
 
+.v-container {
+  padding: 0 24px 0 24px;
+}
 
 
 
