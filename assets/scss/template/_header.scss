@@ -1,6 +1,6 @@
 
 .app-header {
-  background: linear-gradient(to left, rgb(236, 247, 249,0.2)5%, rgb(3, 25, 44)85%) !important;
+  background: linear-gradient(to left, rgb(236, 247, 249,0.2), rgb(3, 25, 44)70%) !important;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 
@@ -15,7 +15,7 @@
 
   &.header {
     top: 0 !important;
-    height: 100px !important;
+    height: 80px !important;
 
     .v-toolbar__content {
       height: 100% !important;
@@ -33,6 +33,9 @@
   margin-top: -64px !important;
   height: 100vh !important;
   z-index: 2000 !important;
+  background: linear-gradient(to bottom, rgb(236, 247, 249,0.2), rgb(3, 25, 44)60%) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   &__scrim {
     background: transparent;
   }
