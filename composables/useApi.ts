@@ -4,8 +4,6 @@ import {FetchOptions, FetchResponse, ResponseType} from "ofetch";
 import {useValidationStore} from "~/store/validation";
 
 
-
-
 export default function useApi() {
     const appConfig = useAppConfig().api
     const client = new L5Client(appConfig.baseUrl, {headers: appConfig.headers})
@@ -22,12 +20,25 @@ export default function useApi() {
 
     /************************************************************/
 
-    const get = <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
-        return fetch(route, {...option, method: 'GET', onResponseError, parseResponse: JSON.parse,});
+    const get = <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions):
+        Promise<FetchResponse<R, T>> => {
+        return client.get(route, {
+            ...option,
+            method: 'GET',
+            onResponseError,
+            parseResponse: JSON.parse
+        });
     };
 
-    const post = async <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
-        return await client.post(route, {...option, method: 'POST', onResponseError, parseResponse: JSON.parse})
+    const post = async <T = any, R extends ResponseType = "json">(route: string, data: any, options?: FetchOptions):
+        Promise<FetchResponse<R, T>> => {
+        return await client.post(route, {
+            ...options,
+            method: 'POST',
+            ...data,
+            onResponseError,
+            parseResponse: JSON.parse
+        })
     }
     //
     // const put = <T = any, R extends ResponseType = "json">(route: string, option?: FetchOptions): Promise<FetchResponse<R, T>> => {
@@ -56,8 +67,8 @@ export default function useApi() {
     const prepareQueryParams = ({
                                     page = 1,
                                     itemsPerPage = 10,
-                                    sortBy =[]
-                                }={} , search: FilterSearchItem[] = []): QueryParams => {
+                                    sortBy = []
+                                } = {}, search: FilterSearchItem[] = []): QueryParams => {
         // console.log('Input values:', { page, itemsPerPage, sortBy });
         let sort: FilterSortItem = {}
         // console.log(sort,sortBy)
@@ -79,9 +90,6 @@ export default function useApi() {
     }
 
 
-
-
-
     // return {paginate, all, get, post, put, destroy, prepareQueryParams}
-    return {prepareQueryParams,paginate, all, get,post}
+    return {prepareQueryParams, paginate, all, get, post}
 }
