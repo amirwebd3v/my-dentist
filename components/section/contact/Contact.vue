@@ -4,6 +4,7 @@ import type {PropType} from "@vue/runtime-core";
 import type {ContactusSettings} from "~/utils/types";
 import {useFormValidation} from '~/composables/useFormValidation'
 import {usePersianMask} from "~/composables/usePersianMask";
+import {useContactUsStore} from "~/store/contactUs";
 
 
 const props = defineProps({
@@ -26,7 +27,7 @@ const {
   hasErrors,
   loading,
   isSucceeded,
-} = useFormValidation(['full_name', 'email', 'message'])
+} = useFormValidation(['full_name', 'email', 'message'],useContactUsStore)
 
 
 
@@ -75,7 +76,7 @@ const sendBtn = async (): Promise<void> => {
                     با تشکر، همواره پذیرای انتقادات و پیشنهادات سازنده شما هستیم.
                     </p>
                     <p class="text-center pt-5">
-                      «مطب دندانپزشکی دکتر سمیرا رونقی»
+                      «کلینیک دندانپزشکی دکتر سمیرا رونقی»
                     </p>
                   </div>
                 </template>
