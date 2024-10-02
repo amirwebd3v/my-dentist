@@ -1,9 +1,11 @@
 import {useField, useForm} from 'vee-validate'
 import * as yup from 'yup'
 import type {Ref} from "vue";
+import type {StoreDefinition} from "pinia";
 
 
-export function useFormValidation(requiredFields: string[] = []) {
+export function useFormValidation(requiredFields: string[] = [], store: StoreDefinition) {
+
     const schema = yup.object({
         mobile: yup.string()
             .nullable()
@@ -120,30 +122,42 @@ export function useFormValidation(requiredFields: string[] = []) {
     const loading: Ref<Boolean> = ref(false)
     const isSucceeded: Ref<Boolean> = ref(false)
 
-    const onSubmit = handleSubmit((values) => {
+    const onSubmit = handleSubmit(async (values) => {
         isSucceeded.value = false;
         loading.value = true;
 
-        const nonEmptyValues = Object.fromEntries(
-            Object.entries(values).filter(([_, value]) => {
-                if (value === null || value === undefined) return false;
-                if (typeof value === 'string' && value.trim() === '') return false;
-                if (Array.isArray(value) && value.length === 0) return false;
-                return !(typeof value === 'object' && Object.keys(value).length === 0);
 
-            })
-        );
+        try {
+            const nonEmptyValues = Object.fromEntries(
+                Object.entries(values).filter(([_, value]) => {
+                    if (value === null || value === undefined) return false;
+                    if (typeof value === 'string' && value.trim() === '') return false;
+                    if (Array.isArray(value) && value.length === 0) return false;
+                    return !(typeof value === 'object' && Object.keys(value).length === 0);
+                })
+            );
 
-        console.log(nonEmptyValues);
-        loading.value = false;
-        clearErrors()
-        isSucceeded.value = true
+            const storeInstance = store();
+            if (typeof storeInstance.store === 'function') {
+                const response = await storeInstance.store(nonEmptyValues);
+                console.log('API Response:', response);
+            } else {
+                throw new Error(`'post' action not found in the store`);
+            }
+
+            clearErrors();
+            isSucceeded.value = true;
+        } catch (error) {
+            console.error('An error occurred during form submission:', error);
+            // Handle error (e.g., set error messages)
+        } finally {
+            loading.value = false;
+        }
     });
 
     const clearErrors = () => {
         resetForm({errors: {}, values: {}})
     }
-
 
     const hasErrors = computed(() => Object.keys(errors.value).length > 0)
     const hasValues = computed(() => {

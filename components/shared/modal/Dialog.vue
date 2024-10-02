@@ -17,14 +17,25 @@ const props = defineProps({
     required: true,
     default: false
   },
+  onSubmit: {
+    type: Function,
+    required: true
+  }
 })
 
-const {onSubmit} = useFormValidation([])
+const emit = defineEmits(['update:isSucceeded', 'update:loading'])
 
-const handleSubmit = () => {
-  onSubmit()
+const handleSubmit = async () => {
+  emit('update:loading', true)
+  try {
+    await props.onSubmit
+    emit('update:isSucceeded', true)
+  } catch (error) {
+    console.error('An error occurred during form submission:', error)
+  } finally {
+    emit('update:loading', false)
+  }
 }
-
 
 </script>
 
@@ -48,7 +59,7 @@ const handleSubmit = () => {
           <v-card-text class="pb-0 pt-3">
             <v-container>
                 <form @submit.prevent="handleSubmit">
-                  <slot name="body" :on-submit="handleSubmit" />
+                  <slot name="body" />
                 </form>
             </v-container>
           </v-card-text>
@@ -82,10 +93,10 @@ const handleSubmit = () => {
           />
         </v-row>
         <v-row justify="center" align="end" class="mx-6">
-          <p class="text-center text-primary font-weight-bold text-justify">جهت هماهنگی روز و ساعت مراجعه به مطب، حداکثر تا ۲۴ ساعت آینده با شما تماس خواهیم گرفت.</p>
+          <p class="text-center text-primary font-weight-bold text-justify">جهت هماهنگی روز و ساعت مراجعه به کلینیک، حداکثر تا ۲۴ ساعت آینده با شما تماس خواهیم گرفت.</p>
           <v-divider class="mt-4 mx-5"/>
           <span class="text-center text-primary mt-7 font-weight-medium">با تشکر از انتخاب شما که لایق بهترین ها هستید.</span>
-          <span class="text-center text-primary mt-4 font-weight-medium font-14">«مطب دندانپزشکی دکتر سمیرا رونقی»</span>
+          <span class="text-center text-primary mt-4 font-weight-medium font-14">«کلینیک دندانپزشکی دکتر سمیرا رونقی»</span>
         </v-row>
       </v-container>
 
