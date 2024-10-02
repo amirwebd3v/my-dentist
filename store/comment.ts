@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 import type {Comment} from "~/utils/types";
 
 interface PostCommentState {
@@ -7,8 +7,13 @@ interface PostCommentState {
     totalPages: number
 }
 
+
+interface CommentPayload {
+    comment: string
+}
+
 export const useCommentStore = defineStore('comment', () => {
-    const { paginate, prepareQueryParams } = useNuxtApp().$api
+    const { paginate, prepareQueryParams, post } = useNuxtApp().$api
 
 
     const comments = reactive(new Map<number, PostCommentState>())
@@ -65,9 +70,26 @@ export const useCommentStore = defineStore('comment', () => {
         return comments.get(postId)?.totalPages || 1
     })
 
+    const saveComment = async (postId: number, comment: CommentPayload): Promise<Comment> => {
+        loading.value = true
+        error.value = null
+
+        try {
+            return await post<Comment>(`/api/post/${postId}/comment`, comment)
+        } catch (err) {
+            error.value = 'Failed to save comment'
+            console.error('Error saving comment:', err)
+            throw err
+        } finally {
+            loading.value = false
+        }
+    }
+
+
     return {
         getComments,
         loadMoreComments,
+        saveComment,
         getCommentsForPost,
         getCurrentPage,
         getTotalPages,
