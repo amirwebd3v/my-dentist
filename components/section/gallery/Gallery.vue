@@ -90,7 +90,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
 <template>
   <div class="bg-extra-light">
     <div class="gallery-component mini-spacer bottom-mini-spacer">
-      <v-container v-if="!!props.gallerySettings">
+      <v-container v-if="!!props.gallerySettings" >
         <!-- -----------------------------------------------
             Start Gallery
         ----------------------------------------------- -->
@@ -135,9 +135,9 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
 
 
         </v-card-text>
-        <v-window>
+        <v-window >
 
-          <v-window-item>
+          <v-window-item >
             <v-row justify="space-around">
               <v-col v-for="post in posts.values()" :key="post.id" cols="12" :lg="xlAndUp || md ? 3 : 4" md="6" sm="12">
 
@@ -145,7 +145,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
                         :color="props.gallerySettings.cardBorderColor"
                         :elevation="props.gallerySettings.cardElevation"
                         :variant="props.gallerySettings.cardVariant"
-                >
+                style=" background: linear-gradient(to top, rgb(191,223,235),rgba(236,247,249,0.02)15%) !important;">
 
                   <v-carousel :continuous="false" :show-arrows="false" hide-delimiter-background
                               delimiter-icon="mdi mdi-circle-medium" style="background-color: black;"
@@ -208,20 +208,20 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
                         </v-slide-group>
                       </div>
 
-                      <v-card-actions class="justify-space-around mt-5">
+                      <v-card-actions class="float-left mt-5">
                         <CommentsModal :post-id="post.id" :comments-count="post.comments_count"
                                        :settings="props.gallerySettings"/>
-                        <div class="justify-self-start">
-                          <v-icon class="me-1" size="small" icon="mdi-eye"
-                                  :style="`color: ${props.gallerySettings.iconColor}`"/>
-                          <span class="me-2">{{ formattedNumber(post.views_count) }}</span>
-                          <span class="me-1">·</span>
-                          <v-icon class="me-1" size="small" :color="props.gallerySettings.iconColor"
-                                  :icon="unLike"
-                                  @click="unLike = (unLike === 'mdi-heart' ? 'mdi-heart-outline' : 'mdi-heart')"
-                          />
-                          <span>{{ formattedNumber(post.likes_count) }}</span>
-                        </div>
+<!--                        <div class="justify-self-start">-->
+<!--                          <v-icon class="me-1" size="small" icon="mdi-eye"-->
+<!--                                  :style="`color: ${props.gallerySettings.iconColor}`"/>-->
+<!--                          <span class="me-2">{{ formattedNumber(post.views_count) }}</span>-->
+<!--                          <span class="me-1">·</span>-->
+<!--                          <v-icon class="me-1" size="small" :color="props.gallerySettings.iconColor"-->
+<!--                                  :icon="unLike"-->
+<!--                                  @click="unLike = (unLike === 'mdi-heart' ? 'mdi-heart-outline' : 'mdi-heart')"-->
+<!--                          />-->
+<!--                          <span>{{ formattedNumber(post.likes_count) }}</span>-->
+<!--                        </div>-->
                       </v-card-actions>
                     </div>
                   </v-expand-transition>
