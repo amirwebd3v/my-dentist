@@ -23,6 +23,8 @@ function togglePanel(index: number): void {
     expandedPanel.value = expandedPanel.value === [index] ? undefined : [index];
   }
 }
+
+
 </script>
 
 <template>
@@ -38,7 +40,7 @@ function togglePanel(index: number): void {
                  style="transform: rotate(-20deg);" cover/>
         </v-col>
         <v-col :cols="width > 959 ? 10 : 12">
-          <img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.mainImage}`"
+          <v-img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.mainImage}`"
                alt="feature"
                class="rounded img-fluid"
           />
@@ -103,7 +105,7 @@ function togglePanel(index: number): void {
           </v-card>
         </v-col>
         <v-col cols="3" align-self="end" v-if="width > 959 && width < 1025">
-          <v-img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.leftSideImage}`" cover/>
+          <v-img rounded :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.leftSideImage}`" cover/>
         </v-col>
       </v-row>
 
