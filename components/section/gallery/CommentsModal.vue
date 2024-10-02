@@ -34,6 +34,7 @@ const properties = defineProps({
 
 const showCommentsModal = ref<boolean>(false)
 const showSuccessMessage = ref<boolean>(false)
+const newComment = ref<string>('')
 
 const {loading, error} = storeToRefs(useCommentStore())
 const comments = computed<Comment[]>(() => useCommentStore().getCommentsForPost(<number>properties.postId))
@@ -53,6 +54,19 @@ const load = async ({done}) => {
   }
 }
 
+const saveComment = async () => {
+  if (newComment.value) {
+    try {
+      await useCommentStore().saveComment(<number>properties.postId,  {comment: newComment.value.trim()} )
+
+      newComment.value = ''
+      showSuccessMessage.value = true
+    } catch (err) {
+      // Handle error (e.g., show error message to user)
+      console.error('Failed to save comment:', err)
+    }
+  }
+}
 
 onMounted(() => {
   useCommentStore().getComments(<number>properties.postId)
@@ -137,14 +151,17 @@ onMounted(() => {
       </v-card-text>
       <v-divider class="pt-0 pb-1"/>
 
-      <v-textarea rounded="0" auto-grow rows="1" variant="plain" label="در اینجا نظر خود را بنویسید... "
+      <v-textarea v-model="newComment" rounded="0" auto-grow rows="1" variant="plain"
+                  label="در اینجا نظر خود را بنویسید... " :disabled="loading"
                   class="border-none px-4 m-0 pb-4" hide-details/>
       <v-btn
           flat
           color="blue-darken-1 pt-1 mb-0"
           variant="tonal"
           rounded="0"
-          @click="showSuccessMessage = true"
+          @click="saveComment"
+          :loading="loading"
+          :disabled="!newComment.trim()"
           text="ثبت"
       />
     </v-card>
@@ -156,25 +173,25 @@ onMounted(() => {
       width="auto"
       height="auto"
   >
-    <v-card  max-width="300" >
-    <v-alert
-        type="success"
-        icon="mdi-message-check"
-        variant="tonal"
-        title="ثبت موفق"
-        elevation="1"
-        rounded
-    >
-      <template #close>
-        <v-icon icon="mdi mdi-close" size="small" class="cursor-pointer pt-2"
-                @click="showSuccessMessage = false;showCommentsModal = true"/>
-      </template>
-      <template #text>
-        <div class="mt-3 text-justify">
-          با تشکر؛ نظر شما با موفقیت ثبت شد و پس از تایید، قابل نمایش خواهد بود.
-        </div>
-      </template>
-    </v-alert>
+    <v-card max-width="300">
+      <v-alert
+          type="success"
+          icon="mdi-message-check"
+          variant="tonal"
+          title="ثبت موفق"
+          elevation="1"
+          rounded
+      >
+        <template #close>
+          <v-icon icon="mdi mdi-close" size="small" class="cursor-pointer pt-2"
+                  @click="showSuccessMessage = false;showCommentsModal = true"/>
+        </template>
+        <template #text>
+          <div class="mt-3 text-justify">
+            با تشکر؛ نظر شما با موفقیت ثبت شد و پس از تایید، قابل نمایش خواهد بود.
+          </div>
+        </template>
+      </v-alert>
     </v-card>
   </v-dialog>
 
