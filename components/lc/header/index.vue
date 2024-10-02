@@ -25,7 +25,7 @@ const drawer = ref<boolean>(false);
 //   $bus.$emit('loginDialogOpen', [true, 0])
 // }
 /********************************************************/
-const {activeSection} = useActiveSection(props.headerSettings?.headerItems || header)
+const {activeSection} = useActiveSection(props.headerSettings?.headerItems)
 
 const {
   hasValues,

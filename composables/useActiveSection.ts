@@ -1,6 +1,7 @@
 import {  useNuxtApp } from 'nuxt/app'
+import type {HeaderSettings} from "~/utils/types";
 
-export function useActiveSection(headerItems: { key: string }[]) {
+export function useActiveSection(headerItems: HeaderSettings['headerItems'] | undefined) {
     const { $locally } = useNuxtApp()
     const router = useRouter()
     const activeSection = ref()
