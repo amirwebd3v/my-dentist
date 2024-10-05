@@ -10,29 +10,18 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
         mobile: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('reserve-mobile', 'شماره تلفن همراه نامعتبر است', val => {
+            .test('mobile', 'شماره تلفن همراه نامعتبر است', val => {
                 if (val === null || val === undefined) {
                     return true;
                 }
                 const cleanedVal = val.replace(/-/g, '');
                 return /^۰۹[۰-۹]{9}$/.test(cleanedVal);
-            })
-            .optional(),
-        reserveEmail: yup.string()
-            .nullable()
-            .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('email-format', 'ایمیل نامعتبر است', val => {
-                if (val === null || val === undefined) return true;
-                const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-                return emailRegex.test(val);
-            })
-            .optional(),
+            }),
         description: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('len', 'متن توضیحات نباید کمتر از ۱۰ حرف باشد', val =>
-                val === null || val === undefined || val.length >= 10)
-            .optional(),
+            .test('description', 'متن توضیحات نباید کمتر از ۱۰ حرف باشد', val =>
+                val === null || val === undefined || val.length >= 10),
         /**************************************/
         full_name: yup.string()
             .nullable()
@@ -44,43 +33,32 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
         email: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('email-format', 'ایمیل نامعتبر است', val => {
+            .test('email', 'ایمیل نامعتبر است', val => {
                 if (val === null || val === undefined) return true;
                 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return emailRegex.test(val);
             }),
 
-        message: yup.string()
+        content: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('message-length', 'متن پیام نباید کمتر از ۱۰ حرف باشد', val =>
+            .test('content', 'متن پیام نباید کمتر از ۱۰ حرف باشد', val =>
                 val === null || val === undefined || val.length >= 10
             ),
 
         first_name: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('first-name', 'نام باید حداقل ۳ حرف باشد', val =>
+            .test('first_name', 'نام باید حداقل ۳ حرف باشد', val =>
                 val === null || val === undefined || (val.trim().length >= 3)
             ),
 
         last_name: yup.string()
             .nullable()
             .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('last-name', 'نام خانوادگی باید حداقل ۳ حرف باشد', val =>
+            .test('lastـname', 'نام خانوادگی باید حداقل ۳ حرف باشد', val =>
                 val === null || val === undefined || (val.trim().length >= 3)
             ),
-
-        reserveMobile: yup.string()
-            .nullable()
-            .transform((value, originalValue) => originalValue === "" ? null : value)
-            .test('reserve-mobile', 'شماره تلفن همراه نامعتبر است', val => {
-                if (val === null || val === undefined) {
-                    return true;
-                }
-                const cleanedVal = val.replace(/-/g, '');
-                return /^۰۹[۰-۹]{9}$/.test(cleanedVal);
-            }),
 
         age: yup.string()
             .nullable()
@@ -109,11 +87,9 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
         full_name: useField<string>('full_name'),
         mobile: useField<string>('mobile'),
         email: useField<string>('email'),
-        message: useField<string>('message'),
+        content: useField<string>('content'),
         first_name: useField<string>('first_name'),
         last_name: useField<string>('last_name'),
-        reserveMobile: useField<string>('reserveMobile'),
-        reserveEmail: useField<string>('reserveEmail'),
         age: useField<string>('age'),
         service: useField<string[]>('service'),
         description: useField<string>('description')
@@ -136,6 +112,20 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
                     return !(typeof value === 'object' && Object.keys(value).length === 0);
                 })
             );
+
+
+            // Debugging: Log types and values
+            console.log('Filtered nonEmptyValues:');
+            Object.entries(nonEmptyValues).forEach(([key, value]) => {
+                console.log(`${key}:`, value, `(type: ${typeof value})`);
+
+                // Additional type checking for specific fields if needed
+                if (key === 'age') {
+                    console.log(`Is age a number?`, Number.isInteger(value));
+                }
+                // Add more specific checks for other fields as needed
+            });
+
 
             const storeInstance = store();
             if (typeof storeInstance.store === 'function') {
