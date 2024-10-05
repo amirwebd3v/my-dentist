@@ -140,12 +140,12 @@ const {
   onSubmit,
   first_name,
   last_name,
-  reserveMobile,
-  reserveEmail,
+  mobile,
+  email,
   age,
   service,
   description
-} = useFormValidation(['first_name', 'last_name', 'reserveMobile', 'age', 'service'],useReserveStore)
+} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'service'],useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -262,8 +262,8 @@ useListen('closeModal', (value: boolean) => {
                       <v-text-field
                           maxlength="13"
                           v-maska="masks.mobilePersianNumberMask"
-                          v-model="reserveMobile"
-                          :error-messages="<string>errors.reserveMobile"
+                          v-model="mobile"
+                          :error-messages="<string>errors.mobile"
                           variant="outlined"
                           label="شماره تلفن همراه"
                           placeholder="مثال: ****-***-**۰۹ "
@@ -274,8 +274,8 @@ useListen('closeModal', (value: boolean) => {
                       <v-text-field
                           maxlength="40"
                           v-maska="masks.englishAlphanumericMask"
-                          v-model="reserveEmail"
-                          :error-messages="<string>errors.reserveEmail"
+                          v-model="email"
+                          :error-messages="<string>errors.email"
                           variant="outlined"
                           label="ایمیل"
                           placeholder="example@gmail.com"

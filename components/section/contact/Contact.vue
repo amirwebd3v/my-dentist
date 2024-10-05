@@ -20,14 +20,14 @@ const {
   full_name,
   mobile,
   email,
-  message,
+  content,
   errors,
   onSubmit,
   hasValues,
   hasErrors,
   loading,
   isSucceeded,
-} = useFormValidation(['full_name', 'email', 'message'],useContactUsStore)
+} = useFormValidation(['content'],useContactUsStore)
 
 
 
@@ -95,7 +95,7 @@ const sendBtn = async (): Promise<void> => {
                         v-maska="masks.persianLettersMask"
                         v-model="full_name"
                         :error-messages="<string>errors.full_name"
-                        label="نام و نام خانوادگی"
+                        label="نام و نام خانوادگی(اختیاری)"
                         variant="outlined"
                         color="primary"
                     ></v-text-field>
@@ -105,7 +105,7 @@ const sendBtn = async (): Promise<void> => {
                         v-maska="masks.mobilePersianNumberMask"
                         v-model="mobile"
                         :error-messages="<string>errors.mobile"
-                        label="شماره موبایل"
+                        label="شماره موبایل(اختیاری)"
                         variant="outlined"
                         color="primary"
                         placeholder="مثال: ****-***-**۰۹ "
@@ -116,7 +116,7 @@ const sendBtn = async (): Promise<void> => {
                         v-maska="masks.englishAlphanumericMask"
                         v-model="email"
                         :error-messages="<string>errors.email"
-                        label="ایمیل"
+                        label="ایمیل(اختیاری)"
                         type="email"
                         variant="outlined"
                         color="primary"
@@ -126,8 +126,8 @@ const sendBtn = async (): Promise<void> => {
                   <v-col cols="12" class="py-0">
                     <v-textarea
                         v-maska="masks.persianAlphanumericMask"
-                        v-model="message"
-                        :error-messages="<string>errors.message"
+                        v-model="content"
+                        :error-messages="<string>errors.content"
                         name="message"
                         density="comfortable"
                         color="primary"

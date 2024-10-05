@@ -38,12 +38,12 @@ const {
   onSubmit,
   first_name,
   last_name,
-  reserveMobile,
-  reserveEmail,
+  mobile,
+  email,
   age,
   service,
   description
-} = useFormValidation([ 'first_name', 'last_name', 'reserveMobile', 'age', 'service'],useReserveStore)
+} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'service'], useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -64,6 +64,7 @@ useListen('closeModal', (value: boolean) => {
   showReserveDialog.value = value
   isSucceeded.value = value
 })
+
 </script>
 <template>
   <!-- -----------------------------------------------
@@ -78,7 +79,7 @@ useListen('closeModal', (value: boolean) => {
             @click.stop="drawer = !drawer"
         ></v-app-bar-nav-icon>
         <!--         visit-btn-->
-        <Dialog :form-title="'رزرو نوبت'" v-model:is-succeeded="isSucceeded"  v-model:loading="loading"
+        <Dialog :form-title="'رزرو نوبت'" v-model:is-succeeded="isSucceeded" v-model:loading="loading"
                 v-model="showReserveDialog" :on-submit="onSubmit">
           <template v-slot:button="props">
             <v-btn
@@ -89,8 +90,8 @@ useListen('closeModal', (value: boolean) => {
             >
             </v-btn>
           </template>
-            <template #body>
-          <v-row justify="center">
+          <template #body>
+            <v-row justify="center">
               <v-col
                   cols="12"
                   sm="6"
@@ -122,8 +123,8 @@ useListen('closeModal', (value: boolean) => {
                 <v-text-field
                     maxlength="13"
                     v-maska="masks.mobilePersianNumberMask"
-                    v-model="reserveMobile"
-                    :error-messages="<string>errors.reserveMobile"
+                    v-model="mobile"
+                    :error-messages="<string>errors.mobile"
                     variant="outlined"
                     label="شماره تلفن همراه"
                     placeholder="مثال: ****-***-**۰۹ "
@@ -134,10 +135,10 @@ useListen('closeModal', (value: boolean) => {
                 <v-text-field
                     maxlength="40"
                     v-maska="masks.englishAlphanumericMask"
-                    v-model="reserveEmail"
-                    :error-messages="<string>errors.reserveEmail"
+                    v-model="email"
+                    :error-messages="<string>errors.email"
                     variant="outlined"
-                    label="ایمیل"
+                    label="ایمیل(اختیاری)"
                     placeholder="example@gmail.com"
                     required
                 ></v-text-field>
@@ -181,30 +182,30 @@ useListen('closeModal', (value: boolean) => {
                     v-model="description"
                     :error-messages="<string>errors.description"
                     variant="outlined"
-                    label="توضیحات"
+                    label="توضیحات(اختیاری)"
                 />
               </v-col>
-          </v-row>
-              <v-card-actions class="justify-space-around mt-0 pt-0">
-                <v-btn
-                    :disabled="!(hasValues && !hasErrors)"
-                    class="px-6 py-0"
-                    color="green"
-                    variant="text"
-                    text="ذخیره"
-                    type="submit"
-                    @click="saveBtn"
-                />
+            </v-row>
+            <v-card-actions class="justify-space-around mt-0 pt-0">
+              <v-btn
+                  :disabled="!( !hasErrors)"
+                  class="px-6 py-0"
+                  color="green"
+                  variant="text"
+                  text="ذخیره"
+                  type="submit"
+                  @click="saveBtn"
+              />
 
-                <v-btn
-                    class="px-6 py-0"
-                    color="red-dark"
-                    variant="text"
-                    text="بستن"
-                    @click="showReserveDialog = false;clearErrors()"
-                />
-              </v-card-actions>
-            </template>
+              <v-btn
+                  class="px-6 py-0"
+                  color="red-dark"
+                  variant="text"
+                  text="بستن"
+                  @click="showReserveDialog = false;clearErrors()"
+              />
+            </v-card-actions>
+          </template>
         </Dialog>
 
 
@@ -234,7 +235,8 @@ useListen('closeModal', (value: boolean) => {
           <!--         Logo-->
           <div class="logo mr-auto pr-5">
             <NuxtLink to="/" class="logo d-flex">
-              <v-img  :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`" alt="drsamiraronaghi-logo" />
+              <v-img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`"
+                     alt="drsamiraronaghi-logo"/>
             </NuxtLink>
           </div>
         </v-row>
@@ -292,7 +294,6 @@ useListen('closeModal', (value: boolean) => {
 .v-container {
   padding: 0 24px 0 24px;
 }
-
 
 
 @media (max-width: 855px) {
