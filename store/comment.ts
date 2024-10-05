@@ -26,8 +26,19 @@ export const useCommentStore = defineStore('comment', () => {
 
         try {
             const queryParams = prepareQueryParams({page, itemsPerPage})
+
             queryParams.sort = { created_at: 'desc' }
-            queryParams.search = `commentable_id:${postId.toString()};is_approved:true`
+            queryParams.search = [
+                {
+                    field: 'commentable_id',
+                    value: postId.toString()
+                },
+                {
+                    field: 'is_approved',
+                    value: 'true'
+                }
+            ];
+
 
             const response = await paginate<Comment>('/api/comment', queryParams)
 
