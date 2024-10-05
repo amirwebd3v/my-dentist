@@ -25,10 +25,11 @@ export function usePersianMask() {
         },
         preProcess: (value: string) => {
             const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-            return value.split('').map(char => {
-                const digit = parseInt(char);
-                return isNaN(digit) ? char : persianDigits[digit];
-            }).join('');
+            return value.split('')
+                .map(char => {
+                    const digit = persianDigits.indexOf(char);
+                    return digit !== -1 ? persianDigits[digit] : '';
+                }).join('');
         }
     }
 
