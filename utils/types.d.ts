@@ -286,8 +286,8 @@ type ContactUsStoreRequest = {
 type ReserveStoreRequest = {
     first_name: string,
     last_name: string,
-    reserveEmail: string,
-    reserveMobile: number,
+    email: string,
+    mobile: number,
     age: number,
     service: [Services['title']]
     description: string,
