@@ -12,27 +12,6 @@ const props = defineProps({
   }
 })
 
-const aboutSettings = ref<AboutSettings>({ image: '', items: [] })
-const aboutSettingsReady = ref(false)
-
-const { data: fetchedAboutSettings, pending } = useAsyncData(
-    'aboutSettings',
-    () => fetchAboutSettingsFromAPI() // Replace with your actual API call
-)
-
-watch(fetchedAboutSettings, (newValue) => {
-  if (newValue) {
-    aboutSettings.value = newValue
-    aboutSettingsReady.value = true
-  }
-})
-
-onMounted(() => {
-  if (fetchedAboutSettings.value) {
-    aboutSettings.value = fetchedAboutSettings.value
-    aboutSettingsReady.value = true
-  }
-})
 
 
 const sanitizeHtmlContent = (html: string): string => {
