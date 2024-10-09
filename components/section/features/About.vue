@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {PropType} from "@vue/runtime-core";
 import type {AboutSettings} from "~/utils/types";
-
+import sanitizeHtml from 'sanitize-html'
 
 
 
@@ -12,7 +12,37 @@ const props = defineProps({
   }
 })
 
+const aboutSettings = ref<AboutSettings>({ image: '', items: [] })
+const aboutSettingsReady = ref(false)
 
+const { data: fetchedAboutSettings, pending } = useAsyncData(
+    'aboutSettings',
+    () => fetchAboutSettingsFromAPI() // Replace with your actual API call
+)
+
+watch(fetchedAboutSettings, (newValue) => {
+  if (newValue) {
+    aboutSettings.value = newValue
+    aboutSettingsReady.value = true
+  }
+})
+
+onMounted(() => {
+  if (fetchedAboutSettings.value) {
+    aboutSettings.value = fetchedAboutSettings.value
+    aboutSettingsReady.value = true
+  }
+})
+
+
+const sanitizeHtmlContent = (html: string): string => {
+  return sanitizeHtml(html, {
+    allowedTags: ['b', 'i', 'em', 'strong', 'a', 'p', 'br'],
+    allowedAttributes: {
+      'a': ['href', 'target']
+    }
+  })
+}
 </script>
 <template>
 
@@ -34,10 +64,13 @@ const props = defineProps({
                   <v-col cols="12" sm="6">
                     <v-row class="mx-0">
                       <div class="d-flex align-center mt-5 about-card" v-for="card in props.aboutSettings?.items" :key="card.title">
-                        <div class="icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor} ;`">
+                        <div class="icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor};`">
                           <v-icon :style="`color: ${card.iconColor} ;`">{{card.icon}}</v-icon>
                         </div>
-                        <p class="text-justify mx-5" :style="`color: ${card.textColor} ;`">{{ card.text }}</p>
+                        <ClientOnly>
+                        <p class="text-justify mx-5" :style="`color: ${card.textColor} ;`"
+                           v-html="sanitizeHtmlContent(card.text)"/>
+                        </ClientOnly>
                       </div>
                     </v-row>
                   </v-col>
