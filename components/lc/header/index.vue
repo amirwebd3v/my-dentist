@@ -235,7 +235,7 @@ useListen('closeModal', (value: boolean) => {
           <!--         Logo-->
           <div class="logo mr-auto pr-5">
             <NuxtLink to="/" class="logo d-flex">
-              <v-img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.headerLogo}`"
+              <v-img :src="`${useAppConfig().api.baseUrl+ '/storage/' +props.headerSettings?.logoHeader}`"
                      alt="drsamiraronaghi-logo"/>
             </NuxtLink>
           </div>

@@ -181,7 +181,7 @@ type FaqItems = {
 }
 
 type HeaderSettings = {
-    headerLogo: string,
+    logoHeader: string,
     headerItems: HeaderItems[]
 }
 
