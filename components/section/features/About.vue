@@ -42,15 +42,15 @@ const sanitizeHtmlContent = (html: string): string => {
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-row class="mx-0">
+                      <ClientOnly>
                       <div class="d-flex align-center mt-5 about-card" v-for="card in props.aboutSettings?.items" :key="card.title">
                         <div class="icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor};`">
                           <v-icon :style="`color: ${card.iconColor} ;`">{{card.icon}}</v-icon>
                         </div>
-                        <ClientOnly>
                         <p class="text-justify mx-5" :style="`color: ${card.textColor} ;`"
                            v-html="sanitizeHtmlContent(card.text)"/>
-                        </ClientOnly>
                       </div>
+                      </ClientOnly>
                     </v-row>
                   </v-col>
                 </v-row>
