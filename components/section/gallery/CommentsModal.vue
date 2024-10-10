@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {gallerySettings} from "~/data/CustomComponents";
+
 import type {PropType} from "@vue/runtime-core";
 import type {Comment, GallerySettings} from "~/utils/types";
 import {useCommentStore} from "~/store/comment";
@@ -11,9 +11,6 @@ const properties = defineProps({
   settings: {
     type: Object as PropType<GallerySettings>,
     required: true,
-    default: {
-      posts: gallerySettings[0],
-    },
   },
 
   commentsCount: {

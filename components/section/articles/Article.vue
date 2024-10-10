@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from "vue";
-import {Articles} from "@/data/CustomComponents";
+
 
 
 // const activeSlide = ref(<any>null); // Initialize the active slide index

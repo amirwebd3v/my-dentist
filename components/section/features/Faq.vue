@@ -44,7 +44,7 @@ function togglePanel(index: number): void {
         </v-col>
         <v-col :cols="width > 959 ? 10 : 12">
           <v-img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.mainImage}`"
-               alt="feature"
+               alt="سوالات متداول دندانپزشکی دکتر سمیرا رونقی"
                class="rounded img-fluid"
           />
         </v-col>

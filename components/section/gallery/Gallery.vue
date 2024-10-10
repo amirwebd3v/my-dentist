@@ -155,7 +155,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
                                      :class="`${$vuetify.display.width < 389 ? 'pb-8' : ''}`"
                                      :src="`${useAppConfig().api.baseUrl +'/storage/'+item}`"
                                      :loading="loading"
-                                     lazy-src="/images/logos/Sami-logo-white.png"
+                                     lazy-src="/images/logos/Samhesam-logo.svg"
 
                     >
                     </v-carousel-item>
