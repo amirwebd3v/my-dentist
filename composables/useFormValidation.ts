@@ -6,6 +6,12 @@ import type {StoreDefinition} from "pinia";
 
 export function useFormValidation(requiredFields: string[] = [], store: StoreDefinition) {
 
+
+    function convertPersianToEnglishDigits(persianNumber : string) {
+        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return persianNumber.replace(/[۰-۹]/g, digit => persianDigits.indexOf(digit).toString());
+    }
+
     const schema = yup.object({
         mobile: yup.string()
             .nullable()
@@ -114,18 +120,26 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
                 })
             );
 
+            if (nonEmptyValues.age) {
+                nonEmptyValues.age = convertPersianToEnglishDigits(nonEmptyValues.age as string);
+            }
 
-            // Debugging: Log types and values
-            console.log('Filtered nonEmptyValues:');
-            Object.entries(nonEmptyValues).forEach(([key, value]) => {
-                console.log(`${key}:`, value, `(type: ${typeof value})`);
+            if (nonEmptyValues.mobile) {
+                nonEmptyValues.mobile = convertPersianToEnglishDigits(nonEmptyValues.mobile as string);
+            }
 
-                // Additional type checking for specific fields if needed
-                if (key === 'age') {
-                    console.log(`Is age a number?`, Number.isInteger(value));
-                }
-                // Add more specific checks for other fields as needed
-            });
+
+            // // Debugging: Log types and values
+            // console.log('Filtered nonEmptyValues:');
+            // Object.entries(nonEmptyValues).forEach(([key, value]) => {
+            //     console.log(`${key}:`, value, `(type: ${typeof value})`);
+            //
+            //     // Additional type checking for specific fields if needed
+            //     if (key === 'age') {
+            //         console.log(`Is age a number?`, Number.isInteger(value));
+            //     }
+            //     // Add more specific checks for other fields as needed
+            // });
 
 
             const storeInstance = store();
