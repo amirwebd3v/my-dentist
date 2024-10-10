@@ -12,7 +12,7 @@ const props = defineProps({
   }
 })
 
-
+const items = ref(props.aboutSettings?.items || [])
 
 const sanitizeHtmlContent = (html: string): string => {
   return sanitizeHtml(html, {
@@ -21,6 +21,23 @@ const sanitizeHtmlContent = (html: string): string => {
       'a': ['href', 'target']
     }
   })
+}
+
+
+onMounted(() => {
+  // If the data is fetched asynchronously, update it here
+  if (props.aboutSettings?.items) {
+    items.value = props.aboutSettings.items
+  }
+})
+
+const vSafeHtml = {
+  mounted(el: HTMLElement, binding: { value: string }) {
+    el.innerHTML = binding.value
+  },
+  updated(el: HTMLElement, binding: { value: string }) {
+    el.innerHTML = binding.value
+  }
 }
 </script>
 <template>
@@ -42,15 +59,15 @@ const sanitizeHtmlContent = (html: string): string => {
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-row class="mx-0">
-                      <ClientOnly>
-                      <div class="d-flex align-center mt-5 about-card" v-for="card in props.aboutSettings?.items" :key="card.title">
-                        <div class="icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor};`">
-                          <v-icon :style="`color: ${card.iconColor} ;`">{{card.icon}}</v-icon>
+
+                      <div class="d-flex align-center mt-5 about-card" v-for="card in items" :key="card.title">
+                        <div class="icon-bold icon-round px-4 mr-5" :style="`background-color: ${card.iconBackColor};`">
+                          <v-icon :style="`color: ${card.iconColor} ;`" :tag="card.title">{{card.icon}}</v-icon>
                         </div>
-                        <p class="text-justify mx-5" :style="`color: ${card.textColor} ;`"
-                           v-html="sanitizeHtmlContent(card.text)"/>
+                        <div class="text-justify mx-5" :style="`color: ${card.textColor} ;`"
+                           v-safe-html="sanitizeHtmlContent(card.text)"/>
                       </div>
-                      </ClientOnly>
+
                     </v-row>
                   </v-col>
                 </v-row>
