@@ -16,11 +16,14 @@ const props = defineProps({
   }
 })
 
-const expandedPanel = ref<[number] | undefined>(undefined);
+const expandedPanel = ref<number[]>([])
 
 function togglePanel(index: number): void {
-  if (expandedPanel.value !== undefined) {
-    expandedPanel.value = expandedPanel.value === [index] ? undefined : [index];
+  const panelIndex = expandedPanel.value.indexOf(index)
+  if (panelIndex === -1) {
+    expandedPanel.value.push(index)
+  } else {
+    expandedPanel.value.splice(panelIndex, 1)
   }
 }
 
