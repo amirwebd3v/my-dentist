@@ -52,7 +52,7 @@ export function usePersianMask() {
     }
 
     const mobilePersianNumberMask: MaskInputOptions = {
-        mask: '۰۹##-###-####',
+        mask: '+۹۸۹#########',
         tokens: {
             '#': {
                 pattern: /[۰-۹]/,

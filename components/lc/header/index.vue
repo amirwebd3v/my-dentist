@@ -41,9 +41,9 @@ const {
   mobile,
   email,
   age,
-  service,
+  services,
   description
-} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'service'], useReserveStore)
+} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'services'], useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -121,13 +121,14 @@ useListen('closeModal', (value: boolean) => {
               </v-col>
               <v-col cols="12" sm="6">
                 <v-text-field
-                    maxlength="13"
+                    dir="ltr"
+                    maxlength="15"
                     v-maska="masks.mobilePersianNumberMask"
                     v-model="mobile"
                     :error-messages="<string>errors.mobile"
                     variant="outlined"
                     label="شماره تلفن همراه"
-                    placeholder="مثال: ****-***-**۰۹ "
+                    placeholder="+مثال: *********۹۸۹"
                     required
                 ></v-text-field>
               </v-col>
@@ -163,8 +164,8 @@ useListen('closeModal', (value: boolean) => {
                   sm="6"
               >
                 <v-autocomplete
-                    v-model="service"
-                    :error-messages="<string>errors.service"
+                    v-model="services"
+                    :error-messages="<string>errors.services"
                     variant="outlined"
                     :items="Array.from(props.services?.values() ?? [])"
                     item-title="title"
@@ -188,7 +189,7 @@ useListen('closeModal', (value: boolean) => {
             </v-row>
             <v-card-actions class="justify-space-around mt-0 pt-0">
               <v-btn
-                  :disabled="!( !hasErrors)"
+                  :disabled="!(hasValues && !hasErrors)"
                   class="px-6 py-0"
                   color="green"
                   variant="text"

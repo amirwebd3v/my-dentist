@@ -14,8 +14,7 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
                 if (val === null || val === undefined) {
                     return true;
                 }
-                const cleanedVal = val.replace(/-/g, '');
-                return /^۰۹[۰-۹]{9}$/.test(cleanedVal);
+                return /^\+۹۸۹[۰-۹]{9}$/.test(val);
             }),
         description: yup.string()
             .nullable()
@@ -67,7 +66,7 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
                 val === null || val === undefined || /^([۱-۹][۰-۹]|۱۰[۰-۹]|۱۱۰)$/.test(val)
             ),
 
-        service: yup.array()
+        services: yup.array()
             .nullable()
             .transform((value, originalValue) => originalValue && originalValue.length === 0 ? null : value)
             .test('service', 'انتخاب حداقل یک و حداکثر دو سرویس الزامی است', val =>
@@ -91,7 +90,7 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
         first_name: useField<string>('first_name'),
         last_name: useField<string>('last_name'),
         age: useField<string>('age'),
-        service: useField<string[]>('service'),
+        services: useField<number[]>('services'),
         description: useField<string>('description')
     }
 

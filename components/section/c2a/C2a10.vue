@@ -143,9 +143,9 @@ const {
   mobile,
   email,
   age,
-  service,
+  services,
   description
-} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'service'],useReserveStore)
+} = useFormValidation(['first_name', 'last_name', 'mobile', 'age', 'services'],useReserveStore)
 
 watch(showReserveDialog, (newValue, oldValue) => {
   if (newValue === false && oldValue === true) {
@@ -260,7 +260,8 @@ useListen('closeModal', (value: boolean) => {
                     </v-col>
                     <v-col cols="12" sm="6">
                       <v-text-field
-                          maxlength="13"
+                          dir="ltr"
+                          maxlength="15"
                           v-maska="masks.mobilePersianNumberMask"
                           v-model="mobile"
                           :error-messages="<string>errors.mobile"
@@ -277,7 +278,7 @@ useListen('closeModal', (value: boolean) => {
                           v-model="email"
                           :error-messages="<string>errors.email"
                           variant="outlined"
-                          label="ایمیل"
+                          label="ایمیل(اختیاری)"
                           placeholder="example@gmail.com"
                           required
                       ></v-text-field>
@@ -302,8 +303,8 @@ useListen('closeModal', (value: boolean) => {
                         sm="6"
                     >
                       <v-autocomplete
-                          v-model="service"
-                          :error-messages="<string>errors.service"
+                          v-model="services"
+                          :error-messages="<string>errors.services"
                           variant="outlined"
                           :items="Array.from(props.services?.values() ?? [])"
                           item-title="title"
@@ -321,7 +322,7 @@ useListen('closeModal', (value: boolean) => {
                           v-model="description"
                           :error-messages="<string>errors.description"
                           variant="outlined"
-                          label="توضیحات"
+                          label="توضیحات(اختیاری)"
                       />
                     </v-col>
                   </v-row>
