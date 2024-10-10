@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import {useFormValidation} from '~/composables/useFormValidation'
-
-
 
 const props = defineProps({
   formTitle: {
     type: String,
   },
   isSucceeded : {
+    type:Boolean,
+    required: true,
+    default: false
+  },
+  isFailed : {
     type:Boolean,
     required: true,
     default: false
@@ -23,7 +25,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:isSucceeded', 'update:loading'])
+const emit = defineEmits(['update:isSucceeded', 'update:isFailed','update:loading'])
 
 const handleSubmit = async () => {
   emit('update:loading', true)
@@ -31,7 +33,7 @@ const handleSubmit = async () => {
     await props.onSubmit
     emit('update:isSucceeded', true)
   } catch (error) {
-    console.error('An error occurred during form submission:', error)
+    emit('update:isFailed', true)
   } finally {
     emit('update:loading', false)
   }
@@ -46,7 +48,7 @@ const handleSubmit = async () => {
     <template v-slot:activator="{ props }">
       <slot name="button" v-bind="props"/>
     </template>
-        <v-card v-show="!isSucceeded">
+        <v-card v-show="!isSucceeded && !isFailed">
           <v-card-title class="mt-2 mr-2">
               {{ props.formTitle }}
           </v-card-title>
@@ -78,7 +80,7 @@ const handleSubmit = async () => {
         />
       <v-container v-if="!props.loading" class="pt-0">
         <v-row justify="center" align="start" class="mx-1 pt-6">
-        <v-img :src="`images/reserve/successful-reserve.jpeg`"
+        <v-img :src="`images/reserve/successful-reserve.webp`"
                cover rounded
         />
         </v-row>
@@ -87,6 +89,42 @@ const handleSubmit = async () => {
               type="success"
               variant="tonal"
               text="نوبت شما با موفقیت رزرو شد."
+              density="compact"
+              elevation="0"
+              rounded
+          />
+        </v-row>
+        <v-row justify="center" align="end" class="mx-6">
+          <p class="text-center text-primary font-weight-bold text-justify">جهت هماهنگی روز و ساعت مراجعه به کلینیک، حداکثر تا ۲۴ ساعت آینده با شما تماس خواهیم گرفت.</p>
+          <v-divider class="mt-4 mx-5"/>
+          <span class="text-center text-primary mt-7 font-weight-medium">با تشکر از انتخاب شما که لایق بهترین ها هستید.</span>
+          <span class="text-center text-primary mt-4 font-weight-medium font-14">«کلینیک دندانپزشکی دکتر سمیرا رونقی»</span>
+        </v-row>
+      </v-container>
+
+    </v-card>
+
+
+    <v-card v-show="props.isFailed" height="570">
+       <v-icon icon="mdi mdi-close-circle mx-auto mt-3" class="cursor-pointer" v-if="!props.loading" @click="useEvent('closeModal', false)"/>
+        <v-progress-circular
+            v-if="props.loading"
+            :size="50"
+            color="primary"
+            indeterminate
+            class="mx-auto my-auto"
+        />
+      <v-container v-if="!props.loading" class="pt-0">
+        <v-row justify="center" align="start" class="mx-1 pt-6">
+        <v-img :src="`images/reserve/failed-reserve.webp`"
+               cover rounded
+        />
+        </v-row>
+        <v-row justify="center" align="center" class="my-8 mx-1">
+          <v-alert
+              type="error"
+              variant="tonal"
+              text="شما یک نوبت ناتمام دارید و نمیتوانید نوبت جدید ثبت کنید."
               density="compact"
               elevation="0"
               rounded

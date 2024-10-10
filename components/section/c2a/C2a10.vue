@@ -135,6 +135,7 @@ const {
   hasErrors,
   loading,
   isSucceeded,
+  isFailed,
   clearErrors,
   errors,
   onSubmit,
@@ -190,6 +191,7 @@ const saveBtn = async (): Promise<void> => {
 useListen('closeModal', (value: boolean) => {
   showReserveDialog.value = value
   isSucceeded.value = value
+  isFailed.value = value
 })
 </script>
 
@@ -218,7 +220,10 @@ useListen('closeModal', (value: boolean) => {
           </span>
           <v-row class="d-flex flex-row pt-1">
             <v-col cols="6">
-              <Dialog :form-title="'رزرو نوبت'" v-model:is-succeeded="isSucceeded"  v-model:loading="loading"
+              <Dialog :form-title="'رزرو نوبت'"
+                      v-model:is-succeeded="isSucceeded"
+                      v-model:is-failed="isFailed"
+                      v-model:loading="loading"
                       v-model="showReserveDialog" :on-submit="onSubmit">
                 <template v-slot:button="props">
                   <v-btn

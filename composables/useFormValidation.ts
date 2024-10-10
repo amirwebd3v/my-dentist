@@ -96,9 +96,11 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
 
     const loading: Ref<Boolean> = ref(false)
     const isSucceeded: Ref<Boolean> = ref(false)
+    const isFailed: Ref<Boolean> = ref(false)
 
     const onSubmit = handleSubmit(async (values) => {
         isSucceeded.value = false;
+        isFailed.value = false;
         loading.value = true;
 
 
@@ -137,6 +139,7 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
             clearErrors();
             isSucceeded.value = true;
         } catch (error) {
+            isFailed.value = true;
             console.error('An error occurred during form submission:', error);
             // Handle error (e.g., set error messages)
         } finally {
@@ -165,6 +168,7 @@ export function useFormValidation(requiredFields: string[] = [], store: StoreDef
         onSubmit,
         loading,
         isSucceeded,
+        isFailed,
         clearErrors,
         errors,
         ...Object.fromEntries(Object.entries(fields).map(([key, field]) => [key, field.value]))
