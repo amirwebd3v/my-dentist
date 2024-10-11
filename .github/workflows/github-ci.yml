@@ -37,12 +37,7 @@ jobs:
           echo "Testing access to ${{ env.BACKEND_REPO }}"
           curl -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               https://api.github.com/repos/${{ env.BACKEND_REPO }} || echo "Failed to access backend repo"
-
-      - name: Debug - Print GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+               https://api.github.com/repos/${{ env.BACKEND_REPO }}
 
       - name: Checkout backend repository
         uses: actions/checkout@v2
@@ -50,16 +45,6 @@ jobs:
           repository: ${{ env.BACKEND_REPO }}
           token: ${{ secrets.GITHUB_TOKEN }}
           path: backend
-        env:
-          GIT_TRACE: 1
-          GIT_CURL_VERBOSE: 1
-
-      - name: Debug - List backend directory
-        run: |
-          echo "Contents of current directory:"
-          ls -la
-          echo "Contents of backend directory (if it exists):"
-          ls -la backend || echo "Backend directory does not exist"
 
       - name: Update frontend files in backend
         run: |
@@ -74,7 +59,7 @@ jobs:
           git config user.email github-actions@github.com
           git add .
           git commit -m "Update frontend build: ${{ github.sha }}" || echo "No changes to commit"
-          git push origin ${{ env.BACKEND_BRANCH }} || echo "Failed to push changes"
+          git push origin ${{ env.BACKEND_BRANCH }}
 
       - name: Debug - Print Git status
         if: always()
