@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  BACKEND_REPO: https://github.com/hidevs/dentist-filament
+  BACKEND_REPO: hidevs/dentist-filament
   BACKEND_BRANCH: main
   BACKEND_FRONTEND_DIR: front
 
@@ -26,7 +26,9 @@ jobs:
         run: npm ci
 
       - name: Build frontend
-        run: npm run build
+        run: |
+          cp .env.docker .env
+          npm run build
 
       - name: Checkout backend repository
         uses: actions/checkout@v2
