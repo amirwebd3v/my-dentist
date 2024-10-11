@@ -3,7 +3,7 @@ name: Frontend Build and Update Backend
 on:
   push:
     branches:
-      - main
+      - master
 
 env:
   BACKEND_REPO: hidevs/dentist-filament
