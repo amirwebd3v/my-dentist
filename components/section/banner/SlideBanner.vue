@@ -3,6 +3,7 @@ import type {PropType} from "@vue/runtime-core";
 import type {CarouselSettings} from "~/utils/types";
 import {storeToRefs} from "pinia";
 import {useSlideBannerStore} from "~/store/slideBanner";
+import {useDisplay} from "vuetify";
 
 
 const props = defineProps({
@@ -45,7 +46,7 @@ onBeforeMount(async ()=>{
       >
 
 
-        <v-container class="d-flex fill-height justify-start align-center">
+        <v-container :class="`d-flex fill-height justify-start ${useDisplay().width.value > 2000 ? 'align-center' : 'align-end mb-16 pb-16' }`">
 
           <v-row justify="start">
             <v-col cols="12" sm="7" lg="6">
@@ -68,9 +69,10 @@ onBeforeMount(async ()=>{
                 <div class="mt-8">
                   <v-btn
                       :to="item.setting.btnLink"
-                      class="rounded-xl w-auto px-6 py-0 text-white"
+                      class="rounded w-auto px-6 py-0"
                       :color="item.setting.btnColor"
-                      variant="flat"
+                      append-icon="mdi mdi-phone pr-5"
+                      :variant="item.setting.tagVariant"
                       :size="item.setting.btnSize"
                       :text="item.setting.btnText"
                   >
@@ -95,14 +97,14 @@ onBeforeMount(async ()=>{
 <style scoped lang="scss">
 .sliderBanner {
   width: 100%;
-  height: 600px !important;
+  height: auto !important;
 
 
 
   :deep(.v-carousel-item) {
     .v-img {
       .v-img__img--cover {
-        object-position: 100% top !important;
+        //object-position: 100% top !important;
       }
     }
     .v-btn__overlay{
@@ -111,14 +113,14 @@ onBeforeMount(async ()=>{
   }
 
 
-  @media screen and (max-width: 1199px) {
-    height: 800px !important;
-  }
-
-
-  @media screen and (max-width: 991px) {
-    height: 650px !important;
-  }
+  //@media screen and (max-width: 1199px) {
+  //  height: 800px !important;
+  //}
+  //
+  //
+  //@media screen and (max-width: 991px) {
+  //  height: 650px !important;
+  //}
 
 
   @media screen and (max-width: 767px) {
@@ -126,7 +128,7 @@ onBeforeMount(async ()=>{
     :deep(.v-carousel-item) {
       .v-img {
         .v-img__img--cover {
-          object-position: 95% center !important;
+          object-position: 47% center !important;
         }
       }
     }

@@ -152,7 +152,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
                               :color="props.gallerySettings.delimitersColor">
                     <v-carousel-item v-for="item in post.images"
                                      :key="item"
-                                     :class="`${$vuetify.display.width < 389 ? 'pb-8' : ''}`"
+                                     :class="`${useDisplay().width < 389 ? 'pb-8' : ''}`"
                                      :src="`${useAppConfig().api.baseUrl +'/storage/'+item}`"
                                      :loading="loading"
                                      lazy-src="/images/logos/Samhesam-logo.svg"
@@ -235,7 +235,7 @@ watch([md, initialBreakpoint], ([isMd, isInit]) => {
             variant="text"
             rounded
             :length="meta.last_page"
-            :total-visible="$vuetify.display.smAndUp ? 3 : 1"
+            :total-visible="useDisplay().smAndUp ? 3 : 1"
             class="mt-8"
             size="small"
             next-icon="mdi-menu-right"
