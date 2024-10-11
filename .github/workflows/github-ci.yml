@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  BACKEND_REPO: hidevs/dentist-filament
+  BACKEND_REPO: https://github.com/hidevs/dentist-filament
   BACKEND_BRANCH: main
   BACKEND_FRONTEND_DIR: front
 
