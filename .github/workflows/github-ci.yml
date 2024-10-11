@@ -34,9 +34,15 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          echo "Testing access to ${{ env.BACKEND_REPO }}"
           curl -H "Authorization: token $GH_TOKEN" \
                -H "Accept: application/vnd.github.v3+json" \
-               https://api.github.com/repos/${{ env.BACKEND_REPO }}
+               https://api.github.com/repos/${{ env.BACKEND_REPO }} || echo "Failed to access backend repo"
+
+      - name: Debug - Print GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Checkout backend repository
         uses: actions/checkout@v2
@@ -50,6 +56,9 @@ jobs:
 
       - name: Debug - List backend directory
         run: |
+          echo "Contents of current directory:"
+          ls -la
+          echo "Contents of backend directory (if it exists):"
           ls -la backend || echo "Backend directory does not exist"
 
       - name: Update frontend files in backend
@@ -64,8 +73,8 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add .
-          git commit -m "Update frontend build" || echo "No changes to commit"
-          git push origin ${{ env.BACKEND_BRANCH }}
+          git commit -m "Update frontend build: ${{ github.sha }}" || echo "No changes to commit"
+          git push origin ${{ env.BACKEND_BRANCH }} || echo "Failed to push changes"
 
       - name: Debug - Print Git status
         if: always()
@@ -74,3 +83,4 @@ jobs:
           git status || echo "Failed to get git status"
           git remote -v || echo "Failed to list remotes"
           git branch -a || echo "Failed to list branches"
+          git log -n 5 || echo "Failed to get git log"
