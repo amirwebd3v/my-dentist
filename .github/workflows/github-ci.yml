@@ -13,6 +13,9 @@ env:
 jobs:
   build-and-update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout frontend code
         uses: actions/checkout@v2
@@ -51,3 +54,10 @@ jobs:
           git add .
           git commit -m "Update frontend build" || echo "No changes to commit"
           git push origin ${{ env.BACKEND_BRANCH }}
+
+      - name: Debug - Print Git status
+        if: failure()
+        run: |
+          cd backend
+          git status
+          git remote -v
