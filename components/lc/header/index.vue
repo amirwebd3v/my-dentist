@@ -122,6 +122,7 @@ useListen('closeModal', (value: boolean) => {
                     :error-messages="<string>errors.last_name"
                     variant="outlined"
                     label="نام خانوادگی"
+                    required
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
@@ -146,7 +147,6 @@ useListen('closeModal', (value: boolean) => {
                     variant="outlined"
                     label="ایمیل(اختیاری)"
                     placeholder="example@gmail.com"
-                    required
                 ></v-text-field>
               </v-col>
               <v-col
@@ -177,6 +177,7 @@ useListen('closeModal', (value: boolean) => {
                     item-value="id"
                     label="درخواست مورد نظر"
                     multiple
+                    required
                 ></v-autocomplete>
               </v-col>
               <v-col

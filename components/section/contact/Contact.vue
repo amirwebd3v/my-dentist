@@ -102,13 +102,14 @@ const sendBtn = async (): Promise<void> => {
                   </v-col>
                   <v-col cols="12" md="4" class="pt-0">
                     <v-text-field
+                        dir="ltr"
                         v-maska="masks.mobilePersianNumberMask"
                         v-model="mobile"
                         :error-messages="<string>errors.mobile"
-                        label="شماره موبایل(اختیاری)"
+                        label="شماره موبایل"
                         variant="outlined"
                         color="primary"
-                        placeholder="مثال: ****-***-**۰۹ "
+                        placeholder="+مثال: *********۹۸۹"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" md="4" class="pt-0">
