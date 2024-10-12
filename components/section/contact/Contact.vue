@@ -48,7 +48,7 @@ const sendBtn = async (): Promise<void> => {
 <template>
 
   <div v-if="!!props.contactusSettings">
-    <div class="mini-spacer bottom-mini-spacer">
+    <div class="bottom-mini-spacer">
       <v-container>
         <!-- -----------------------------------------------
             Start Contact Form

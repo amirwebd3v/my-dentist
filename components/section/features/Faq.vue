@@ -33,23 +33,26 @@ function togglePanel(index: number): void {
 <template>
   <v-container class="mini-spacer mt-16">
 
-    <div class="feature3-component">
+    <div class="faq-component">
       <!-- -----------------------------------------------
           Start Feature 3 Text
       ----------------------------------------------- -->
       <v-row justify="end" v-if="!!props.faqSettings">
+
         <v-col cols="2" v-if="width > 959 && width < 1025" align-self="center">
           <v-img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.rightSideImage}`"
                  style="transform: rotate(-20deg);" cover/>
         </v-col>
-        <v-col :cols="width > 959 ? 10 : 12">
+
+        <v-col :cols="width > 959 ? 10 : 12" style="aspect-ratio: 16/9;">
           <v-img :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.mainImage}`"
                alt="سوالات متداول دندانپزشکی دکتر سمیرا رونقی"
-               class="rounded img-fluid"
+               class="rounded-lg img-fluid"
+
           />
         </v-col>
 
-        <v-col :cols="width > 1024? 6 : width > 768 ? 9 : 12" class="feature3-card mr-md-0">
+        <v-col :cols="width > 1024? 7 : width > 768 ? 9 : 12" class="faq-card mr-md-0">
           <v-card class="card-shadow" rounded="lg">
             <div :style="`background-color: ${props.faqSettings.cardBgColor}`">
               <div class="pt-5 pb-1 text-center">
@@ -67,7 +70,6 @@ function togglePanel(index: number): void {
                 :style="`--scrollbar-color:${props.faqSettings.cardBgColor}`"
             >
               <v-virtual-scroll
-                  :height="300"
                   :items="props.faqSettings.items"
                   :style="`background-color: ${props.faqSettings.contextBgColor}`"
               >
@@ -107,7 +109,9 @@ function togglePanel(index: number): void {
             </div>
           </v-card>
         </v-col>
-        <v-col cols="3" align-self="end" v-if="width > 959 && width < 1025">
+
+
+        <v-col cols="3" align-self="end" v-if="width > 959 && width < 1152">
           <v-img rounded :src="`${useAppConfig().api.baseUrl +'/storage/'+props.faqSettings.leftSideImage}`" cover/>
         </v-col>
       </v-row>

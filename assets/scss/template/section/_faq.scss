@@ -34,7 +34,7 @@
 
 .linking {
   &:hover {
-    i,a {
+    i, a {
       transition: 0.2s ease-in;
       padding-right: 15px;
     }
@@ -68,37 +68,57 @@
 
 
 //
-// Feature 3
+// FAQ
 //
 
-.feature3-component {
+.faq-component {
   position: relative;
-  margin-bottom: 25px;
 }
 
-.feature3-card {
+
+.faq-card {
   position: absolute;
-  top: 18%;
   right: 0;
-  @media (min-width: 1025px) and (max-width: 1080px) {
-    top: 12%;
+  top: 5%;
+  .v-virtual-scroll {
+   height: 224px;
   }
+}
+
+
+@media (min-width: 1025px) and (max-width: 1151px) {
+  .faq-card {
+    top: 3.5%;
+    .v-virtual-scroll {
+      height: 532px !important;
+    }
+  }
+}
+
+
+@media (min-width: 1152px) and (max-width: 1919px){
+    .v-virtual-scroll {
+     height: 372px !important;
+    }
+}
+
+
+@media (min-width: 1920px) and (max-width: 2047px){
+    .v-virtual-scroll {
+      height: 615px !important;
+    }
+}
+
+@media (min-width: 2048px){
+    .v-virtual-scroll {
+      min-height: 856px !important;
+    }
 }
 
 @media (max-width: 1024px) {
-  .feature3-card {
+  .faq-card {
     margin: 0 auto;
     position: relative;
-
-  }
-}
-
-@media (min-width: 1025px) and (max-width: 1110px) {
-  .feature3-component {
-    margin-bottom: 4.25rem;
-  }
-  .feature3-card {
-    top: 12%;
   }
 }
 
