@@ -102,25 +102,18 @@ onBeforeMount(async ()=>{
 
 
   :deep(.v-carousel-item) {
-    .v-img {
-      .v-img__img--cover {
-        //object-position: 100% top !important;
-      }
-    }
     .v-btn__overlay{
       opacity: 0 !important;
     }
+    .v-btn:hover {
+      animation: alarm 1s ease-in-out infinite;
+    }
+    @keyframes alarm {
+      0% { background-color: #ffffff; }
+      100% { background-color: #03192c; }
+    }
+
   }
-
-
-  //@media screen and (max-width: 1199px) {
-  //  height: 800px !important;
-  //}
-  //
-  //
-  //@media screen and (max-width: 991px) {
-  //  height: 650px !important;
-  //}
 
 
   @media screen and (max-width: 767px) {
@@ -129,6 +122,17 @@ onBeforeMount(async ()=>{
       .v-img {
         .v-img__img--cover {
           object-position: 47% center !important;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 968px){
+    height: 756px !important;
+    :deep(.v-carousel-item) {
+      .v-img {
+        .v-img__img--cover {
+          object-position: 60% bottom !important;
         }
       }
     }
