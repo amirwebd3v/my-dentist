@@ -2,6 +2,20 @@ html{
   scroll-behavior: smooth;
 }
 
+@media screen and (min-width: 1353px) and (max-width: 1912px){
+  body {
+    zoom: 1.25; /* For 125% zoom */
+  }
+}
+@media screen and (min-width: 1913px){
+  body {
+    zoom: 1.5; /* For 150% zoom */
+  }
+}
+
+
+
+
 
 ::-webkit-scrollbar {
   width: 5px;

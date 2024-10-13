@@ -105,15 +105,22 @@
 
 @media (min-width: 1920px) and (max-width: 2047px){
     .v-virtual-scroll {
-      height: 615px !important;
+      height: 405px !important;
     }
 }
 
-@media (min-width: 2048px){
+@media screen and (min-width: 2048px) and (max-width: 2389px){
     .v-virtual-scroll {
-      min-height: 856px !important;
+      min-height: 460px !important;
     }
 }
+
+@media screen and (min-width: 2390px) and (max-width: 2867px){
+    .v-virtual-scroll {
+      min-height: 574px !important;
+    }
+}
+
 
 @media (max-width: 1024px) {
   .faq-card {

@@ -52,7 +52,7 @@ function togglePanel(index: number): void {
           />
         </v-col>
 
-        <v-col :cols="width > 1024? 7 : width > 768 ? 9 : 12" class="faq-card mr-md-0">
+        <v-col :cols="width > 1024 ? 7 : width > 768 ? 9 : 12" class="faq-card mr-md-0">
           <v-card class="card-shadow" rounded="lg">
             <div :style="`background-color: ${props.faqSettings.cardBgColor}`">
               <div class="pt-5 pb-1 text-center">
