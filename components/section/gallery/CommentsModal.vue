@@ -38,10 +38,11 @@ const comments = computed<Comment[]>(() => useCommentStore().getCommentsForPost(
 
 const currentPage = computed(() => useCommentStore().getCurrentPage(<number>properties.postId))
 const totalPages = computed(() => useCommentStore().getTotalPages(<number>properties.postId))
+const hasComments = computed(() => useCommentStore().hasComments(<number>properties.postId))
 
 
 const load = async ({done}) => {
-  if (currentPage.value < totalPages.value && !loading.value) {
+  if (currentPage.value < totalPages.value && !loading) {
     await useCommentStore().loadMoreComments(<number>properties.postId)
     done('ok')
   } else if (currentPage.value === totalPages.value) {
@@ -91,7 +92,7 @@ onMounted(() => {
       </v-btn>
     </template>
     <v-card class="mx-auto"
-            max-width="400">
+            max-width="400" min-width="350">
       <v-card-title>
         <v-row justify="space-between" align="center" class="py-3 px-2">
           <span>نظرات</span>
@@ -106,8 +107,8 @@ onMounted(() => {
       <v-divider/>
       <v-card-text class="pt-0">
 
-        <v-infinite-scroll :items="comments" :onLoad="load">
-          <template v-for="item in comments" :key="item.id">
+        <v-infinite-scroll :items="comments" :onLoad="load" :empty-text="hasComments ? 'نظر جدیدی ثبت نشده است.' : 'هیچ نظری برای این پست وجود ندارد.'">
+          <template  v-for="item in comments" :key="item.id">
             <!-- Render Comment -->
             <v-list>
               <v-list-item-title>
@@ -122,7 +123,7 @@ onMounted(() => {
                   }}</span>
               </v-list-item-title>
               <div class="pr-7">
-                <v-banner class="border-none text-wrap font-15" :text="item.comment" stacked/>
+                <v-banner class="border-none text-wrap font-15" :text="item.comment"/>
               </div>
             </v-list>
             <v-list class="pr-5" v-if="item.reply">
@@ -135,8 +136,7 @@ onMounted(() => {
                   <span class="mr-1">دکتر سمیرا رونقی</span>
                   <v-divider vertical thickness="8"/>
                   <span class="mr-1 grey--text font-12">{{
-                      DateTime.fromSeconds(item.updated_at).setLocale('fa').toRelative()
-                    }}</span>
+                      DateTime.fromSeconds(item.updated_at).setLocale('fa').toRelative() }}</span>
                 </v-list-item-title>
                 <div class="pr-7">
                   <v-banner class="border-none text-wrap font-15" :text="item.reply" stacked/>
@@ -148,10 +148,12 @@ onMounted(() => {
       </v-card-text>
       <v-divider class="pt-0 pb-1"/>
 
-      <v-textarea v-model="newComment" rounded="0" auto-grow rows="1" variant="plain"
+      <div style="max-height: 300px;">
+      <v-textarea v-model="newComment" rounded="0" variant="plain"
                   label="در اینجا نظر خود را بنویسید... " :disabled="loading"
-                  class="border-none px-4 m-0 pb-4" hide-details/>
-      <v-btn
+                  class="border-none px-4 m-0 pb-4" hide-details />
+      </div>
+        <v-btn
           flat
           color="blue-darken-1 pt-1 mb-0"
           variant="tonal"
@@ -161,6 +163,7 @@ onMounted(() => {
           :disabled="!newComment.trim()"
           text="ثبت"
       />
+
     </v-card>
 
   </v-dialog>

@@ -5,6 +5,7 @@ interface PostCommentState {
     comments: Comment[]
     currentPage: number
     totalPages: number
+    hasComments: boolean
 }
 
 
@@ -19,6 +20,10 @@ export const useCommentStore = defineStore('comment', () => {
     const comments = reactive(new Map<number, PostCommentState>())
     const loading = ref(false)
     const error = ref<string | null>(null)
+
+    const hasComments = computed(() => (postId: number) => {
+        return comments.get(postId)?.hasComments || false
+    })
 
     const getComments = async (postId: number, page = 1, itemsPerPage = 5) => {
         loading.value = true
@@ -42,7 +47,7 @@ export const useCommentStore = defineStore('comment', () => {
 
             const response = await paginate<Comment>('/api/comment', queryParams)
 
-            const currentState = comments.get(postId) || { comments: [], currentPage: 0, totalPages: 0 }
+            const currentState = comments.get(postId) || { comments: [], currentPage: 0, totalPages: 0,  hasComments: false }
 
             if (page === 1) {
                 currentState.comments = response.data
@@ -52,6 +57,7 @@ export const useCommentStore = defineStore('comment', () => {
 
             currentState.currentPage = response.meta.current_page
             currentState.totalPages = response.meta.last_page
+            currentState.hasComments = response.data.length > 0 || currentState.comments.length > 0
 
             comments.set(postId, currentState)
         } catch (err) {
@@ -98,6 +104,7 @@ export const useCommentStore = defineStore('comment', () => {
 
 
     return {
+        hasComments,
         getComments,
         loadMoreComments,
         saveComment,
